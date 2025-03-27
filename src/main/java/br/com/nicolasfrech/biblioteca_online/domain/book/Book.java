@@ -1,5 +1,6 @@
 package br.com.nicolasfrech.biblioteca_online.domain.book;
 
+import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 
@@ -7,6 +8,7 @@ import java.time.LocalDate;
 
 public class Book {
 
+    private Long id;
     private String title;
     private Genre genre;
     private Author author;
@@ -16,15 +18,31 @@ public class Book {
     private Boolean reserved;
     private Boolean active;
 
-    public Book(String title, Genre genre, Author author, String cover, LocalDate releaseDate, String synopsis) {
+    public Long getId() {
+        return id;
+    }
+
+    public Book(Long id, String title, Genre genre, String cover, LocalDate releaseDate, String synopsis) {
+        this.id = id;
         this.title = title;
         this.genre = genre;
-        this.author = author;
         this.cover = cover;
         this.releaseDate = releaseDate;
         this.synopsis = synopsis;
         this.reserved = false;
         this.active = true;
+    }
+
+    public Book(BookDTO dto) {
+        this.title = dto.title();
+        this.genre = dto.genre();
+        this.cover = dto.cover();
+        this.releaseDate = dto.releaseDate();
+        this.synopsis = dto.synopsis();
+    }
+
+    public void addAuthor(Author author) {
+        this.author = author;
     }
 
     public void deleteBook() {
