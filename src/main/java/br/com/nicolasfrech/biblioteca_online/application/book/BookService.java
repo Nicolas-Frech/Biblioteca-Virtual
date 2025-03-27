@@ -18,11 +18,13 @@ public class BookService {
         this.authorRepository = authorRepository;
     }
 
-
     public Book registBook(BookDTO dto) {
         Book registerBook = new Book(dto);
         Author author = authorRepository.findByName(dto.authorName());
         registerBook.addAuthor(author);
+
+        author.addBook(registerBook);
+        author.addGenre(dto.genre());
 
         bookRepository.save(registerBook);
         return registerBook;
