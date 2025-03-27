@@ -1,6 +1,7 @@
 package br.com.nicolasfrech.biblioteca_online.application.author;
 
 import br.com.nicolasfrech.biblioteca_online.application.author.dto.AuthorDTO;
+import br.com.nicolasfrech.biblioteca_online.application.author.dto.AuthorReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,21 @@ public class AuthorController {
     public ResponseEntity registAuthor(@RequestBody @Valid AuthorDTO dto, UriComponentsBuilder uriBuilder) {
         Author registerAuthor = authorService.registAuthor(dto);
         var uri = uriBuilder.path("/author/{id}").buildAndExpand(registerAuthor.getId()).toUri();
-        return ResponseEntity.created(uri).body(registerAuthor);
+        return ResponseEntity.created(uri).body(new AuthorReturnDTO(registerAuthor));
+    }
+
+    @DeleteMapping
+    @Transactional
+    public ResponseEntity deleteAuthor(@PathVariable Long id) {
+        authorService.deleteAuthor(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity findAuthorByName(@PathVariable String name) {
+        Author author = authorService.findAuthorByName(name);
+
+        return ResponseEntity.ok(new AuthorReturnDTO(author));
     }
 }

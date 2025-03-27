@@ -14,6 +14,7 @@ public class Author {
     private List<Genre> genres;
     private List<Book> books;
     private LocalDate birthdate;
+    private Boolean active;
 
     public Author(Long id, String name, List<Genre> genres, List<Book> books, LocalDate birthdate) {
         this.id = id;
@@ -21,11 +22,17 @@ public class Author {
         this.genres = genres;
         this.books = books;
         this.birthdate = birthdate;
+        this.active = true;
     }
 
     public Author(AuthorDTO dto) {
         this.name = dto.name();
         this.birthdate = dto.birthdate();
+        this.active = true;
+    }
+
+    public void deleteAuthor() {
+        this.active = false;
     }
 
     public void addBook(Book book) {

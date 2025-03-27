@@ -8,7 +8,9 @@ public interface BookRepository {
 
     Book getReferenceById(Long id);
 
-    boolean existsById(Long id);
+    boolean existsByIdAndActiveTrue(Long id);
 
-    boolean existsByTitle(String title);
+    boolean existsByTitleAndActiveTrue(String title);
+
+    Book findByTitle(String title);
 }

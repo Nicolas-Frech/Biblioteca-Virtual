@@ -1,6 +1,9 @@
 package br.com.nicolasfrech.biblioteca_online.application.book;
 
+import br.com.nicolasfrech.biblioteca_online.application.author.dto.AuthorReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
+import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
+import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +24,7 @@ public class BookController {
     public ResponseEntity registBook(@RequestBody @Valid BookDTO dto, UriComponentsBuilder uriBuilder) {
         Book registerBook = bookService.registBook(dto);
         var uri = uriBuilder.path("/book/{id}").buildAndExpand(registerBook.getId()).toUri();
-        return ResponseEntity.created(uri).body(registerBook);
+        return ResponseEntity.created(uri).body(new BookReturnDTO(registerBook));
     }
 
     @DeleteMapping("/{id}")
@@ -30,5 +33,12 @@ public class BookController {
         bookService.deleteBook(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{title}")
+    public ResponseEntity findAuthorByName(@PathVariable String title) {
+        Book book = bookService.findBookByTitle(title);
+
+        return ResponseEntity.ok(new BookReturnDTO(book));
     }
 }

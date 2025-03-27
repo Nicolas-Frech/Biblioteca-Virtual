@@ -33,7 +33,6 @@ public class BookService {
 
         Author author = authorRepository.findByName(dto.authorName());
         registerBook.addAuthor(author);
-
         author.addBook(registerBook);
         author.addGenre(dto.genre());
 
@@ -47,5 +46,12 @@ public class BookService {
         Book deletedBook = bookRepository.getReferenceById(id);
         deletedBook.deleteBook();
         bookRepository.save(deletedBook);
+    }
+
+    public Book findBookByTitle(String title) {
+        bookValidator.validateTitle(title);
+
+        Book book = bookRepository.findByTitle(title);
+        return book;
     }
 }

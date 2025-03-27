@@ -11,13 +11,13 @@ public class BookValidator {
     }
 
     public void validateTitle(String title) {
-        if(!bookRepository.existsByTitle(title)) {
+        if(!bookRepository.existsByTitleAndActiveTrue(title)) {
             throw new RuntimeException("Não existe livro com esse título!");
         }
     }
 
     public void validateId(Long id) {
-        if(!bookRepository.existsById(id)) {
+        if(!bookRepository.existsByIdAndActiveTrue(id)) {
             throw new RuntimeException("Não existe livro com esse ID!");
         }
     }

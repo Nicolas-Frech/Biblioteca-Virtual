@@ -8,7 +8,9 @@ public interface AuthorRepository {
 
     void save(Author registerAuthor);
 
-    boolean existsByName(String name);
+    boolean existsByIdAndActiveTrue(Long id);
 
-    boolean existsById(Long id);
+    boolean existsByNameAndActiveTrue(String name);
+
+    Author getReferenceById(Long id);
 }
