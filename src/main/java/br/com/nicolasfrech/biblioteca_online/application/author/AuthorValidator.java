@@ -1,0 +1,24 @@
+package br.com.nicolasfrech.biblioteca_online.application.author;
+
+import br.com.nicolasfrech.biblioteca_online.application.author.gateway.AuthorRepository;
+
+public class AuthorValidator {
+
+    private final AuthorRepository authorRepository;
+
+    public AuthorValidator(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
+
+    public void validateName(String name) {
+        if(!authorRepository.existsByName(name)) {
+            throw new RuntimeException("Nãõ exise autor com esse nome!");
+        }
+    }
+
+    public void validateId(Long id) {
+        if(!authorRepository.existsById(id)) {
+            throw new RuntimeException("Nãõ exise autor com esse nome!");
+        }
+    }
+}

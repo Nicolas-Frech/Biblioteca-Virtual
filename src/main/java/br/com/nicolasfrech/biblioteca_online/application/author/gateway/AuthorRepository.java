@@ -7,4 +7,8 @@ public interface AuthorRepository {
     Author findByName(String name);
 
     void save(Author registerAuthor);
+
+    boolean existsByName(String name);
+
+    boolean existsById(Long id);
 }

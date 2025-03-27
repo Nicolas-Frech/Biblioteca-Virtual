@@ -1,15 +1,11 @@
 package br.com.nicolasfrech.biblioteca_online.application.author;
 
 import br.com.nicolasfrech.biblioteca_online.application.author.dto.AuthorDTO;
-import br.com.nicolasfrech.biblioteca_online.application.author.gateway.AuthorRepository;
 import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController

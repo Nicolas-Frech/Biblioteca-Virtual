@@ -1,0 +1,24 @@
+package br.com.nicolasfrech.biblioteca_online.application.book.validation;
+
+import br.com.nicolasfrech.biblioteca_online.application.book.gateway.BookRepository;
+
+public class BookValidator {
+
+    private final BookRepository bookRepository;
+
+    public BookValidator(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
+
+    public void validateTitle(String title) {
+        if(!bookRepository.existsByTitle(title)) {
+            throw new RuntimeException("Não existe livro com esse título!");
+        }
+    }
+
+    public void validateId(Long id) {
+        if(!bookRepository.existsById(id)) {
+            throw new RuntimeException("Não existe livro com esse ID!");
+        }
+    }
+}
