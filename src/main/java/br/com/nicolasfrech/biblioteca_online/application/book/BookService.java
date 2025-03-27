@@ -54,4 +54,15 @@ public class BookService {
         Book book = bookRepository.findByTitle(title);
         return book;
     }
+
+    public Book reserveBook(String title) {
+        bookValidator.validateTitle(title);
+
+        Book reservedBook = bookRepository.findByTitle(title);
+        bookValidator.validateReserve(reservedBook);
+
+        reservedBook.reserveBook();
+        bookRepository.save(reservedBook);
+        return reservedBook;
+    }
 }

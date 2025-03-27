@@ -41,4 +41,11 @@ public class BookController {
 
         return ResponseEntity.ok(new BookReturnDTO(book));
     }
+
+    @PutMapping
+    public ResponseEntity reserveBook(@RequestBody @Valid String title) {
+        Book reservedBook = bookService.reserveBook(title);
+
+        return ResponseEntity.ok(new BookReturnDTO(reservedBook));
+    }
 }
