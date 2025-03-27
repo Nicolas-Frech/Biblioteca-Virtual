@@ -43,6 +43,7 @@ public class BookController {
     }
 
     @PutMapping
+    @Transactional
     public ResponseEntity reserveBook(@RequestBody @Valid String title) {
         Book reservedBook = bookService.reserveBook(title);
 
