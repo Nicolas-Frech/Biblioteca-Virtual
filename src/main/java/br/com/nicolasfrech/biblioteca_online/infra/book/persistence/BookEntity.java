@@ -1,7 +1,7 @@
 package br.com.nicolasfrech.biblioteca_online.infra.book.persistence;
 
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
-import br.com.nicolasfrech.biblioteca_online.infra.author.AuthorEntity;
+import br.com.nicolasfrech.biblioteca_online.infra.author.persistence.AuthorEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

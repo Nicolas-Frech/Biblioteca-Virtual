@@ -1,6 +1,7 @@
-package br.com.nicolasfrech.biblioteca_online.infra.author;
+package br.com.nicolasfrech.biblioteca_online.infra.author.gateway;
 
 import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
+import br.com.nicolasfrech.biblioteca_online.infra.author.persistence.AuthorEntity;
 
 public class AuthorEntityMapper {
 

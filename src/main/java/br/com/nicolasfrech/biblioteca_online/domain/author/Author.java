@@ -3,7 +3,6 @@ package br.com.nicolasfrech.biblioteca_online.domain.author;
 import br.com.nicolasfrech.biblioteca_online.application.author.dto.AuthorDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
-import br.com.nicolasfrech.biblioteca_online.infra.author.AuthorEntity;
 
 import java.time.LocalDate;
 import java.util.List;

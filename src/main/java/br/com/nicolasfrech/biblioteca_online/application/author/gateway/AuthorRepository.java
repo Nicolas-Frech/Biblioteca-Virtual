@@ -6,7 +6,7 @@ public interface AuthorRepository {
 
     Author findByName(String name);
 
-    void save(Author registerAuthor);
+    Author save(Author registerAuthor);
 
     boolean existsByIdAndActiveTrue(Long id);
 
