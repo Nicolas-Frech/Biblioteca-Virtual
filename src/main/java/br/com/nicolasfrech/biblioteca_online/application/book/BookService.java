@@ -16,15 +16,14 @@ public class BookService {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
 
-    @Autowired
-    private BookValidator bookValidator;
+    private final BookValidator bookValidator;
+    private final AuthorValidator authorValidator;
 
-    @Autowired
-    private AuthorValidator authorValidator;
-
-    public BookService(BookRepository bookRepository, AuthorRepository authorRepository) {
+    public BookService(BookRepository bookRepository, AuthorRepository authorRepository, BookValidator bookValidator, AuthorValidator authorValidator) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
+        this.bookValidator = bookValidator;
+        this.authorValidator = authorValidator;
     }
 
     public Book registBook(BookDTO dto) {
