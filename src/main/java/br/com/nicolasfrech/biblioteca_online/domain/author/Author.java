@@ -3,6 +3,7 @@ package br.com.nicolasfrech.biblioteca_online.domain.author;
 import br.com.nicolasfrech.biblioteca_online.application.author.dto.AuthorDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
+import br.com.nicolasfrech.biblioteca_online.infra.author.AuthorEntity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,13 +17,15 @@ public class Author {
     private LocalDate birthdate;
     private Boolean active;
 
-    public Author(Long id, String name, List<Genre> genres, List<Book> books, LocalDate birthdate) {
+    public Author() {
+    }
+
+    public Author(Long id, String name, List<Genre> genres, LocalDate birthdate, Boolean active) {
         this.id = id;
         this.name = name;
         this.genres = genres;
-        this.books = books;
         this.birthdate = birthdate;
-        this.active = true;
+        this.active = active;
     }
 
     public Author(AuthorDTO dto) {
@@ -61,5 +64,9 @@ public class Author {
 
     public LocalDate getBirthdate() {
         return birthdate;
+    }
+
+    public Boolean getActive() {
+        return active;
     }
 }

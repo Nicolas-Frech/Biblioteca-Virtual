@@ -1,28 +1,39 @@
-package br.com.nicolasfrech.biblioteca_online.domain.book;
+package br.com.nicolasfrech.biblioteca_online.infra.book.persistence;
 
-import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
-import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
-import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
+import br.com.nicolasfrech.biblioteca_online.infra.author.AuthorEntity;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 
-public class Book {
+@Entity
+@Table(name = "books")
+@EqualsAndHashCode(of = "id")
+public class BookEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
+    @Enumerated(EnumType.STRING)
     private Genre genre;
-    private Author author;
+
+    @ManyToOne
+    @JoinColumn(name = ("author_id"))
+    private AuthorEntity author;
+
     private String cover;
     private LocalDate releaseDate;
     private String synopsis;
     private Boolean reserved;
     private Boolean active;
 
-    public Book() {
+    public BookEntity() {
     }
 
-    public Book(Long id, String title, Genre genre, Author author, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active) {
+    public BookEntity(Long id, String title, Genre genre, AuthorEntity author, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -32,28 +43,6 @@ public class Book {
         this.synopsis = synopsis;
         this.reserved = reserved;
         this.active = active;
-    }
-
-    public Book(BookDTO dto) {
-        this.title = dto.title();
-        this.genre = dto.genre();
-        this.cover = dto.cover();
-        this.releaseDate = dto.releaseDate();
-        this.synopsis = dto.synopsis();
-        this.reserved = false;
-        this.active = true;
-    }
-
-    public void addAuthor(Author author) {
-        this.author = author;
-    }
-
-    public void deleteBook() {
-        this.active = false;
-    }
-
-    public void reserveBook() {
-        this.reserved = true;
     }
 
     public Long getId() {
@@ -68,7 +57,7 @@ public class Book {
         return genre;
     }
 
-    public Author getAuthor() {
+    public AuthorEntity getAuthor() {
         return author;
     }
 
@@ -92,4 +81,16 @@ public class Book {
         return active;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookEntity that = (BookEntity) o;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

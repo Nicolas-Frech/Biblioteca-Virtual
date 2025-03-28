@@ -4,7 +4,7 @@ import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 
 public interface BookRepository {
 
-    void save(Book book);
+    Book save(Book book);
 
     Book getReferenceById(Long id);
 
