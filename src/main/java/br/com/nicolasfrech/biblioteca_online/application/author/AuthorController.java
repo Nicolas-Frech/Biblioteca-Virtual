@@ -4,6 +4,7 @@ import br.com.nicolasfrech.biblioteca_online.application.author.dto.AuthorDTO;
 import br.com.nicolasfrech.biblioteca_online.application.author.dto.AuthorReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("/author")
 public class AuthorController {
 
+    @Autowired
     private AuthorService authorService;
 
     @PostMapping

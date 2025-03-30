@@ -5,6 +5,7 @@ import br.com.nicolasfrech.biblioteca_online.application.author.gateway.AuthorRe
 import br.com.nicolasfrech.biblioteca_online.infra.author.gateway.AuthorEntityMapper;
 import br.com.nicolasfrech.biblioteca_online.infra.author.gateway.AuthorRepositoryImpl;
 import br.com.nicolasfrech.biblioteca_online.infra.author.persistence.AuthorRepositoryJPA;
+import br.com.nicolasfrech.biblioteca_online.infra.book.gateway.BookEntityMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 public class AuthorConfig {
 
     @Bean
-    AuthorRepositoryImpl createAuthorRepositoryImpl(AuthorRepositoryJPA jpaRepository, AuthorEntityMapper mapper) {
-        return new AuthorRepositoryImpl(jpaRepository, mapper);
+    AuthorRepositoryImpl createAuthorRepositoryImpl(AuthorRepositoryJPA jpaRepository, AuthorEntityMapper mapper, BookEntityMapper bookEntityMapper) {
+        return new AuthorRepositoryImpl(jpaRepository, mapper, bookEntityMapper);
     }
 
     @Bean

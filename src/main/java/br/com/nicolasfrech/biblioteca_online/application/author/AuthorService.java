@@ -36,7 +36,8 @@ public class AuthorService {
     public Author findAuthorByName(String name) {
         authorValidator.validateName(name);
 
-        Author author = authorRepository.findByName(name);
+        Author author = authorRepository.findByNameWithBooks(name);
+
         return author;
     }
 }

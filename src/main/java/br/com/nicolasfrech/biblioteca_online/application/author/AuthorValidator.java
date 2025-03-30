@@ -12,13 +12,13 @@ public class AuthorValidator {
 
     public void validateName(String name) {
         if(!authorRepository.existsByNameAndActiveTrue(name)) {
-            throw new RuntimeException("Nãõ exise autor com esse nome!");
+            throw new RuntimeException("Não existe autor com esse nome!");
         }
     }
 
     public void validateId(Long id) {
         if(!authorRepository.existsByIdAndActiveTrue(id)) {
-            throw new RuntimeException("Nãõ exise autor com esse nome!");
+            throw new RuntimeException("Nãõ existe autor com esse ID!");
         }
     }
 }

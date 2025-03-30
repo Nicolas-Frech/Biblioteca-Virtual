@@ -13,4 +13,6 @@ public interface AuthorRepository {
     boolean existsByNameAndActiveTrue(String name);
 
     Author getReferenceById(Long id);
+
+    Author findByNameWithBooks(String name);
 }

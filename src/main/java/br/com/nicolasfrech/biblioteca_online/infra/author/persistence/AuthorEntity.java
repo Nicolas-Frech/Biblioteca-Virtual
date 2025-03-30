@@ -22,7 +22,7 @@ public class AuthorEntity {
     @Column(name = "genre")
     private List<Genre> genres;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<BookEntity> books;
 
     private LocalDate birthdate;

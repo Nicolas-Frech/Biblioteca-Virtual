@@ -5,6 +5,7 @@ import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Author {
@@ -12,7 +13,7 @@ public class Author {
     private Long id;
     private String name;
     private List<Genre> genres;
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
     private LocalDate birthdate;
     private Boolean active;
 

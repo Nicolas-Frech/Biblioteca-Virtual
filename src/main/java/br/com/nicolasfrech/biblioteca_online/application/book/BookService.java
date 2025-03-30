@@ -32,10 +32,13 @@ public class BookService {
 
         Author author = authorRepository.findByName(dto.authorName());
         registerBook.addAuthor(author);
-        author.addBook(registerBook);
-        author.addGenre(dto.genre());
 
         bookRepository.save(registerBook);
+
+        if(author.getGenres().contains(dto.genre())) {
+            return registerBook;
+        }
+        author.addGenre(dto.genre());
         return registerBook;
     }
 

@@ -9,6 +9,4 @@ public record AuthorDTO(
         String name,
         @NotNull
         LocalDate birthdate) {
-
-
 }
