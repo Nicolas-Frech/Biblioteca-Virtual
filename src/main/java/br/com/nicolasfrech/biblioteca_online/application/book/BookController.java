@@ -36,10 +36,10 @@ public class BookController {
     }
 
     @GetMapping("/{title}")
-    public ResponseEntity findBookByTitle(@PathVariable String title) {
-        Book book = bookService.findBookByTitle(title);
+    public ResponseEntity findBookByTitle(@PathVariable String title, @PageableDefault(size = 20, sort = {"title"}) Pageable pagination) {
+        var page = bookService.findAllByTitleAndActiveTrue(title, pagination);
 
-        return ResponseEntity.ok(new BookReturnDTO(book));
+        return ResponseEntity.ok(page);
     }
 
     @GetMapping

@@ -53,13 +53,6 @@ public class BookService {
         bookRepository.save(deletedBook);
     }
 
-    public Book findBookByTitle(String title) {
-        bookValidator.validateTitle(title);
-
-        Book book = bookRepository.findByTitle(title);
-        return book;
-    }
-
     public Book reserveBook(String title) {
         bookValidator.validateTitle(title);
 
@@ -73,6 +66,11 @@ public class BookService {
 
     public Page<BookReturnDTO> findAllBooks(Pageable pagination) {
         var page = bookRepository.findAllByActiveTrue(pagination).map(BookReturnDTO::new);
+        return page;
+    }
+
+    public Page<BookReturnDTO> findAllByTitleAndActiveTrue(String title, Pageable pagination) {
+        var page = bookRepository.findAllByTitleAndActiveTrue(title, pagination).map(BookReturnDTO::new);
         return page;
     }
 }

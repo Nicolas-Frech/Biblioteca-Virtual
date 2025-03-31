@@ -44,14 +44,20 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public Book findByTitle(String title) {
-        BookEntity bookEntity = jpaRepository.findByTitle(title);
-        return mapper.toDomain(bookEntity);
-    }
-
-    @Override
     public Page<Book> findAllByActiveTrue(Pageable pagination) {
         Page<Book> books = jpaRepository.findAllByActiveTrue(pagination).map(mapper::toDomain);
         return books;
+    }
+
+    @Override
+    public Page<Book> findAllByTitleAndActiveTrue(String title, Pageable pagination) {
+        Page<Book> books = jpaRepository.findAllByTitleAndActiveTrue(title, pagination)
+                .map(mapper::toDomain);
+        return books;
+    }
+
+    @Override
+    public Book findByTitle(String title) {
+        return mapper.toDomain(jpaRepository.findByTitleAndActiveTrue(title));
     }
 }
