@@ -1,26 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
     const bookList = document.getElementById("book-list");
     const searchInput = document.getElementById("search");
-    let books = [];
+    const searchBtn = document.getElementById("searchBtn");
 
-    async function fetchBooks() {
+    async function fetchBooks(searchTerm = "") {
         try {
-            const response = await fetch("http://localhost:8080/book");
+            let url = "http://localhost:8080/book";
+
+            if (searchTerm) {
+                url += `/${encodeURIComponent(searchTerm)}`;
+            }
+
+            const response = await fetch(url);
             const data = await response.json();
-            books = data.content;
-            displayBooks(books);
+
+            console.log("Resposta da API:", data);
+            displayBooks(data.content);
         } catch (error) {
             console.error("Erro ao buscar livros:", error);
         }
     }
 
-    function displayBooks(filteredBooks) {
+    function displayBooks(books) {
         bookList.innerHTML = "";
         
         const row = document.createElement("div");
         row.className = "row g-3";
     
-        filteredBooks.forEach(book => {
+        books.forEach(book => {
             const col = document.createElement("div");
             col.className = "col-md-3";
     
@@ -40,13 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
         bookList.appendChild(row);
     }
 
-    searchInput.addEventListener("input", () => {
-        const searchTerm = searchInput.value.toLowerCase();
-        const filteredBooks = books.filter(book => 
-            book.title.toLowerCase().includes(searchTerm) ||
-            book.authorName.toLowerCase().includes(searchTerm)
-        );
-        displayBooks(filteredBooks);
+    searchBtn.addEventListener("click", () => {
+        const searchTerm = searchInput.value.trim();
+        fetchBooks(searchTerm);
     });
 
     fetchBooks();

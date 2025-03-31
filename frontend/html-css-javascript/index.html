@@ -8,8 +8,11 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Acervo</h1>
-        <input type="text" id="search" class="form-control mb-3" placeholder="Buscar por título ou autor...">
+        <h1 class="text-center mb-4 fw-bold">Acervo</h1>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="search" placeholder="Buscar por título ou autor">
+            <button class="btn btn-success" id="searchBtn">Buscar</button>
+        </div>
 
         <div id="book-list" class="container mt-4"></div>
     </div>
