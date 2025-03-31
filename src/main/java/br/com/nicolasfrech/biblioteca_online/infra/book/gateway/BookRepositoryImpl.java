@@ -4,6 +4,9 @@ import br.com.nicolasfrech.biblioteca_online.application.book.gateway.BookReposi
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookRepositoryJPA;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 public class BookRepositoryImpl implements BookRepository {
 
@@ -44,5 +47,11 @@ public class BookRepositoryImpl implements BookRepository {
     public Book findByTitle(String title) {
         BookEntity bookEntity = jpaRepository.findByTitle(title);
         return mapper.toDomain(bookEntity);
+    }
+
+    @Override
+    public Page<Book> findAllByActiveTrue(Pageable pagination) {
+        Page<Book> books = jpaRepository.findAllByActiveTrue(pagination).map(mapper::toDomain);
+        return books;
     }
 }

@@ -3,12 +3,14 @@ package br.com.nicolasfrech.biblioteca_online.application.book;
 import br.com.nicolasfrech.biblioteca_online.application.author.AuthorValidator;
 import br.com.nicolasfrech.biblioteca_online.application.author.gateway.AuthorRepository;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
+import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.gateway.BookRepository;
 import br.com.nicolasfrech.biblioteca_online.application.book.validation.BookValidator;
 import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class BookService {
@@ -67,5 +69,10 @@ public class BookService {
         reservedBook.reserveBook();
         bookRepository.save(reservedBook);
         return reservedBook;
+    }
+
+    public Page<BookReturnDTO> findAllBooks(Pageable pagination) {
+        var page = bookRepository.findAllByActiveTrue(pagination).map(BookReturnDTO::new);
+        return page;
     }
 }

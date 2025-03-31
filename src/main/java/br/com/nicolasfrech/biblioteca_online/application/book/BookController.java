@@ -5,10 +5,12 @@ import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/book")
@@ -38,6 +40,13 @@ public class BookController {
         Book book = bookService.findBookByTitle(title);
 
         return ResponseEntity.ok(new BookReturnDTO(book));
+    }
+
+    @GetMapping
+    public ResponseEntity findAllBooks(@PageableDefault(size = 20, sort = {"title"}) Pageable pagination) {
+        var page = bookService.findAllBooks(pagination);
+
+        return ResponseEntity.ok(page);
     }
 
     @PutMapping
