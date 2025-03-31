@@ -1,9 +1,7 @@
 package br.com.nicolasfrech.biblioteca_online.application.book;
 
-import br.com.nicolasfrech.biblioteca_online.application.author.dto.AuthorReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
-import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
