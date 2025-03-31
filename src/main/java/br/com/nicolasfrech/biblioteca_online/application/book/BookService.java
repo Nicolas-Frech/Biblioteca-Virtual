@@ -38,6 +38,7 @@ public class BookService {
         if(author.getGenres().contains(dto.genre())) {
             return registerBook;
         }
+
         author.addGenre(dto.genre());
         return registerBook;
     }

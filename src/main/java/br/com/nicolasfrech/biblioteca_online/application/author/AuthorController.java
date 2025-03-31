@@ -25,7 +25,7 @@ public class AuthorController {
         return ResponseEntity.created(uri).body(new AuthorReturnDTO(registerAuthor));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity deleteAuthor(@PathVariable Long id) {
         authorService.deleteAuthor(id);
