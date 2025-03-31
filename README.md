@@ -2,10 +2,10 @@
 
 ## 📌 Sobre o Projeto
 
-Sistema Web para o gerenciamento de Biblioteca Virtual, permitindo o cadastro e a administração de Livros e Autores, em processo de produção.
+Sistema Web para o gerenciamento de Biblioteca Virtual, permitindo o cadastro e a administração de Livros e Autores seguindo caracteristicas dos principios **SOLID** e **Clean Architecture**, em processo de produção.
 
 A aplicação é composta por:
-
+*
 - **Frontend:** HTML/CSS/JAVASCRIPT e Bootstrap 5
 - **Backend:** Java com Spring Boot 3
 - **Banco de Dados:** MySQL
