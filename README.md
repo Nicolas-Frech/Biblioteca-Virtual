@@ -56,6 +56,10 @@ Este software foi desenvolvido com as seguintes tecnologias:
 - **Cadastrar Livro** ➕
 
   - Cadastro de novos livros com informações detalhadas.
+ 
+- **Reservar Livro** 📌
+
+  - Permite reservar um livro.
 
 - **Excluir Livro** 🗑️
 
