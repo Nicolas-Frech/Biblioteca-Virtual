@@ -8,12 +8,16 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4 fw-bold">Acervo</h1>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="fw-bold">📖 Acervo - Biblioteca Virtual</h1>
+            <a href="cadastrarLivro.html" class="btn btn-success fw-bold">Cadastrar Livro ✍</a>
+        </div>
+    
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="search" placeholder="Buscar por título ou autor">
-            <button class="btn btn-success" id="searchBtn">Buscar</button>
+            <button class="btn btn-success fw-bold" id="searchBtn">Buscar 🔎</button>
         </div>
-
+    
         <div id="book-list" class="container mt-4"></div>
     </div>
 
