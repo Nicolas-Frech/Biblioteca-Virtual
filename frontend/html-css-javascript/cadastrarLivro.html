@@ -8,15 +8,15 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="mb-4 text-center fw-bold">Cadastro de Livro</h2>
+        <h1 class="mb-4 text-center fw-bold">Cadastro de Livro</h1>
         <form id="bookForm">
             <div class="mb-3">
-                <label for="title" class="form-label">Título</label>
+                <label for="title" class="form-label fw-bold">Título</label>
                 <input type="text" class="form-control" id="title" required>
             </div>
             
             <div class="mb-3">
-                <label for="genre" class="form-label">Gênero</label>
+                <label for="genre" class="form-label fw-bold">Gênero</label>
                 <select class="form-select" id="genre" required>
                     <option value="">Selecione um gênero</option>
                     <option value="FICTION">Ficção</option>
@@ -24,31 +24,35 @@
                     <option value="MYSTERY">Mistério</option>
                     <option value="TERROR">Terror</option>
                     <option value="HISTORY">História</option>
+                    <option value="ROMANCE">Romance</option>
+                    <option value="ADVENTURE">Aventura</option>
+                    <option value="SCIENCE">Ciência</option>
+                    <option value="PHILOSOPHY">Filosofia</option>
                 </select>
             </div>
             
             <div class="mb-3">
-                <label for="author" class="form-label">Nome do Autor</label>
+                <label for="author" class="form-label fw-bold">Nome do Autor</label>
                 <input type="text" class="form-control" id="author" required>
             </div>
             
             <div class="mb-3">
-                <label for="releaseDate" class="form-label">Data de Lançamento</label>
+                <label for="releaseDate" class="form-label fw-bold">Data de Lançamento</label>
                 <input type="date" class="form-control" id="releaseDate" required>
             </div>
             
             <div class="mb-3">
-                <label for="cover" class="form-label">Link da Capa</label>
+                <label for="cover" class="form-label fw-bold">Link da Capa</label>
                 <input type="url" class="form-control" id="cover" placeholder="https://exemplo.com/capa.jpg" required>
                 <img id="coverPreview" class="img-fluid mt-3" style="max-height: 200px; display: none;">
             </div>
             
             <div class="mb-3">
-                <label for="synopsis" class="form-label">Sinopse</label>
+                <label for="synopsis" class="form-label fw-bold">Sinopse</label>
                 <textarea class="form-control" id="synopsis" rows="4" required></textarea>
             </div>
             
-            <button type="submit" class="btn btn-success" id="btn">Cadastrar</button>
+            <button type="submit" class="btn btn-success fw-bold" id="btn">Cadastrar ✍</button>
         </form>
         
         <div id="mensagemSucesso" class="alert alert-success d-none mt-3 text-center fw-bold" role="alert"></div>
