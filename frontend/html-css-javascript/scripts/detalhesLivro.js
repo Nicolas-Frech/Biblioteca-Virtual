@@ -16,12 +16,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function dateFormatter(dataISO) {
+        if (!dataISO) return "Data inválida";
+    
+        const data = new Date(dataISO);
+        return new Intl.DateTimeFormat("pt-BR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour12: false
+        }).format(data);
+    }
+
+
     function displayBookDetails(book) {
         let message;
         if(book.reserved === true) {
             message = `<p class="text-danger"><strong>Este livro já está reservado!</p>`
         } else {
-            message = `<p class="text-success"><strong>Disponivel para reserva!</p>`
+            message = `<p class="text-success"><strong>Disponível para reserva!</p>`
         }
         bookDetails.innerHTML = `
             <div class="row">
@@ -35,8 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="book-info-box p-3 mt-4">
                         <p><strong>Gênero:</strong> ${book.genre}</p>
                         <p><strong>Sinopse:</strong> ${book.synopsis}</p>
-                        <p><strong>Data de Publicação:</strong> ${book.releaseDate}</p>
-                        <p><strong>⭐ Avaliação:</strong></p>
+                        <p><strong>Data de Publicação:</strong> ${dateFormatter(book.releaseDate)}</p>
+                        <p><strong>Avaliação: ⭐⭐⭐</strong></p>
                         ${message}
                     </div>
                 </div>

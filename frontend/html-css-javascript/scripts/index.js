@@ -1,64 +1,59 @@
 document.addEventListener("DOMContentLoaded", () => {
     const bookList = document.getElementById("book-list");
+    const pagination = document.getElementById("pagination");
     const searchInput = document.getElementById("search");
     const searchBtn = document.getElementById("searchBtn");
     const searchBtnGenre = document.getElementById("searchBtnGenre");
     const searchBtnAuthor = document.getElementById("searchBtnAuthor");
 
-    async function fetchBooks() {
+    let currentPage = 0;
+    const pageSize = 8;
+    let currentSearch = "";
+    let currentFilter = "";
+    
+    async function fetchBooks(page = 0, filter = "") {
         try {
-            let url = `http://localhost:8080/book`;
-
+            let url = `http://localhost:8080/book${filter}?page=${page}&size=${pageSize}`;
             const response = await fetch(url);
             const data = await response.json();
-
-            console.log("Resposta da API:", data);
+            
             displayBooks(data.content);
+            setupPagination(data.totalPages, page);
         } catch (error) {
             console.error("Erro ao buscar livros:", error);
+        }
+    }
+
+    function setupPagination(totalPages, currentPage) {
+        pagination.innerHTML = "";
+        
+        for (let i = 0; i < totalPages; i++) {
+            const button = document.createElement("button");
+            button.textContent = i + 1;
+            button.className = `btn btn-dark mx-1 ${i === currentPage ? "active" : ""}`;
+            button.addEventListener("click", () => {
+                fetchBooks(i, currentFilter);
+            });
+            pagination.appendChild(button);
         }
     }
 
     async function fetchBooksBySearch() {
         const searchTerm = searchInput.value.trim();
-        try {
-            let url = `http://localhost:8080/book/title/${searchTerm}`
-            const response = await fetch(url);
-            const data = await response.json();
-
-            console.log("Resposta da API:", data);
-            displayBooks(data.content);
-        } catch (error) {
-            console.error("Erro ao buscar livros:", error);
-        }
+        currentFilter = `/title/` + searchTerm;
+        fetchBooks(0, currentFilter);
     }
 
     async function fetchBooksByGenre() {
         const genre = document.getElementById("genre").value;
-        try {
-            let url = `http://localhost:8080/book/genre/${genre}`
-            const response = await fetch(url);
-            const data = await response.json();
-
-            console.log("Resposta da API:", data);
-            displayBooks(data.content);
-        } catch (error) {
-            console.error("Erro ao buscar livros:", error);
-        }
+        currentFilter = `/genre/` + genre;
+        fetchBooks(0, currentFilter);
     }
 
     async function fetchBooksByAuthor() {
         const searchAuthor = document.getElementById("searchAuthor").value.trim();
-        try {
-            let url = `http://localhost:8080/book/author/${searchAuthor}`
-            const response = await fetch(url);
-            const data = await response.json();
-
-            console.log("Resposta da API:", data);
-            displayBooks(data.content);
-        } catch (error) {
-            console.error("Erro ao buscar livros:", error);
-        }
+        currentFilter = `/author/` + searchAuthor;
+        fetchBooks(0, currentFilter);
     }
 
     function displayBooks(books) {
@@ -89,17 +84,9 @@ document.addEventListener("DOMContentLoaded", () => {
         bookList.appendChild(row);
     }
 
-    searchBtn.addEventListener("click", () => {
-        fetchBooksBySearch();
-    });
-    
-    searchBtnGenre.addEventListener("click", () => {
-        fetchBooksByGenre();
-    });
-
-    searchBtnAuthor.addEventListener("click", () => {
-        fetchBooksByAuthor();
-    });
+    searchBtn.addEventListener("click", fetchBooksBySearch);
+    searchBtnGenre.addEventListener("click", fetchBooksByGenre);
+    searchBtnAuthor.addEventListener("click", fetchBooksByAuthor);
 
     fetchBooks();
 });
