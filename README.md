@@ -72,11 +72,6 @@ Este software foi desenvolvido com as seguintes tecnologias:
 
 ### 👨‍💼  Funcionalidades de Autor
 
-- **Buscar Autor** 🔎
-  
-  - Permite pesquisar autor pelo Nome.
-  - Retorna detalhes como livros, genêros e data de nascimento.
-
 - **Cadastrar Autor** ➕
 
   - Cadastro de novos autores no sistema.
