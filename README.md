@@ -48,9 +48,14 @@ Este software foi desenvolvido com as seguintes tecnologias:
   - Exibe uma lista com todos os livros cadastrados.
   - Paginação para melhor visualização.
 
-- **Buscar Livro** 🔎
+- **Buscar Livro por Título** 🔎
 
-  - Permite pesquisar livro pelo Título.
+  - Permite pesquisar livros pelo Título.
+  - Retorna detalhes como data de lançamento, sinopse e autor.
+ 
+- **Buscar Livro por Gênero** 🔎
+
+  - Permite pesquisar livros pelo Gênero.
   - Retorna detalhes como data de lançamento, sinopse e autor.
 
 - **Cadastrar Livro** ➕
