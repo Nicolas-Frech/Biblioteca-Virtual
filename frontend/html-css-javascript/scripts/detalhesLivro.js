@@ -30,6 +30,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function displayBookDetails(book) {
+        let genre;
+        if(book.genre === "FANTASY") {
+            genre = "Fantasia"
+        } else if (book.genre === "MISTERY") {
+            genre = "Mistério"
+        } else if (book.genre === "HISTORY") {
+            genre = "História"
+        } else if (book.genre === "ROMANCE") {
+            genre = "Romance"
+        } else if (book.genre === "FICTION") {
+            genre = "Ficção"
+        } else if (book.genre === "TERROR") {
+            genre = "Terror"
+        } else if (book.genre === "ADVENTURE") {
+            genre = "Aventura"
+        } else if (book.genre === "SCIENCE") {
+            genre = "Ciência"
+        } else {
+            genre = "Filosofia"
+        }
+        
         let message;
         if(book.reserved === true) {
             message = `<p class="text-danger"><strong>Este livro já está reservado!</p>`
@@ -46,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <h5 class="text-muted mb-5">Autor: ${book.authorName}</h5>
 
                     <div class="book-info-box p-3 mt-4">
-                        <p><strong>Gênero:</strong> ${book.genre}</p>
+                        <p><strong>Gênero:</strong> ${genre}</p>
                         <p><strong>Sinopse:</strong> ${book.synopsis}</p>
                         <p><strong>Data de Publicação:</strong> ${dateFormatter(book.releaseDate)}</p>
                         <p><strong>Avaliação: ⭐⭐⭐</strong></p>
