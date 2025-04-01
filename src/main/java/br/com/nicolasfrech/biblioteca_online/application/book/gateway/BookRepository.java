@@ -24,4 +24,6 @@ public interface BookRepository {
     Book findByTitleAndActiveTrue(String title);
 
     Page<Book> findAllByGenreAndActiveTrue(Genre genre, Pageable pagination);
+
+    Page<Book> findAllByAuthorAndActiveTrue(String name, Pageable pagination);
 }

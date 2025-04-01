@@ -64,4 +64,10 @@ public class BookController {
         var page = bookService.findBookByGenre(genreEnum, pagination);
         return ResponseEntity.ok(page);
     }
+
+    @GetMapping("/author/{name}")
+    public ResponseEntity findBookByAuthor(@PathVariable String name, @PageableDefault(size = 20, sort = {"title"}) Pageable pagination) {
+        var page = bookService.findBookByAuthor(name, pagination);
+        return ResponseEntity.ok(page);
+    }
 }

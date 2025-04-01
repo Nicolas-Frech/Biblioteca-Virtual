@@ -16,25 +16,36 @@
             </div>
         </div>
     
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" id="search" placeholder="Buscar por título">
-            <button class="btn btn-dark fw-bold" id="searchBtn">Buscar 🔎</button>
-        </div>
 
-        <div class="input-group mb-3">
-            <select class="form-select" id="genre" required>
-                <option value="">Selecione um gênero</option>
-                <option value="FICTION">Ficção</option>
-                <option value="FANTASY">Fantasia</option>
-                <option value="MYSTERY">Mistério</option>
-                <option value="TERROR">Terror</option>
-                <option value="HISTORY">História</option>
-                <option value="ROMANCE">Romance</option>
-                <option value="ADVENTURE">Aventura</option>
-                <option value="SCIENCE">Ciência</option>
-                <option value="PHILOSOPHY">Filosofia</option>
-            </select>
-            <button class="btn btn-dark fw-bold" id="searchBtnGenre">Buscar 🔎</button>
+                
+        <div class="d-flex gap-2">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="search" placeholder="Buscar por título">
+                <button class="btn btn-dark fw-bold" id="searchBtn">Buscar 🔎</button>
+            </div>
+        </div>
+        
+        <div class="d-flex gap-2">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="searchAuthor" placeholder="Buscar por Autor">
+                <button class="btn btn-dark fw-bold" id="searchBtnAuthor">Buscar 🔎</button>
+            </div>
+
+            <div class="input-group mb-3">
+                <select class="form-select" id="genre" required>
+                    <option value="">Buscar por Gênero</option>
+                    <option value="FICTION">Ficção</option>
+                    <option value="FANTASY">Fantasia</option>
+                    <option value="MYSTERY">Mistério</option>
+                    <option value="TERROR">Terror</option>
+                    <option value="HISTORY">História</option>
+                    <option value="ROMANCE">Romance</option>
+                    <option value="ADVENTURE">Aventura</option>
+                    <option value="SCIENCE">Ciência</option>
+                    <option value="PHILOSOPHY">Filosofia</option>
+                </select>
+                <button class="btn btn-dark fw-bold" id="searchBtnGenre">Buscar 🔎</button>
+            </div>
         </div>
     
         <div id="book-list" class="container mt-4"></div>

@@ -73,4 +73,11 @@ public class BookRepositoryImpl implements BookRepository {
                 .map(mapper::toDomain);
         return books;
     }
+
+    @Override
+    public Page<Book> findAllByAuthorAndActiveTrue(String name, Pageable pagination) {
+        Page<Book> books = jpaRepository.findAllByAuthorAndActiveTrue(name, pagination)
+                .map(mapper::toDomain);
+        return books;
+    }
 }

@@ -79,4 +79,9 @@ public class BookService {
         var page = bookRepository.findAllByGenreAndActiveTrue(genre, pagination).map(BookReturnDTO::new);
         return page;
     }
+
+    public Page<BookReturnDTO> findBookByAuthor(String name, Pageable pagination) {
+        var page = bookRepository.findAllByAuthorAndActiveTrue(name, pagination).map(BookReturnDTO::new);
+        return page;
+    }
 }
