@@ -27,10 +27,10 @@ public class BookController {
         return ResponseEntity.created(uri).body(new BookReturnDTO(registerBook));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{title}")
     @Transactional
-    public ResponseEntity deleteBook(@PathVariable Long id) {
-        bookService.deleteBook(id);
+    public ResponseEntity deleteBook(@PathVariable String title) {
+        bookService.deleteBook(title);
 
         return ResponseEntity.noContent().build();
     }

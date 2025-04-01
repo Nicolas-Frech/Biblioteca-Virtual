@@ -45,10 +45,10 @@ public class BookService {
         return registerBook;
     }
 
-    public void deleteBook(Long id) {
-        bookValidator.validateId(id);
+    public void deleteBook(String title) {
+        bookValidator.validateTitle(title);
 
-        Book deletedBook = bookRepository.getReferenceById(id);
+        Book deletedBook = bookRepository.findByTitleAndActiveTrue(title);
         deletedBook.deleteBook();
         bookRepository.save(deletedBook);
     }

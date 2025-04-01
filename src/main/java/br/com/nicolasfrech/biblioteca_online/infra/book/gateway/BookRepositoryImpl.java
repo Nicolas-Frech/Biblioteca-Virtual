@@ -60,4 +60,9 @@ public class BookRepositoryImpl implements BookRepository {
     public Book findByTitle(String title) {
         return mapper.toDomain(jpaRepository.findByTitleAndActiveTrue(title));
     }
+
+    @Override
+    public Book findByTitleAndActiveTrue(String title) {
+        return mapper.toDomain(jpaRepository.findByTitleAndActiveTrue(title));
+    }
 }

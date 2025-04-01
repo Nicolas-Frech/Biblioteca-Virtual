@@ -19,4 +19,6 @@ public interface BookRepository {
     Page<Book> findAllByTitleAndActiveTrue(String title, Pageable pagination);
 
     Book findByTitle(String title);
+
+    Book findByTitleAndActiveTrue(String title);
 }
