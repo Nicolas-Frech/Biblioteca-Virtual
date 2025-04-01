@@ -36,7 +36,7 @@ public class BookController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{title}")
+    @GetMapping("/title/{title}")
     public ResponseEntity findBookByTitle(@PathVariable String title, @PageableDefault(size = 20, sort = {"title"}) Pageable pagination) {
         var page = bookService.findAllByTitleAndActiveTrue(title, pagination);
 
@@ -69,5 +69,11 @@ public class BookController {
     public ResponseEntity findBookByAuthor(@PathVariable String name, @PageableDefault(size = 20, sort = {"title"}) Pageable pagination) {
         var page = bookService.findBookByAuthor(name, pagination);
         return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity findBookById(@PathVariable Long id) {
+        Book book = bookService.findBookById(id);
+        return ResponseEntity.ok(new BookReturnDTO(book));
     }
 }

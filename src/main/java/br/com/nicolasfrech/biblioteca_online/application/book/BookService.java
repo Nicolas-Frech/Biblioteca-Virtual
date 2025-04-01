@@ -46,6 +46,13 @@ public class BookService {
         return registerBook;
     }
 
+    public Book findBookById(Long id) {
+        bookValidator.validateId(id);
+
+        Book book = bookRepository.findByIdAndActiveTrue(id);
+        return book;
+    }
+
     public void deleteBook(String title) {
         bookValidator.validateTitle(title);
 
@@ -84,4 +91,5 @@ public class BookService {
         var page = bookRepository.findAllByAuthorAndActiveTrue(name, pagination).map(BookReturnDTO::new);
         return page;
     }
+
 }

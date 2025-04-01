@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchBooksBySearch() {
         const searchTerm = searchInput.value.trim();
         try {
-            let url = `http://localhost:8080/book/${searchTerm}`
+            let url = `http://localhost:8080/book/title/${searchTerm}`
             const response = await fetch(url);
             const data = await response.json();
 

@@ -80,4 +80,9 @@ public class BookRepositoryImpl implements BookRepository {
                 .map(mapper::toDomain);
         return books;
     }
+
+    @Override
+    public Book findByIdAndActiveTrue(Long id) {
+        return mapper.toDomain(jpaRepository.findByIdAndActiveTrue(id));
+    }
 }

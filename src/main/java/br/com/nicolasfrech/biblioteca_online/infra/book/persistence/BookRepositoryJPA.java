@@ -22,4 +22,6 @@ public interface BookRepositoryJPA extends JpaRepository<BookEntity, Long> {
 
     @Query("SELECT b FROM BookEntity b WHERE b.author.name LIKE %:name% AND b.active = true")
     Page<BookEntity> findAllByAuthorAndActiveTrue(String name, Pageable pagination);
+
+    BookEntity findByIdAndActiveTrue(Long id);
 }
