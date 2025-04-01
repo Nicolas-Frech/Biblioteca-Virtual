@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function displayBookDetails(book) {
         let message;
         if(book.reserved === true) {
-            message = `<p class="text-danger"><strong>Este livro já esta reservado!</p>`
+            message = `<p class="text-danger"><strong>Este livro já está reservado!</p>`
         } else {
             message = `<p class="text-success"><strong>Disponivel para reserva!</p>`
         }
@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <p><strong>Gênero:</strong> ${book.genre}</p>
                         <p><strong>Sinopse:</strong> ${book.synopsis}</p>
                         <p><strong>Data de Publicação:</strong> ${book.releaseDate}</p>
+                        <p><strong>⭐ Avaliação:</strong></p>
                         ${message}
                     </div>
                 </div>
