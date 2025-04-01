@@ -2,15 +2,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const bookList = document.getElementById("book-list");
     const searchInput = document.getElementById("search");
     const searchBtn = document.getElementById("searchBtn");
+    const searchTerm = searchInput.value.trim();
 
-    async function fetchBooks(searchTerm = "") {
+    async function fetchBooks() {
         try {
-            let url = "http://localhost:8080/book";
+            let url = `http://localhost:8080/book`;
 
-            if (searchTerm) {
-                url += `/${encodeURIComponent(searchTerm)}`;
-            }
+            const response = await fetch(url);
+            const data = await response.json();
 
+            console.log("Resposta da API:", data);
+            displayBooks(data.content);
+        } catch (error) {
+            console.error("Erro ao buscar livros:", error);
+        }
+    }
+
+    async function fetchBooksBySearch() {
+        try {
+            let url = `http://localhost:8080/book/${searchTerm}`
             const response = await fetch(url);
             const data = await response.json();
 
@@ -48,8 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     searchBtn.addEventListener("click", () => {
-        const searchTerm = searchInput.value.trim();
-        fetchBooks(searchTerm);
+        fetchBooksBySearch();
     });
 
     fetchBooks();
