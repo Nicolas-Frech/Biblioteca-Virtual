@@ -6,6 +6,7 @@ import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.gateway.BookRepository;
 import br.com.nicolasfrech.biblioteca_online.application.book.validation.BookValidator;
+import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import org.springframework.data.domain.Page;
@@ -71,6 +72,11 @@ public class BookService {
 
     public Page<BookReturnDTO> findAllByTitleAndActiveTrue(String title, Pageable pagination) {
         var page = bookRepository.findAllByTitleAndActiveTrue(title, pagination).map(BookReturnDTO::new);
+        return page;
+    }
+
+    public Page<BookReturnDTO> findBookByGenre(Genre genre, Pageable pagination) {
+        var page = bookRepository.findAllByGenreAndActiveTrue(genre, pagination).map(BookReturnDTO::new);
         return page;
     }
 }

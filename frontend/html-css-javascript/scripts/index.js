@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const bookList = document.getElementById("book-list");
     const searchInput = document.getElementById("search");
     const searchBtn = document.getElementById("searchBtn");
-    const searchTerm = searchInput.value.trim();
+    const searchBtnGenre = document.getElementById("searchBtnGenre");
 
     async function fetchBooks() {
         try {
@@ -19,8 +19,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     async function fetchBooksBySearch() {
+        const searchTerm = searchInput.value.trim();
         try {
             let url = `http://localhost:8080/book/${searchTerm}`
+            const response = await fetch(url);
+            const data = await response.json();
+
+            console.log("Resposta da API:", data);
+            displayBooks(data.content);
+        } catch (error) {
+            console.error("Erro ao buscar livros:", error);
+        }
+    }
+
+    async function fetchBooksByGenre() {
+        const genre = document.getElementById("genre").value;
+        try {
+            let url = `http://localhost:8080/book/genre/${genre}`
             const response = await fetch(url);
             const data = await response.json();
 
@@ -59,6 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     searchBtn.addEventListener("click", () => {
         fetchBooksBySearch();
+    });
+    
+    searchBtnGenre.addEventListener("click", () => {
+        fetchBooksByGenre();
     });
 
     fetchBooks();

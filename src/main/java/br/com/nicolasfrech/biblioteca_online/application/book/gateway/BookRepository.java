@@ -1,5 +1,6 @@
 package br.com.nicolasfrech.biblioteca_online.application.book.gateway;
 
+import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,4 +22,6 @@ public interface BookRepository {
     Book findByTitle(String title);
 
     Book findByTitleAndActiveTrue(String title);
+
+    Page<Book> findAllByGenreAndActiveTrue(Genre genre, Pageable pagination);
 }

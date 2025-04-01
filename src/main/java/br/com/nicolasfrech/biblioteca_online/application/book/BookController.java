@@ -2,6 +2,7 @@ package br.com.nicolasfrech.biblioteca_online.application.book;
 
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
+import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,12 @@ public class BookController {
         Book reservedBook = bookService.reserveBook(title);
 
         return ResponseEntity.ok(new BookReturnDTO(reservedBook));
+    }
+
+    @GetMapping("/genre/{genre}")
+    public ResponseEntity findBookByGenre(@PathVariable String genre, @PageableDefault(size = 20, sort = {"title"}) Pageable pagination) {
+        var genreEnum = Genre.valueOf(genre);
+        var page = bookService.findBookByGenre(genreEnum, pagination);
+        return ResponseEntity.ok(page);
     }
 }

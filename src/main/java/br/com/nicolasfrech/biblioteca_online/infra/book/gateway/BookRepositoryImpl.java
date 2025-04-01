@@ -2,6 +2,7 @@ package br.com.nicolasfrech.biblioteca_online.infra.book.gateway;
 
 import br.com.nicolasfrech.biblioteca_online.application.book.gateway.BookRepository;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
+import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookRepositoryJPA;
 import org.springframework.data.domain.Page;
@@ -64,5 +65,12 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public Book findByTitleAndActiveTrue(String title) {
         return mapper.toDomain(jpaRepository.findByTitleAndActiveTrue(title));
+    }
+
+    @Override
+    public Page<Book> findAllByGenreAndActiveTrue(Genre genre, Pageable pagination) {
+        Page<Book> books = jpaRepository.findAllByGenreAndActiveTrue(genre, pagination)
+                .map(mapper::toDomain);
+        return books;
     }
 }

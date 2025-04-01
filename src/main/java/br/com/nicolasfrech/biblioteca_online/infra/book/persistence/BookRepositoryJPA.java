@@ -1,5 +1,6 @@
 package br.com.nicolasfrech.biblioteca_online.infra.book.persistence;
 
+import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.domain.Pageable;
@@ -16,4 +17,6 @@ public interface BookRepositoryJPA extends JpaRepository<BookEntity, Long> {
     Page<BookEntity> findAllByTitleAndActiveTrue(String title, Pageable pagination);
 
     BookEntity findByTitleAndActiveTrue(String title);
+
+    Page<BookEntity> findAllByGenreAndActiveTrue(Genre genre, Pageable pagination);
 }
