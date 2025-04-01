@@ -72,13 +72,15 @@ document.addEventListener("DOMContentLoaded", () => {
             col.className = "col-md-3";
     
             col.innerHTML = `
-                <div class="card h-100 shadow-sm">
-                    <img src="${book.cover}" class="card-img-top img-fluid book-cover" alt="Capa de ${book.title}">
-                    <div class="card-body">
-                        <h5 class="card-title">${book.title}</h5>
-                        <p class="card-text">${book.authorName}</p>
+                <a href="detalhesLivro.html?id=${book.id}" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm">
+                        <img src="${book.cover}" class="card-img-top img-fluid book-cover" alt="Capa de ${book.title}">
+                        <div class="card-body">
+                            <h5 class="card-title">${book.title}</h5>
+                            <p class="card-text">${book.authorName}</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             `;
     
             row.appendChild(col);

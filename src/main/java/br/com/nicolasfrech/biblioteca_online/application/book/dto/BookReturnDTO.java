@@ -6,7 +6,7 @@ import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import java.time.LocalDate;
 
 public record BookReturnDTO(Long id, String title, Genre genre, String authorName,
-                            LocalDate releaseDate, String cover, String synopis, Boolean reserved) {
+                            LocalDate releaseDate, String cover, String synopsis, Boolean reserved) {
 
     public BookReturnDTO(Book book) {
         this(book.getId(), book.getTitle(), book.getGenre(), book.getAuthor().getName(),

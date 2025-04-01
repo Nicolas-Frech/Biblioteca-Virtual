@@ -26,6 +26,9 @@ public class BookEntity {
 
     private String cover;
     private LocalDate releaseDate;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String synopsis;
     private Boolean reserved;
     private Boolean active;
