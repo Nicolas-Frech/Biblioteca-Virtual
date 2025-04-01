@@ -50,9 +50,9 @@ public class BookController {
         return ResponseEntity.ok(page);
     }
 
-    @PutMapping
+    @PutMapping("/{title}")
     @Transactional
-    public ResponseEntity reserveBook(@RequestBody @Valid String title) {
+    public ResponseEntity reserveBook(@PathVariable String title) {
         Book reservedBook = bookService.reserveBook(title);
 
         return ResponseEntity.ok(new BookReturnDTO(reservedBook));

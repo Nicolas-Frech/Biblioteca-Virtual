@@ -17,6 +17,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function displayBookDetails(book) {
+        let message;
+        if(book.reserved === true) {
+            message = `<p class="text-danger"><strong>Este livro já esta reservado!</p>`
+        } else {
+            message = `<p class="text-success"><strong>Disponivel para reserva!</p>`
+        }
         bookDetails.innerHTML = `
             <div class="row">
                 <div class="col-md-4">
@@ -25,9 +31,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="col-md-8">
                     <h3 class="fw-bold">${book.title}</h3>
                     <h5 class="text-muted mb-5">Autor: ${book.authorName}</h5>
-                    <p><strong>Gênero:</strong> ${book.genre}</p>
-                    <p><strong>Sinopse:</strong> ${book.synopsis}</p>
-                    <p><strong>Data de Publicação:</strong> ${book.releaseDate}</p>
+
+                    <div class="book-info-box p-3 mt-4">
+                        <p><strong>Gênero:</strong> ${book.genre}</p>
+                        <p><strong>Sinopse:</strong> ${book.synopsis}</p>
+                        <p><strong>Data de Publicação:</strong> ${book.releaseDate}</p>
+                        ${message}
+                    </div>
                 </div>
             </div>
         `;
