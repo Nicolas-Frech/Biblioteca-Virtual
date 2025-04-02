@@ -1,6 +1,7 @@
 package br.com.nicolasfrech.biblioteca_online.application.user;
 
 import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserRegistDTO;
+import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
