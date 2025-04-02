@@ -1,4 +1,4 @@
-package br.com.nicolasfrech.biblioteca_online.application.user;
+package br.com.nicolasfrech.biblioteca_online.application.user.authentication;
 
 import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserRegistDTO;
 import br.com.nicolasfrech.biblioteca_online.application.user.gateway.UserRepository;
@@ -32,7 +32,7 @@ public class AuthService implements UserDetailsService {
 
     public User registUser(UserRegistDTO dto) {
         userValidation.validateEmail(dto.email());
-        userValidation.validateUsename(dto.username());
+        userValidation.validateUsername(dto.username());
 
         var encodedPwd = passwordEncoder.encode(dto.password());
         User user = new User(dto.username(), encodedPwd, dto.email());

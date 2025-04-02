@@ -1,0 +1,29 @@
+package br.com.nicolasfrech.biblioteca_online.application.user;
+
+import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserReturnDTO;
+import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserUpdateDTO;
+import br.com.nicolasfrech.biblioteca_online.domain.user.User;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/user")
+public class UserController {
+
+    @Autowired
+    UserService userService;
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity updateUserRole(@RequestBody @Valid UserUpdateDTO dto) {
+        User user = userService.updateUserRole(dto);
+
+        return ResponseEntity.ok(new UserReturnDTO(user));
+    }
+}

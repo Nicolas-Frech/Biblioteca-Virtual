@@ -1,4 +1,4 @@
-package br.com.nicolasfrech.biblioteca_online.application.user;
+package br.com.nicolasfrech.biblioteca_online.application.user.authentication;
 
 import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserLoginDTO;
 import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserRegistDTO;

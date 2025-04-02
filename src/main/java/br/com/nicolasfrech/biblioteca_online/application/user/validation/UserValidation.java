@@ -17,9 +17,15 @@ public class UserValidation {
         }
     }
 
-    public void validateUsename(String username) {
+    public void validateUsername(String username) {
         if(userRepository.existsByUsername(username)) {
             throw new ValidateException("Usuário já registrado!");
+        }
+    }
+
+    public void validateUsernameForLogin(String username) {
+        if(!userRepository.existsByUsername(username)) {
+            throw new ValidateException("Não existe este usuário!");
         }
     }
 }

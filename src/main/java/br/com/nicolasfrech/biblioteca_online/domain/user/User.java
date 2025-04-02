@@ -41,6 +41,10 @@ public class User {
         this.reservedBooks.remove(book);
     }
 
+    public void changeRole(UserRole role) {
+        this.userRole = role;
+    }
+
     public Long getId() {
         return id;
     }
@@ -64,4 +68,6 @@ public class User {
     public UserRole getUserRole() {
         return userRole;
     }
+
+
 }
