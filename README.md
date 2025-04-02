@@ -70,7 +70,7 @@ Este software foi desenvolvido com as seguintes tecnologias:
 
 - **Excluir Livro** 🗑️ **(ADMIN)**
 
-  - Remoção de um livro do sistema.
+  - Remoção de um livro do sistema.<br><br>
 
 
 ### 👨‍💼  Funcionalidades de Autor
@@ -81,7 +81,7 @@ Este software foi desenvolvido com as seguintes tecnologias:
 
 - **Excluir Autor** 🗑️ **(ADMIN)**
 
-  - Remoção de um autor do sistema.
+  - Remoção de um autor do sistema.<br><br>
  
 
 ### 👨‍💼  Funcionalidades de Usuário
@@ -96,7 +96,7 @@ Este software foi desenvolvido com as seguintes tecnologias:
  
 - **Mudar o perfil de um usuário** 🔄 **(ADMIN)**
 
-  - Mudar o perfil de um usuário para ADMIN ou USER.
+  - Mudar o perfil de um usuário para ADMIN ou USER.<br><br>
 
 ## 🤝 Contribuição
 
