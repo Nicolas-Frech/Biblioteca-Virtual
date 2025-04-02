@@ -3,12 +3,16 @@ package br.com.nicolasfrech.biblioteca_online.infra.user.persistence;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import br.com.nicolasfrech.biblioteca_online.domain.user.UserRole;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +28,49 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
+    public UserEntity(Long id, String username, String password, List<Book> reservedBooks, String email, UserRole userRole) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.reservedBooks = reservedBooks;
+        this.email = email;
+        this.userRole = userRole;
+    }
+
     public Long getId() {
         return id;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.userRole == UserRole.ADMIN) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     public String getPassword() {

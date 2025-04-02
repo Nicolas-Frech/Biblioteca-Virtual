@@ -79,6 +79,10 @@ public class Book {
         return author;
     }
 
+    public User getUserReserved() {
+        return userReserved;
+    }
+
     public String getCover() {
         return cover;
     }

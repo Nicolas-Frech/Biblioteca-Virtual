@@ -17,11 +17,10 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String password, List<Book> reservedBooks, String email, UserRole userRole) {
+    public User(Long id, String username, String password, String email, UserRole userRole) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.reservedBooks = reservedBooks;
         this.email = email;
         this.userRole = userRole;
     }

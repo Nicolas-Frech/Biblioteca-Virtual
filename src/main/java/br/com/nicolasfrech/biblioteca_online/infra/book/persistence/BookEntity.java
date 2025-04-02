@@ -40,11 +40,12 @@ public class BookEntity {
     public BookEntity() {
     }
 
-    public BookEntity(Long id, String title, Genre genre, AuthorEntity author, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active) {
+    public BookEntity(Long id, String title, Genre genre, AuthorEntity author, UserEntity user, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active) {
         this.id = id;
         this.title = title;
         this.genre = genre;
         this.author = author;
+        this.userReserved = user;
         this.cover = cover;
         this.releaseDate = releaseDate;
         this.synopsis = synopsis;
@@ -66,6 +67,10 @@ public class BookEntity {
 
     public AuthorEntity getAuthor() {
         return author;
+    }
+
+    public UserEntity getUserReserved() {
+        return userReserved;
     }
 
     public String getCover() {

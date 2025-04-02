@@ -4,13 +4,17 @@ package br.com.nicolasfrech.biblioteca_online.infra.book.gateway;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import br.com.nicolasfrech.biblioteca_online.infra.author.gateway.AuthorEntityMapper;
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
+import br.com.nicolasfrech.biblioteca_online.infra.user.gateway.UserEntityMapper;
 
 public class BookEntityMapper {
 
     private final AuthorEntityMapper authorMapper;
 
-    public BookEntityMapper(AuthorEntityMapper authorMapper) {
+    private final UserEntityMapper userMapper;
+
+    public BookEntityMapper(AuthorEntityMapper authorMapper, UserEntityMapper userMapper) {
         this.authorMapper = authorMapper;
+        this.userMapper = userMapper;
     }
 
 
@@ -20,6 +24,7 @@ public class BookEntityMapper {
                 book.getTitle(),
                 book.getGenre(),
                 authorMapper.toEntity(book.getAuthor()),
+                userMapper.toEntity(book.getUserReserved()),
                 book.getCover(), book.getReleaseDate(),
                 book.getSynopsis(),
                 book.getReserved(),
@@ -33,6 +38,7 @@ public class BookEntityMapper {
                 entity.getTitle(),
                 entity.getGenre(),
                 authorMapper.toDomain(entity.getAuthor()),
+                userMapper.toDomain(entity.getUserReserved()),
                 entity.getCover(),
                 entity.getReleaseDate(),
                 entity.getSynopsis(),
