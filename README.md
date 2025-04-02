@@ -2,10 +2,10 @@
 
 ## 📌 Sobre o Projeto
 
-Sistema Web para o gerenciamento de Biblioteca Virtual, permitindo o cadastro e a administração de Livros e Autores seguindo caracteristicas dos principios **SOLID** e **Clean Architecture**, em processo de produção.
+Sistema Web para o gerenciamento de Biblioteca Virtual, permitindo o cadastro e a administração de **Livros** e **Autores**. Também é necessário fazer login e cadastro de **Usuário**, com dois perfis diferentes: **USER** e **ADMIN**. Este software segue caracteristicas dos principios **SOLID** e **Clean Architecture**, em processo de produção.
 
 A aplicação é composta por:
-*
+
 - **Frontend:** HTML/CSS/JAVASCRIPT e Bootstrap 5
 - **Backend:** Java com Spring Boot 3
 - **Banco de Dados:** MySQL
@@ -28,6 +28,7 @@ Este software foi desenvolvido com as seguintes tecnologias:
   - JPA
   - Hibernate
 
+
 - **Banco de Dados:**
 
   - MySQL
@@ -38,6 +39,7 @@ Este software foi desenvolvido com as seguintes tecnologias:
   - Imsomnia
   - Lombok
   - JWT
+  - Spring Security
 
 ## 🔧 Funcionalidades
 
@@ -58,7 +60,7 @@ Este software foi desenvolvido com as seguintes tecnologias:
   - Permite pesquisar livros pelo Gênero.
   - Retorna detalhes como data de lançamento, sinopse e autor.
 
-- **Cadastrar Livro** ➕
+- **Cadastrar Livro** ➕ **(ADMIN)**
 
   - Cadastro de novos livros com informações detalhadas.
  
@@ -66,19 +68,35 @@ Este software foi desenvolvido com as seguintes tecnologias:
 
   - Permite reservar um livro.
 
-- **Excluir Livro** 🗑️
+- **Excluir Livro** 🗑️ **(ADMIN)**
 
   - Remoção de um livro do sistema.
 
+
 ### 👨‍💼  Funcionalidades de Autor
 
-- **Cadastrar Autor** ➕
+- **Cadastrar Autor** ➕ **(ADMIN)**
 
   - Cadastro de novos autores no sistema.
 
-- **Excluir Autor** 🗑️
+- **Excluir Autor** 🗑️ **(ADMIN)**
 
   - Remoção de um autor do sistema.
+ 
+
+### 👨‍💼  Funcionalidades de Usuário
+
+- **Cadastrar Usuário** ➕
+
+  - Cadastro de novos usuários no sistema.
+
+- **Login de Usuário** 🔑
+
+  - Login de um usuário no sistema.
+ 
+- **Mudar o perfil de um usuário** 🔄 **(ADMIN)**
+
+  - Mudar o perfil de um usuário para ADMIN ou USER.
 
 ## 🤝 Contribuição
 
