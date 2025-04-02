@@ -2,6 +2,7 @@ package br.com.nicolasfrech.biblioteca_online.infra.book.persistence;
 
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.infra.author.persistence.AuthorEntity;
+import br.com.nicolasfrech.biblioteca_online.infra.user.persistence.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,7 +10,6 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "books")
-@EqualsAndHashCode(of = "id")
 public class BookEntity {
 
     @Id
@@ -23,6 +23,10 @@ public class BookEntity {
     @ManyToOne
     @JoinColumn(name = ("author_id"))
     private AuthorEntity author;
+
+    @ManyToOne
+    @JoinColumn(name = ("user_id"))
+    private UserEntity userReserved;
 
     private String cover;
     private LocalDate releaseDate;

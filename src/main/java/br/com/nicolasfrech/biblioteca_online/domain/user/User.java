@@ -26,8 +26,12 @@ public class User {
         this.userRole = userRole;
     }
 
-    public void addReservedBook(Book book) {
+    public void reserveBook(Book book) {
         this.reservedBooks.add(book);
+    }
+
+    public void returnBook(Book book) {
+        this.reservedBooks.remove(book);
     }
 
     public Long getId() {

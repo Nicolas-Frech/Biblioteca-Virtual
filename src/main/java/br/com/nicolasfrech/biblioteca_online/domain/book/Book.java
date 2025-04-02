@@ -3,6 +3,7 @@ package br.com.nicolasfrech.biblioteca_online.domain.book;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
+import br.com.nicolasfrech.biblioteca_online.domain.user.User;
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ public class Book {
     private String title;
     private Genre genre;
     private Author author;
+    private User userReserved;
     private String cover;
     private LocalDate releaseDate;
     private String synopsis;
@@ -22,11 +24,12 @@ public class Book {
     public Book() {
     }
 
-    public Book(Long id, String title, Genre genre, Author author, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active) {
+    public Book(Long id, String title, Genre genre, Author author, User userReserved, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active) {
         this.id = id;
         this.title = title;
         this.genre = genre;
         this.author = author;
+        this.userReserved = userReserved;
         this.cover = cover;
         this.releaseDate = releaseDate;
         this.synopsis = synopsis;
@@ -54,6 +57,10 @@ public class Book {
 
     public void reserveBook() {
         this.reserved = true;
+    }
+
+    public void returnBook() {
+        this.userReserved = null;
     }
 
     public Long getId() {
