@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function displayBookDetails(book) {
         let genre;
+        
         if(book.genre === "FANTASY") {
             genre = "Fantasia"
         } else if (book.genre === "MISTERY") {
@@ -47,10 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
             genre = "Aventura"
         } else if (book.genre === "SCIENCE") {
             genre = "Ciência"
-        } else {
+        } else if (book.genre === "PHILOSOPHY") {
             genre = "Filosofia"
         }
-        
+
         let message;
         if(book.reserved === true) {
             message = `<p class="text-danger"><strong>Este livro já está reservado!</p>`

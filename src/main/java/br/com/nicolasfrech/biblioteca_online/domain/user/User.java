@@ -1,13 +1,37 @@
 package br.com.nicolasfrech.biblioteca_online.domain.user;
 
+import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
+    private Long id;
     private String username;
     private String password;
+    private List<Book> reservedBooks = new ArrayList<>();
+    private String email;
+    private UserRole userRole;
 
-    public User(String username, String password) {
+    public User() {
+    }
+
+    public User(Long id, String username, String password, List<Book> reservedBooks, String email, UserRole userRole) {
+        this.id = id;
         this.username = username;
         this.password = password;
+        this.reservedBooks = reservedBooks;
+        this.email = email;
+        this.userRole = userRole;
+    }
+
+    public void addReservedBook(Book book) {
+        this.reservedBooks.add(book);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -16,5 +40,17 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public List<Book> getReservedBooks() {
+        return reservedBooks;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
     }
 }
