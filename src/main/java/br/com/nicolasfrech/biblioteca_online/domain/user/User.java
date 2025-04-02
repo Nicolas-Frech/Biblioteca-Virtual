@@ -1,5 +1,6 @@
 package br.com.nicolasfrech.biblioteca_online.domain.user;
 
+import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserRegistDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 
 import java.util.ArrayList;
@@ -23,6 +24,13 @@ public class User {
         this.password = password;
         this.email = email;
         this.userRole = userRole;
+    }
+
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.userRole = UserRole.USER;
     }
 
     public void reserveBook(Book book) {
