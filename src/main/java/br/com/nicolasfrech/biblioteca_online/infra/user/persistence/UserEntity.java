@@ -2,6 +2,7 @@ package br.com.nicolasfrech.biblioteca_online.infra.user.persistence;
 
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import br.com.nicolasfrech.biblioteca_online.domain.user.UserRole;
+import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,14 +22,16 @@ public class UserEntity implements UserDetails {
     private String password;
 
     @OneToMany(mappedBy = "userReserved", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Book> reservedBooks;
+    private List<BookEntity> reservedBooks;
 
     private String email;
 
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-    public UserEntity(Long id, String username, String password, List<Book> reservedBooks, String email, UserRole userRole) {
+    public UserEntity() { }
+
+    public UserEntity(Long id, String username, String password, List<BookEntity> reservedBooks, String email, UserRole userRole) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -77,7 +80,7 @@ public class UserEntity implements UserDetails {
         return password;
     }
 
-    public List<Book> getReservedBooks() {
+    public List<BookEntity> getReservedBooks() {
         return reservedBooks;
     }
 

@@ -1,6 +1,7 @@
 package br.com.nicolasfrech.biblioteca_online.infra.security.token;
 
 import br.com.nicolasfrech.biblioteca_online.domain.user.User;
+import br.com.nicolasfrech.biblioteca_online.infra.user.persistence.UserEntity;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -18,7 +19,7 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String createToken(User user) {
+    public String createToken(UserEntity user) {
         Algorithm algorithm = Algorithm.HMAC256(secret);
 
         try {
