@@ -14,7 +14,7 @@ public class Book {
     private String title;
     private Genre genre;
     private Author author;
-    private User userReserved;
+    private User userReserved = new User();
     private String cover;
     private LocalDate releaseDate;
     private String synopsis;

@@ -1,9 +1,11 @@
 package br.com.nicolasfrech.biblioteca_online.infra.user.gateway;
 
 import br.com.nicolasfrech.biblioteca_online.domain.user.User;
+import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 import br.com.nicolasfrech.biblioteca_online.infra.user.persistence.UserEntity;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class UserEntityMapper {
 

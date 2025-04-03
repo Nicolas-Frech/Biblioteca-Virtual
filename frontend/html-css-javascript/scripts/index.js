@@ -1,3 +1,14 @@
+import { exibirMensagem } from "./notificacao.js";
+
+const token = localStorage.getItem("token");
+
+if(!token) {
+    exibirMensagem("danger", "Você precisa estar logado!");
+    setTimeout(() => {
+        window.location.href = "login.html";
+    },  2000);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const bookList = document.getElementById("book-list");
     const pagination = document.getElementById("pagination");
@@ -14,7 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchBooks(page = 0, filter = "") {
         try {
             let url = `http://localhost:8080/book${filter}?page=${page}&size=${pageSize}`;
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
             const data = await response.json();
             
             displayBooks(data.content);

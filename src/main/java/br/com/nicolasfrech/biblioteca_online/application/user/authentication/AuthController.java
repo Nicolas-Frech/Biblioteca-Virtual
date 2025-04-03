@@ -37,7 +37,7 @@ public class AuthController {
     public ResponseEntity registUser(@RequestBody @Valid UserRegistDTO dto, UriComponentsBuilder uriBuilder) {
         User user = authService.registUser(dto);
 
-        var uri = uriBuilder.path("/login/resgister/{id}").buildAndExpand(user.getId()).toUri();
+        var uri = uriBuilder.path("/login/register/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).body(new UserReturnDTO(user));
     }
 

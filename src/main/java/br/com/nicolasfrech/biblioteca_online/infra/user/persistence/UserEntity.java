@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,8 +22,8 @@ public class UserEntity implements UserDetails {
     private String username;
     private String password;
 
-    @OneToMany(mappedBy = "userReserved", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<BookEntity> reservedBooks;
+    @OneToMany(mappedBy = "userReserved", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookEntity> reservedBooks = new ArrayList<>();
 
     private String email;
 

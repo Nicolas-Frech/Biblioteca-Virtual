@@ -24,7 +24,9 @@ public class BookEntityMapper {
                 book.getTitle(),
                 book.getGenre(),
                 authorMapper.toEntity(book.getAuthor()),
-                userMapper.toEntity(book.getUserReserved()),
+                book.getUserReserved() != null && book.getUserReserved().getId() != null
+                        ? userMapper.toEntity(book.getUserReserved())
+                        : null,
                 book.getCover(), book.getReleaseDate(),
                 book.getSynopsis(),
                 book.getReserved(),
@@ -38,7 +40,7 @@ public class BookEntityMapper {
                 entity.getTitle(),
                 entity.getGenre(),
                 authorMapper.toDomain(entity.getAuthor()),
-                userMapper.toDomain(entity.getUserReserved()),
+                entity.getUserReserved() != null ? userMapper.toDomain(entity.getUserReserved()) : null,
                 entity.getCover(),
                 entity.getReleaseDate(),
                 entity.getSynopsis(),

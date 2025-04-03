@@ -1,6 +1,7 @@
 package br.com.nicolasfrech.biblioteca_online.infra.book.persistence;
 
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
+import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import br.com.nicolasfrech.biblioteca_online.infra.author.persistence.AuthorEntity;
 import br.com.nicolasfrech.biblioteca_online.infra.user.persistence.UserEntity;
 import jakarta.persistence.*;
@@ -24,9 +25,9 @@ public class BookEntity {
     @JoinColumn(name = ("author_id"))
     private AuthorEntity author;
 
-    @ManyToOne
-    @JoinColumn(name = ("user_id"))
-    private UserEntity userReserved;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = ("user_id"), nullable = true)
+    private UserEntity userReserved = new UserEntity();
 
     private String cover;
     private LocalDate releaseDate;
