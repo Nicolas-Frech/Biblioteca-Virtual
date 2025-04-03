@@ -1,14 +1,4 @@
-import { exibirMensagem } from "./notificacao.js";
 import { BookService } from "./bookService.js";
-
-const token = localStorage.getItem("token");
-
-if (!token) {
-    exibirMensagem("danger", "Você precisa estar logado!");
-    setTimeout(() => {
-        window.location.href = "login.html";
-    }, 2000);
-}
 
 document.addEventListener("DOMContentLoaded", () => {
     const bookList = document.getElementById("book-list");

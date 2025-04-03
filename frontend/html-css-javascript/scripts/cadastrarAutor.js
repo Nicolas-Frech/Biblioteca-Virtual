@@ -1,5 +1,13 @@
 import { exibirMensagem } from "./notificacao.js";
 
+const token = localStorage.getItem("token");
+if(!token) {
+    exibirMensagem("danger", "Você precisa estar logado!");
+    setTimeout(() => {
+        window.location.href = "login.html";
+    },  2000);
+}
+
 document.getElementById("authorForm").addEventListener("submit", async function(event) {
     event.preventDefault();
     
@@ -10,7 +18,10 @@ document.getElementById("authorForm").addEventListener("submit", async function(
     
     const options = {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {  
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+         },
         body: JSON.stringify(autor),
     };
     
