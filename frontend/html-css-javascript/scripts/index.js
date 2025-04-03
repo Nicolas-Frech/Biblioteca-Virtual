@@ -1,12 +1,13 @@
 import { exibirMensagem } from "./notificacao.js";
+import { BookService } from "./bookService.js";
 
 const token = localStorage.getItem("token");
 
-if(!token) {
+if (!token) {
     exibirMensagem("danger", "Você precisa estar logado!");
     setTimeout(() => {
         window.location.href = "login.html";
-    },  2000);
+    }, 2000);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -19,21 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentPage = 0;
     const pageSize = 8;
-    let currentSearch = "";
     let currentFilter = "";
     
+    const bookService = new BookService("http://localhost:8080");
+
     async function fetchBooks(page = 0, filter = "") {
         try {
-            let url = `http://localhost:8080/book${filter}?page=${page}&size=${pageSize}`;
-            const response = await fetch(url, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-
-            const data = await response.json();
-            
+            const data = await bookService.fetchBooks(page, filter, pageSize);
             displayBooks(data.content);
             setupPagination(data.totalPages, page);
         } catch (error) {
@@ -43,46 +36,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function setupPagination(totalPages, currentPage) {
         pagination.innerHTML = "";
-        
+
         for (let i = 0; i < totalPages; i++) {
             const button = document.createElement("button");
             button.textContent = i + 1;
             button.className = `btn btn-dark mx-1 ${i === currentPage ? "active" : ""}`;
-            button.addEventListener("click", () => {
-                fetchBooks(i, currentFilter);
-            });
+            button.addEventListener("click", () => fetchBooks(i, currentFilter));
             pagination.appendChild(button);
         }
     }
 
     async function fetchBooksBySearch() {
-        const searchTerm = searchInput.value.trim();
-        currentFilter = `/title/` + searchTerm;
+        currentFilter = `/title/${searchInput.value.trim()}`;
         fetchBooks(0, currentFilter);
     }
 
     async function fetchBooksByGenre() {
         const genre = document.getElementById("genre").value;
-        currentFilter = `/genre/` + genre;
+        currentFilter = `/genre/${genre}`;
         fetchBooks(0, currentFilter);
     }
 
     async function fetchBooksByAuthor() {
         const searchAuthor = document.getElementById("searchAuthor").value.trim();
-        currentFilter = `/author/` + searchAuthor;
+        currentFilter = `/author/${searchAuthor}`;
         fetchBooks(0, currentFilter);
     }
 
     function displayBooks(books) {
         bookList.innerHTML = "";
-        
         const row = document.createElement("div");
         row.className = "row g-3";
-    
+
         books.forEach(book => {
             const col = document.createElement("div");
             col.className = "col-md-3";
-    
+
             col.innerHTML = `
                 <a href="detalhesLivro.html?id=${book.id}" class="text-decoration-none">
                     <div class="card h-100 shadow-sm">
@@ -94,10 +83,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 </a>
             `;
-    
+
             row.appendChild(col);
         });
-    
+
         bookList.appendChild(row);
     }
 

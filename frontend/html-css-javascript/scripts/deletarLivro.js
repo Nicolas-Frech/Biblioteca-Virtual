@@ -1,35 +1,25 @@
 import { exibirMensagem } from "./notificacao.js";
+import { BookService } from "./bookService.js";
 
 const form = document.getElementById("bookForm");
-const btn = document.getElementById("btn");
+const bookService = new BookService("http://localhost:8080");
 
 async function deletarLivro(event) {
     event.preventDefault();
 
-    const title = document.getElementById("title").value;
+    const bookTitle = document.getElementById("title").value.trim();
 
-    const options = {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json",
-        }
+    if (!bookTitle) {
+        exibirMensagem("warning", "⚠️ Informe o título do livro para deletá-lo!");
+        return;
     }
 
     try {
-        const response = await fetch(`http://localhost:8080/book/${title}`, options);
-        
-        if (!response.ok) {
-            const mensagemErro = await response.text() || "Erro ao excluir livro!";
-            exibirMensagem("danger", `❌ ${mensagemErro}`);
-            return;
-        }
-          
-        exibirMensagem("success", "✅ Livro excluído com sucesso!");
+        await bookService.deleteBook(bookTitle);
+        exibirMensagem("success", `✅ Livro "${bookTitle}" excluído com sucesso!`);
         form.reset();
-          
     } catch (error) {
-        exibirMensagem("danger", "❌ Erro ao excluir livro!");
-        console.error("Erro ao excluir livro:", error);
+        exibirMensagem("danger", `❌ ${error.message}`);
     }
 }
 

@@ -1,24 +1,25 @@
-document.addEventListener("DOMContentLoaded", () => {
+import { exibirMensagem } from "./notificacao.js";
+import { BookService } from "./bookService.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
     const bookDetails = document.getElementById("book-details");
     const bookId = new URLSearchParams(window.location.search).get("id");
 
+    const bookService = new BookService("http://localhost:8080");
+
     async function fetchBookDetails() {
         try {
-            let url = `http://localhost:8080/book/${bookId}`;
-            const response = await fetch(url);
-            const data = await response.json();
-
-            console.log("Detalhes do livro:", data);
-
-            displayBookDetails(data);
+            const book = await bookService.fetchBookById(bookId);
+            displayBookDetails(book);
         } catch (error) {
+            exibirMensagem("danger", "❌ Erro ao buscar detalhes do livro!");
             console.error("Erro ao buscar detalhes do livro:", error);
         }
     }
 
     function dateFormatter(dataISO) {
         if (!dataISO) return "Data inválida";
-    
+
         const data = new Date(dataISO);
         return new Intl.DateTimeFormat("pt-BR", {
             day: "2-digit",
@@ -28,36 +29,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }).format(data);
     }
 
+    function getGenreName(genreCode) {
+        const genres = {
+            "FANTASY": "Fantasia",
+            "MISTERY": "Mistério",
+            "HISTORY": "História",
+            "ROMANCE": "Romance",
+            "FICTION": "Ficção",
+            "TERROR": "Terror",
+            "ADVENTURE": "Aventura",
+            "SCIENCE": "Ciência",
+            "PHILOSOPHY": "Filosofia"
+        };
+        return genres[genreCode] || "Gênero desconhecido";
+    }
 
     function displayBookDetails(book) {
-        let genre;
-        
-        if(book.genre === "FANTASY") {
-            genre = "Fantasia"
-        } else if (book.genre === "MISTERY") {
-            genre = "Mistério"
-        } else if (book.genre === "HISTORY") {
-            genre = "História"
-        } else if (book.genre === "ROMANCE") {
-            genre = "Romance"
-        } else if (book.genre === "FICTION") {
-            genre = "Ficção"
-        } else if (book.genre === "TERROR") {
-            genre = "Terror"
-        } else if (book.genre === "ADVENTURE") {
-            genre = "Aventura"
-        } else if (book.genre === "SCIENCE") {
-            genre = "Ciência"
-        } else if (book.genre === "PHILOSOPHY") {
-            genre = "Filosofia"
-        }
+        const genre = getGenreName(book.genre);
 
-        let message;
-        if(book.reserved === true) {
-            message = `<p class="text-danger"><strong>Este livro já está reservado!</p>`
-        } else {
-            message = `<p class="text-success"><strong>Disponível para reserva!</p>`
-        }
+        const availabilityMessage = book.reserved
+            ? `<p class="text-danger"><strong>Este livro já está reservado!</strong></p>`
+            : `<p class="text-success"><strong>Disponível para reserva!</strong></p>`;
+
         bookDetails.innerHTML = `
             <div class="row">
                 <div class="col-md-4">
@@ -72,12 +65,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         <p><strong>Sinopse:</strong> ${book.synopsis}</p>
                         <p><strong>Data de Publicação:</strong> ${dateFormatter(book.releaseDate)}</p>
                         <p><strong>Avaliação: ⭐⭐⭐</strong></p>
-                        ${message}
+                        ${availabilityMessage}
                     </div>
                 </div>
             </div>
         `;
     }
 
-    fetchBookDetails();
+    await fetchBookDetails();
 });
