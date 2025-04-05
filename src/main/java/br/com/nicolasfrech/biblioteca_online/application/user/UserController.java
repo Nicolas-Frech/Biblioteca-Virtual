@@ -6,8 +6,12 @@ import br.com.nicolasfrech.biblioteca_online.domain.user.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/user")
@@ -22,5 +26,16 @@ public class UserController {
         User user = userService.updateUserRole(dto);
 
         return ResponseEntity.ok(new UserReturnDTO(user));
+    }
+
+    @GetMapping("/role")
+    public ResponseEntity<String> getUserRole(Authentication authentication) {
+        String role = authentication.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .findFirst()
+                .orElse("ROLE_USER");
+
+        return ResponseEntity.ok(role);
     }
 }
