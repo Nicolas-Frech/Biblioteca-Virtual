@@ -1,6 +1,7 @@
 import { BookService } from "./bookService.js";
+import { getUserRole } from "./userRole.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const bookList = document.getElementById("book-list");
     const pagination = document.getElementById("pagination");
     const searchInput = document.getElementById("search");
@@ -11,6 +12,24 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentPage = 0;
     const pageSize = 8;
     let currentFilter = "";
+
+    let role = null;
+
+    try {
+      role = await getUserRole();
+      console.log("Role do usuário logado:", role);
+  
+      
+      if (role === "ROLE_USER") {
+        let adminBook = document.getElementById("adminBook")
+        let adminAuthor = document.getElementById("adminAuthor")
+        adminAuthor.innerHTML = "";
+        adminBook.innerHTML = "";
+      }
+  
+    } catch (error) {
+      console.error("Erro ao buscar role:", error);
+    }
     
     const bookService = new BookService("http://localhost:8080");
 
