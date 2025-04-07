@@ -24,6 +24,7 @@ public class Book {
     private Boolean reserved;
     private Boolean active;
     private List<Review> reviews = new ArrayList<>();
+    private List<Integer> ratings = new ArrayList<>();
 
     public Book() {
     }
@@ -50,6 +51,24 @@ public class Book {
         this.synopsis = dto.synopsis();
         this.reserved = false;
         this.active = true;
+    }
+
+    public void addRating(Integer rating) {
+        this.ratings.add(rating);
+    }
+
+    public double getRatings() {
+        if (ratings.isEmpty()) {
+            return 0.0;
+        }
+
+        double sum = 0.0;
+
+        for (int rating : ratings) {
+            sum += rating;
+        }
+
+        return sum / ratings.size();
     }
 
     public void addReview(String username, String content) {

@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <img src="${book.cover}" class="img-fluid book-cover mb-3" alt="Capa de ${book.title}">
                     ${
                         !book.reserved
-                            ? `<button id="reserve-book" class="btn btn-success w-75 fw-bold">📚 Reservar livro</button>`
+                            ? `<button id="reserve-book" class="btn btn-success w-75 fw-bold">📖 Reservar livro</button>`
                             : ""
                     }
                 </div>
