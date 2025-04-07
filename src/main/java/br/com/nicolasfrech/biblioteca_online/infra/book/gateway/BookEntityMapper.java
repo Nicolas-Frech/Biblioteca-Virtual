@@ -31,7 +31,7 @@ public class BookEntityMapper {
                 book.getSynopsis(),
                 book.getReserved(),
                 book.getActive(),
-                book.getReviews()
+                null
         );
     }
 

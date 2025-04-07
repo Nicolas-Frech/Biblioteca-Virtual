@@ -4,6 +4,7 @@ import br.com.nicolasfrech.biblioteca_online.application.author.AuthorValidator;
 import br.com.nicolasfrech.biblioteca_online.application.author.gateway.AuthorRepository;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
+import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReviewDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.gateway.BookRepository;
 import br.com.nicolasfrech.biblioteca_online.application.book.validation.BookValidator;
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
@@ -92,4 +93,13 @@ public class BookService {
         return page;
     }
 
+    public Book reviewBook(BookReviewDTO dto) {
+        bookValidator.validateTitle(dto.title());
+
+        Book book = bookRepository.findByTitle(dto.title());
+
+        book.addReview(dto.review());
+        bookRepository.save(book);
+        return book;
+    }
 }

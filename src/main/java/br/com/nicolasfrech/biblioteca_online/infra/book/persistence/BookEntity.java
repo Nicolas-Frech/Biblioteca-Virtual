@@ -1,13 +1,14 @@
 package br.com.nicolasfrech.biblioteca_online.infra.book.persistence;
 
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
-import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import br.com.nicolasfrech.biblioteca_online.infra.author.persistence.AuthorEntity;
 import br.com.nicolasfrech.biblioteca_online.infra.user.persistence.UserEntity;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -41,12 +42,15 @@ public class BookEntity {
 
     @Lob
     @Column(columnDefinition = "TEXT")
-    private List<String> reviews;
+    private String reviewsJson;
+
+    @Transient
+    private List<String> reviews = new ArrayList<>();
 
     public BookEntity() {
     }
 
-    public BookEntity(Long id, String title, Genre genre, AuthorEntity author, UserEntity user, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active, List<String> reviews) {
+    public BookEntity(Long id, String title, Genre genre, AuthorEntity author, UserEntity user, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active, String reviews) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -57,11 +61,25 @@ public class BookEntity {
         this.synopsis = synopsis;
         this.reserved = reserved;
         this.active = active;
-        this.reviews = reviews;
+        this.reviewsJson = reviews;
     }
 
     public List<String> getReviews() {
-        return reviews;
+        if (reviewsJson == null || reviewsJson.isEmpty()) return new ArrayList<>();
+        try {
+            return new ObjectMapper().readValue(reviewsJson, new TypeReference<List<String>>() {});
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao desserializar reviewsJson", e);
+        }
+    }
+
+    public void setReviews(List<String> reviews) {
+        this.reviews = reviews;
+        try {
+            this.reviewsJson = new ObjectMapper().writeValueAsString(reviews);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao serializar reviewsJson", e);
+        }
     }
 
     public Long getId() {

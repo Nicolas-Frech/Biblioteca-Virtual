@@ -2,6 +2,7 @@ package br.com.nicolasfrech.biblioteca_online.application.book;
 
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
+import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReviewDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import jakarta.validation.Valid;
@@ -74,6 +75,13 @@ public class BookController {
     @GetMapping("/{id}")
     public ResponseEntity findBookById(@PathVariable Long id) {
         Book book = bookService.findBookById(id);
+        return ResponseEntity.ok(new BookReturnDTO(book));
+    }
+
+    @PutMapping("/review")
+    @Transactional
+    public ResponseEntity addReview(@RequestBody BookReviewDTO review) {
+        Book book = bookService.reviewBook(review);
         return ResponseEntity.ok(new BookReturnDTO(book));
     }
 }

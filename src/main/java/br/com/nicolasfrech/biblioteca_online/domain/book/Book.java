@@ -7,6 +7,7 @@ import br.com.nicolasfrech.biblioteca_online.domain.user.User;
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Book {
@@ -21,7 +22,7 @@ public class Book {
     private String synopsis;
     private Boolean reserved;
     private Boolean active;
-    private List<String> reviews;
+    private List<String> reviews = new ArrayList<>();
 
     public Book() {
     }
