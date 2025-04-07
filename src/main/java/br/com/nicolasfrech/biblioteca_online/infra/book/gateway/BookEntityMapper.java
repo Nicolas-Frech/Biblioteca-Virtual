@@ -6,6 +6,9 @@ import br.com.nicolasfrech.biblioteca_online.infra.author.gateway.AuthorEntityMa
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 import br.com.nicolasfrech.biblioteca_online.infra.user.gateway.UserEntityMapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BookEntityMapper {
 
     private final AuthorEntityMapper authorMapper;
@@ -19,7 +22,7 @@ public class BookEntityMapper {
 
 
     public BookEntity toEntity(Book book) {
-        return new BookEntity(
+        BookEntity entity = new BookEntity(
                 book.getId(),
                 book.getTitle(),
                 book.getGenre(),
@@ -33,6 +36,8 @@ public class BookEntityMapper {
                 book.getActive(),
                 null
         );
+        entity.setReviews(book.getReviews());
+        return entity;
     }
 
     public Book toDomain(BookEntity entity) {

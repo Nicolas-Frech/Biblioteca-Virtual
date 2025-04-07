@@ -51,6 +51,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             ? `<p class="text-danger"><strong>Este livro já está reservado!</strong></p>`
             : `<p class="text-success"><strong>Disponível para reserva!</strong></p>`;
 
+        const commentsHTML = book.reviews.length
+        ? book.reviews.map(review => `<li class="list-group-item">💬 ${review}</li>`).join("")
+        : `<li class="list-group-item text-muted">Nenhum comentário disponível.</li>`;
+
         bookDetails.innerHTML = `
             <div class="row">
                 <div class="col-md-4">
@@ -66,6 +70,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <p><strong>Data de Publicação:</strong> ${dateFormatter(book.releaseDate)}</p>
                         <p><strong>Avaliação: ⭐⭐⭐</strong></p>
                         ${availabilityMessage}
+                    </div>
+                    <div class="mt-4">
+                        <h5 class="fw-bold">Comentários:</h5>
+                        <ul class="list-group">
+                            ${commentsHTML}
+                        </ul>
                     </div>
                 </div>
             </div>
