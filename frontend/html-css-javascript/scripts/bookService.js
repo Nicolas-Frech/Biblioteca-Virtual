@@ -35,6 +35,10 @@ export class BookService {
         return this.request("/review", "PUT", body);
     }
 
+    async reserveBook(title) {
+        return this.request(`/${title}`, "PUT");
+    }
+
 
     async request(endpoint, method, body = null) {
         try {

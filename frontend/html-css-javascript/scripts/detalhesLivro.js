@@ -61,8 +61,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         bookDetails.innerHTML = `
             <div class="row">
-                <div class="col-md-4">
-                    <img src="${book.cover}" class="img-fluid book-cover" alt="Capa de ${book.title}">
+                <div class="col-md-4 d-flex flex-column align-items-center">
+                    <img src="${book.cover}" class="img-fluid book-cover mb-3" alt="Capa de ${book.title}">
+                    ${
+                        !book.reserved
+                            ? `<button id="reserve-book" class="btn btn-success w-75 fw-bold">📚 Reservar livro</button>`
+                            : ""
+                    }
                 </div>
                 <div class="col-md-8">
                     <h3 class="fw-bold">${book.title}</h3>
@@ -81,7 +86,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             <label for="review-input" class="form-label fw-semibold">Adicionar um comentário:</label>
                             <div class="d-flex gap-2">
                                 <textarea id="review-input" class="form-control" rows="1" placeholder="Escreva seu comentário..."></textarea>
-                                <button id="submit-review" class="btn btn-dark">Enviar</button>
+                                <button id="submit-review" class="btn btn-dark fw-bold">Enviar</button>
                             </div>
                         </div>
                         <h5 class="fw-bold">💬 Comentários:</h5>
@@ -111,6 +116,19 @@ document.addEventListener("DOMContentLoaded", async () => {
                 console.error(err);
             }
         });
+
+        const reserveButton = document.getElementById("reserve-book");
+        if (reserveButton) {
+            reserveButton.addEventListener("click", async () => {
+                try {
+                    await bookService.reserveBook(book.title);
+                    fetchBookDetails();
+                } catch (err) {
+                    exibirMensagem("danger", "❌ Erro ao reservar o livro.");
+                    console.error(err);
+                }
+        });
+}
     }
 
     await fetchBookDetails();
