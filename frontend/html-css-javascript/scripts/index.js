@@ -20,11 +20,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.log("Role do usuário logado:", role);
   
       
-      if (role === "ROLE_USER") {
+      if (role === "ROLE_ADMIN") {
         let adminBook = document.getElementById("adminBook")
         let adminAuthor = document.getElementById("adminAuthor")
-        adminAuthor.innerHTML = "";
-        adminBook.innerHTML = "";
+        adminAuthor.innerHTML = `
+        <a href="deletarAutor.html" class="btn btn-dark fw-bold">Excluir Autor 🗑️</a>
+        <a href="cadastrarAutor.html" class="btn btn-dark fw-bold">Cadastrar Autor ✍</a>
+        `
+        adminBook.innerHTML = `                    
+        <a href="deletarLivro.html" class="btn btn-dark fw-bold">Excluir Livro 🗑️</a>
+        <a href="cadastrarLivro.html" class="btn btn-dark fw-bold">Cadastrar Livro ✍</a>
+        `
       }
   
     } catch (error) {
