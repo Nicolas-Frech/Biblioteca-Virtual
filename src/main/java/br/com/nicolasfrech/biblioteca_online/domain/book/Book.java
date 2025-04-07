@@ -2,6 +2,7 @@ package br.com.nicolasfrech.biblioteca_online.domain.book;
 
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
+import br.com.nicolasfrech.biblioteca_online.domain.Review;
 import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import br.com.nicolasfrech.biblioteca_online.domain.user.User;
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
@@ -22,12 +23,12 @@ public class Book {
     private String synopsis;
     private Boolean reserved;
     private Boolean active;
-    private List<String> reviews = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<>();
 
     public Book() {
     }
 
-    public Book(Long id, String title, Genre genre, Author author, User userReserved, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active, List<String> reviews) {
+    public Book(Long id, String title, Genre genre, Author author, User userReserved, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active, List<Review> reviews) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -51,8 +52,12 @@ public class Book {
         this.active = true;
     }
 
-    public void addReview(String review) {
-        this.reviews.add(review);
+    public void addReview(String username, String content) {
+        this.reviews.add(new Review(username, content));
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
     }
 
     public void addAuthor(Author author) {
@@ -69,10 +74,6 @@ public class Book {
 
     public void returnBook() {
         this.userReserved = null;
-    }
-
-    public List<String> getReviews() {
-        return reviews;
     }
 
     public Long getId() {

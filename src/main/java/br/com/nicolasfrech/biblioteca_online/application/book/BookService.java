@@ -14,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 
+import java.security.Principal;
+
 @Service
 public class BookService {
 
@@ -93,12 +95,12 @@ public class BookService {
         return page;
     }
 
-    public Book reviewBook(BookReviewDTO dto) {
+    public Book reviewBook(BookReviewDTO dto, String username) {
         bookValidator.validateTitle(dto.title());
 
         Book book = bookRepository.findByTitle(dto.title());
 
-        book.addReview(dto.review());
+        book.addReview(username, dto.review());
         bookRepository.save(book);
         return book;
     }

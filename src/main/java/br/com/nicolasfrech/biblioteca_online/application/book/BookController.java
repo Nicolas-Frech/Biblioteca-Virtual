@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.data.domain.Pageable;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/book")
 public class BookController {
@@ -80,8 +82,9 @@ public class BookController {
 
     @PutMapping("/review")
     @Transactional
-    public ResponseEntity addReview(@RequestBody BookReviewDTO review) {
-        Book book = bookService.reviewBook(review);
+    public ResponseEntity addReview(@RequestBody BookReviewDTO dto, Principal principal) {
+        String username = principal.getName();
+        Book book = bookService.reviewBook(dto, username);
         return ResponseEntity.ok(new BookReturnDTO(book));
     }
 }

@@ -1,6 +1,7 @@
 package br.com.nicolasfrech.biblioteca_online.infra.book.persistence;
 
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
+import br.com.nicolasfrech.biblioteca_online.domain.Review;
 import br.com.nicolasfrech.biblioteca_online.infra.author.persistence.AuthorEntity;
 import br.com.nicolasfrech.biblioteca_online.infra.user.persistence.UserEntity;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -45,7 +46,7 @@ public class BookEntity {
     private String reviewsJson;
 
     @Transient
-    private List<String> reviews = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<>();
 
     public BookEntity() {
     }
@@ -64,21 +65,25 @@ public class BookEntity {
         this.reviewsJson = reviews;
     }
 
-    public List<String> getReviews() {
+
+
+    public List<Review> getReviews() {
         if (reviewsJson == null || reviewsJson.isEmpty()) return new ArrayList<>();
         try {
-            return new ObjectMapper().readValue(reviewsJson, new TypeReference<List<String>>() {});
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(reviewsJson, new TypeReference<List<Review>>() {});
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao desserializar reviewsJson", e);
+            return new ArrayList<>();
         }
     }
 
-    public void setReviews(List<String> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
         try {
-            this.reviewsJson = new ObjectMapper().writeValueAsString(reviews);
+            ObjectMapper mapper = new ObjectMapper();
+            this.reviewsJson = mapper.writeValueAsString(reviews);
         } catch (Exception e) {
-            throw new RuntimeException("Erro ao serializar reviewsJson", e);
+            this.reviewsJson = "[]";
         }
     }
 

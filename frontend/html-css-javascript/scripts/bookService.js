@@ -30,6 +30,11 @@ export class BookService {
         return this.request(`/${encodeURIComponent(title)}`, "DELETE");
     }
 
+    async postReview(title, review) {
+        const body = { title, review };
+        return this.request("/review", "PUT", body);
+    }
+
 
     async request(endpoint, method, body = null) {
         try {

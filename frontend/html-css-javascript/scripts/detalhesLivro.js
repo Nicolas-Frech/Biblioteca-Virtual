@@ -51,9 +51,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             ? `<p class="text-danger"><strong>Este livro já está reservado!</strong></p>`
             : `<p class="text-success"><strong>Disponível para reserva!</strong></p>`;
 
-        const commentsHTML = book.reviews.length
-        ? book.reviews.map(review => `<li class="list-group-item">💬 ${review}</li>`).join("")
-        : `<li class="list-group-item text-muted">Nenhum comentário disponível.</li>`;
+        const reviewsHtml = book.reviews && book.reviews.length > 0
+            ? book.reviews.map(review => `
+                <div class="mb-2">
+                    <li class="list-group-item"><strong>💬 ${review.username}:</strong> ${review.content}</li>
+                </div>
+            `).join("")
+            : `<p class="text-muted">Nenhum comentário ainda.</p>`;
 
         bookDetails.innerHTML = `
             <div class="row">
@@ -71,15 +75,42 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <p><strong>Avaliação: ⭐⭐⭐</strong></p>
                         ${availabilityMessage}
                     </div>
+
                     <div class="mt-4">
-                        <h5 class="fw-bold">Comentários:</h5>
-                        <ul class="list-group">
-                            ${commentsHTML}
+                        <div class="mb-3">
+                            <label for="review-input" class="form-label fw-semibold">Adicionar um comentário:</label>
+                            <div class="d-flex gap-2">
+                                <textarea id="review-input" class="form-control" rows="1" placeholder="Escreva seu comentário..."></textarea>
+                                <button id="submit-review" class="btn btn-dark">Enviar</button>
+                            </div>
+                        </div>
+                        <h5 class="fw-bold">💬 Comentários:</h5>
+                        <ul class="list-group mb-3" id="review-list">
+                            ${reviewsHtml}
                         </ul>
+
+
                     </div>
                 </div>
             </div>
         `;
+
+        document.getElementById("submit-review").addEventListener("click", async () => {
+            const comentario = document.getElementById("review-input").value.trim();
+
+            if (!comentario) {
+                exibirMensagem("warning", "Digite um comentário antes de enviar.");
+                return;
+            }
+
+            try {
+                await bookService.postReview(book.title, comentario);
+                fetchBookDetails();
+            } catch (err) {
+                exibirMensagem("danger", "Erro ao enviar comentário.");
+                console.error(err);
+            }
+        });
     }
 
     await fetchBookDetails();
