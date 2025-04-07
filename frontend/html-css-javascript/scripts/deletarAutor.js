@@ -17,7 +17,7 @@ async function deletarAutor(event) {
     const authorName = document.getElementById("name").value.trim();
 
     if (!authorName) {
-        exibirMensagem("warning", "⚠️ Informe o título do livro para deletá-lo!");
+        exibirMensagem("warning", "⚠️ Informe o nome do autor para deletá-lo!");
         return;
     }
 
@@ -40,7 +40,7 @@ async function deletarAutor(event) {
     
         exibirMensagem("success", `✅ Autor "${authorName}" excluído com sucesso!`);
         form.reset();
-        
+
     } catch (error) {
         exibirMensagem("danger", `❌ ${error.message}`);
     }

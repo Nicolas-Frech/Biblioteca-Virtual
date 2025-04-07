@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -38,10 +39,14 @@ public class BookEntity {
     private Boolean reserved;
     private Boolean active;
 
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private List<String> reviews;
+
     public BookEntity() {
     }
 
-    public BookEntity(Long id, String title, Genre genre, AuthorEntity author, UserEntity user, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active) {
+    public BookEntity(Long id, String title, Genre genre, AuthorEntity author, UserEntity user, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active, List<String> reviews) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -52,6 +57,11 @@ public class BookEntity {
         this.synopsis = synopsis;
         this.reserved = reserved;
         this.active = active;
+        this.reviews = reviews;
+    }
+
+    public List<String> getReviews() {
+        return reviews;
     }
 
     public Long getId() {

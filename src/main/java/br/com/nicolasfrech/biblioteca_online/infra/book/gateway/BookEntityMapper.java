@@ -30,7 +30,8 @@ public class BookEntityMapper {
                 book.getCover(), book.getReleaseDate(),
                 book.getSynopsis(),
                 book.getReserved(),
-                book.getActive()
+                book.getActive(),
+                book.getReviews()
         );
     }
 
@@ -45,6 +46,8 @@ public class BookEntityMapper {
                 entity.getReleaseDate(),
                 entity.getSynopsis(),
                 entity.getReserved(),
-                entity.getActive());
+                entity.getActive(),
+                entity.getReviews()
+        );
     }
 }

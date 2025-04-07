@@ -7,6 +7,7 @@ import br.com.nicolasfrech.biblioteca_online.domain.user.User;
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Book {
 
@@ -20,11 +21,12 @@ public class Book {
     private String synopsis;
     private Boolean reserved;
     private Boolean active;
+    private List<String> reviews;
 
     public Book() {
     }
 
-    public Book(Long id, String title, Genre genre, Author author, User userReserved, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active) {
+    public Book(Long id, String title, Genre genre, Author author, User userReserved, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active, List<String> reviews) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -35,6 +37,7 @@ public class Book {
         this.synopsis = synopsis;
         this.reserved = reserved;
         this.active = active;
+        this.reviews = reviews;
     }
 
     public Book(BookDTO dto) {
@@ -45,6 +48,10 @@ public class Book {
         this.synopsis = dto.synopsis();
         this.reserved = false;
         this.active = true;
+    }
+
+    public void addReview(String review) {
+        this.reviews.add(review);
     }
 
     public void addAuthor(Author author) {
@@ -61,6 +68,10 @@ public class Book {
 
     public void returnBook() {
         this.userReserved = null;
+    }
+
+    public List<String> getReviews() {
+        return reviews;
     }
 
     public Long getId() {
