@@ -25,10 +25,10 @@ public class AuthorService {
         return registerAuthor;
     }
 
-    public void deleteAuthor(Long id) {
-        authorValidator.validateId(id);
+    public void deleteAuthor(String name) {
+        authorValidator.validateName(name);
 
-        Author deletedAuthor = authorRepository.getReferenceById(id);
+        Author deletedAuthor = authorRepository.findByName(name);
         deletedAuthor.deleteAuthor();
         authorRepository.save(deletedAuthor);
     }

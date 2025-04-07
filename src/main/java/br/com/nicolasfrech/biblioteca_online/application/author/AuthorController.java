@@ -25,10 +25,10 @@ public class AuthorController {
         return ResponseEntity.created(uri).body(new AuthorReturnDTO(registerAuthor));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{name}")
     @Transactional
-    public ResponseEntity deleteAuthor(@PathVariable Long id) {
-        authorService.deleteAuthor(id);
+    public ResponseEntity deleteAuthor(@PathVariable String name) {
+        authorService.deleteAuthor(name);
 
         return ResponseEntity.noContent().build();
     }
