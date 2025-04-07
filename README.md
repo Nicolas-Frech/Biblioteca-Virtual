@@ -96,7 +96,11 @@ Este software foi desenvolvido com as seguintes tecnologias:
  
 - **Mudar o perfil de um usuário** 🔄 **(ADMIN)**
 
-  - Mudar o perfil de um usuário para ADMIN ou USER.<br><br>
+  - Mudar o perfil de um usuário para ADMIN ou USER.
+ 
+- **Adicionar comentários nas páginas dos livros** 💬
+
+  - Adicionar comentários sobre o livro na sua respectiva página<br><br>
 
 ## 🤝 Contribuição
 
