@@ -6,8 +6,6 @@ import br.com.nicolasfrech.biblioteca_online.infra.author.gateway.AuthorEntityMa
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 import br.com.nicolasfrech.biblioteca_online.infra.user.gateway.UserEntityMapper;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class BookEntityMapper {
 
@@ -35,14 +33,14 @@ public class BookEntityMapper {
                 book.getReserved(),
                 book.getActive(),
                 null,
-                null
+                book.getRatings()
         );
         entity.setReviews(book.getReviews());
         return entity;
     }
 
     public Book toDomain(BookEntity entity) {
-        return new Book(
+         Book book = new Book(
                 entity.getId(),
                 entity.getTitle(),
                 entity.getGenre(),
@@ -55,5 +53,8 @@ public class BookEntityMapper {
                 entity.getActive(),
                 entity.getReviews()
         );
+         entity.getRatings().forEach(book::addRating);
+
+         return book;
     }
 }

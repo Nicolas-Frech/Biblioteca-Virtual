@@ -91,6 +91,10 @@ public class BookEntity {
         }
     }
 
+    public List<Integer> getRatings() {
+        return ratings;
+    }
+
     public Long getId() {
         return id;
     }

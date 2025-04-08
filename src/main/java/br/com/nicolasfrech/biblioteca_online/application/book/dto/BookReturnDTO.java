@@ -12,6 +12,6 @@ public record BookReturnDTO(Long id, String title, Genre genre, String authorNam
 
     public BookReturnDTO(Book book) {
         this(book.getId(), book.getTitle(), book.getGenre(), book.getAuthor().getName(),
-                book.getReleaseDate(), book.getCover(), book.getSynopsis(), book.getReserved(), book.getReviews(), book.getRatings());
+                book.getReleaseDate(), book.getCover(), book.getSynopsis(), book.getReserved(), book.getReviews(), book.getAvgRatings());
     }
 }

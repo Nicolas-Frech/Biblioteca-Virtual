@@ -57,7 +57,11 @@ public class Book {
         this.ratings.add(rating);
     }
 
-    public double getRatings() {
+    public List<Integer> getRatings() {
+        return ratings;
+    }
+
+    public double getAvgRatings() {
         if (ratings.isEmpty()) {
             return 0.0;
         }
