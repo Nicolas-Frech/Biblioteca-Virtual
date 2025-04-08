@@ -49,12 +49,15 @@ public class BookEntity {
     @Transient
     private List<Review> reviews = new ArrayList<>();
 
+    @ElementCollection
+    @CollectionTable(name = "book_ratings", joinColumns = @JoinColumn(name = "book_id"))
+    @Column(name = "rating")
     private List<Integer> ratings = new ArrayList<>();
 
     public BookEntity() {
     }
 
-    public BookEntity(Long id, String title, Genre genre, AuthorEntity author, UserEntity user, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active, String reviews, List<Integer> ratings) {
+    public BookEntity(Long id, String title, Genre genre, AuthorEntity author, UserEntity user, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active, String reviews) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -66,10 +69,11 @@ public class BookEntity {
         this.reserved = reserved;
         this.active = active;
         this.reviewsJson = reviews;
-        this.ratings = ratings;
     }
 
-
+    public void setRatings(List<Integer> ratings) {
+        this.ratings = ratings;
+    }
 
     public List<Review> getReviews() {
         if (reviewsJson == null || reviewsJson.isEmpty()) return new ArrayList<>();
@@ -92,6 +96,11 @@ public class BookEntity {
     }
 
     public List<Integer> getRatings() {
+        if (ratings == null) {
+            ratings = new ArrayList<>();
+        }
+
+        ratings.removeIf(r -> r == null);
         return ratings;
     }
 

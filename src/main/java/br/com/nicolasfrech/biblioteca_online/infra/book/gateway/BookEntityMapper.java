@@ -5,6 +5,7 @@ import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import br.com.nicolasfrech.biblioteca_online.infra.author.gateway.AuthorEntityMapper;
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 import br.com.nicolasfrech.biblioteca_online.infra.user.gateway.UserEntityMapper;
+import jakarta.persistence.Entity;
 
 
 public class BookEntityMapper {
@@ -32,10 +33,10 @@ public class BookEntityMapper {
                 book.getSynopsis(),
                 book.getReserved(),
                 book.getActive(),
-                null,
-                book.getRatings()
+                null
         );
         entity.setReviews(book.getReviews());
+        entity.setRatings(book.getRatings());
         return entity;
     }
 
@@ -53,8 +54,8 @@ public class BookEntityMapper {
                 entity.getActive(),
                 entity.getReviews()
         );
-         entity.getRatings().forEach(book::addRating);
 
-         return book;
+        book.setRatings(entity.getRatings());
+        return book;
     }
 }

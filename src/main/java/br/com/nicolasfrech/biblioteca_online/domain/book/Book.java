@@ -61,6 +61,10 @@ public class Book {
         return ratings;
     }
 
+    public void setRatings(List<Integer> ratings) {
+        this.ratings = ratings;
+    }
+
     public double getAvgRatings() {
         if (ratings.isEmpty()) {
             return 0.0;
