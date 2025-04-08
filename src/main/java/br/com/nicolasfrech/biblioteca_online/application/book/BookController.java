@@ -1,6 +1,7 @@
 package br.com.nicolasfrech.biblioteca_online.application.book;
 
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
+import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookRateDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReviewDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
@@ -85,6 +86,14 @@ public class BookController {
     public ResponseEntity addReview(@RequestBody BookReviewDTO dto, Principal principal) {
         String username = principal.getName();
         Book book = bookService.reviewBook(dto, username);
+        return ResponseEntity.ok(new BookReturnDTO(book));
+    }
+
+    @PutMapping("/rate")
+    @Transactional
+    public ResponseEntity addRating(@RequestBody BookRateDTO dto) {
+        Book book = bookService.addRating(dto);
+
         return ResponseEntity.ok(new BookReturnDTO(book));
     }
 }

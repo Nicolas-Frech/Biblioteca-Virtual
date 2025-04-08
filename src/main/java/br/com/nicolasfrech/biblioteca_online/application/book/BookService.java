@@ -3,6 +3,7 @@ package br.com.nicolasfrech.biblioteca_online.application.book;
 import br.com.nicolasfrech.biblioteca_online.application.author.AuthorValidator;
 import br.com.nicolasfrech.biblioteca_online.application.author.gateway.AuthorRepository;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
+import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookRateDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReviewDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.gateway.BookRepository;
@@ -101,6 +102,16 @@ public class BookService {
         Book book = bookRepository.findByTitle(dto.title());
 
         book.addReview(username, dto.review());
+        bookRepository.save(book);
+        return book;
+    }
+
+    public Book addRating(BookRateDTO dto) {
+        bookValidator.validateTitle(dto.title());
+
+        Book book = bookRepository.findByTitle(dto.title());
+
+        book.addRating(dto.rating());
         bookRepository.save(book);
         return book;
     }

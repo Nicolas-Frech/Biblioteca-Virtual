@@ -7,6 +7,7 @@ import br.com.nicolasfrech.biblioteca_online.infra.user.persistence.UserEntity;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -48,10 +49,12 @@ public class BookEntity {
     @Transient
     private List<Review> reviews = new ArrayList<>();
 
+    private List<Integer> ratings = new ArrayList<>();
+
     public BookEntity() {
     }
 
-    public BookEntity(Long id, String title, Genre genre, AuthorEntity author, UserEntity user, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active, String reviews) {
+    public BookEntity(Long id, String title, Genre genre, AuthorEntity author, UserEntity user, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active, String reviews, List<Integer> ratings) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -63,6 +66,7 @@ public class BookEntity {
         this.reserved = reserved;
         this.active = active;
         this.reviewsJson = reviews;
+        this.ratings = ratings;
     }
 
 

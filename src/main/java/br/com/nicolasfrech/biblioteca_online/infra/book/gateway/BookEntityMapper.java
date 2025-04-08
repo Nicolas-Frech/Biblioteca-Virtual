@@ -34,6 +34,7 @@ public class BookEntityMapper {
                 book.getSynopsis(),
                 book.getReserved(),
                 book.getActive(),
+                null,
                 null
         );
         entity.setReviews(book.getReviews());

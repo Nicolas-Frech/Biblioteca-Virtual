@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <p><strong>Gênero:</strong> ${genre}</p>
                         <p><strong>Sinopse:</strong> ${book.synopsis}</p>
                         <p><strong>Data de Publicação:</strong> ${dateFormatter(book.releaseDate)}</p>
-                        <p><strong>Avaliação: ⭐⭐⭐</strong></p>
+                        <p><strong>Avaliação:  ${book.rating}${book.rating}</strong></p>
                         ${availabilityMessage}
                     </div>
 
