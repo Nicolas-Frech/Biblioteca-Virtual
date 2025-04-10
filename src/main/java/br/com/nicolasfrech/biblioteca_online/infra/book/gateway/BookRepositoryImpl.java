@@ -8,6 +8,8 @@ import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookReposito
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 
 public class BookRepositoryImpl implements BookRepository {
 
@@ -84,5 +86,11 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public Book findByIdAndActiveTrue(Long id) {
         return mapper.toDomain(jpaRepository.findByIdAndActiveTrue(id));
+    }
+
+    @Override
+    public void saveAll(List<Book> books) {
+        List<BookEntity> entities = books.stream().map(mapper::toEntity).toList();
+        jpaRepository.saveAll(entities);
     }
 }

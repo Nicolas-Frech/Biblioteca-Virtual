@@ -59,6 +59,7 @@ class BookControllerTest {
     void regist_scenary02() throws Exception {
         var bookDTO = new BookDTO("Book", Genre.ADVENTURE, "Author", LocalDate.parse("1990-03-04"), "Cover", "Synopsis");
 
+        when(book.getAuthor()).thenReturn(new Author(new AuthorDTO("Author", LocalDate.parse("1999-02-01"))));
         when(book.getAuthor().getName()).thenReturn("Author");
         when(bookService.registBook(any())).thenReturn(new Book(bookDTO));
 
@@ -78,7 +79,9 @@ class BookControllerTest {
                 LocalDate.parse("1990-03-04"),
                 "Cover",
                 "Synospis",
-                false
+                false,
+                null,
+                null
         );
 
         var expectedJson = bookReturnDTOJson.write(bookReturnDTO).getJson();

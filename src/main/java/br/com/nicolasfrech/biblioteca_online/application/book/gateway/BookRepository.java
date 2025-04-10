@@ -5,6 +5,8 @@ import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface BookRepository {
 
     Book save(Book book);
@@ -28,4 +30,6 @@ public interface BookRepository {
     Page<Book> findAllByAuthorAndActiveTrue(String name, Pageable pagination);
 
     Book findByIdAndActiveTrue(Long id);
+
+    void saveAll(List<Book> livros);
 }
