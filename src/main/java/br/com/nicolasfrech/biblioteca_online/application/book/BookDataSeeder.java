@@ -1,4 +1,4 @@
-package br.com.nicolasfrech.biblioteca_online.application;
+package br.com.nicolasfrech.biblioteca_online.application.book;
 
 import br.com.nicolasfrech.biblioteca_online.application.author.dto.AuthorDTO;
 import br.com.nicolasfrech.biblioteca_online.application.author.gateway.AuthorRepository;
@@ -81,7 +81,6 @@ public class BookDataSeeder {
                 book.addAuthor(tolkienPersisted);
             }
         }
-
 
         bookRepository.saveAll(books);
     }

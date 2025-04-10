@@ -8,9 +8,11 @@ import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReviewDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.gateway.BookRepository;
 import br.com.nicolasfrech.biblioteca_online.application.book.validation.BookValidator;
+import br.com.nicolasfrech.biblioteca_online.application.user.gateway.UserRepository;
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
+import br.com.nicolasfrech.biblioteca_online.domain.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
@@ -24,13 +26,15 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
+    private final UserRepository userRepository;
 
     private final BookValidator bookValidator;
     private final AuthorValidator authorValidator;
 
-    public BookService(BookRepository bookRepository, AuthorRepository authorRepository, BookValidator bookValidator, AuthorValidator authorValidator) {
+    public BookService(BookRepository bookRepository, AuthorRepository authorRepository, UserRepository userRepository, BookValidator bookValidator, AuthorValidator authorValidator) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
+        this.userRepository = userRepository;
         this.bookValidator = bookValidator;
         this.authorValidator = authorValidator;
     }
@@ -67,12 +71,15 @@ public class BookService {
         bookRepository.save(deletedBook);
     }
 
-    public Book reserveBook(String title) {
+    public Book reserveBook(String title, Principal principal) {
         bookValidator.validateTitle(title);
+
+        User user = userRepository.findByUsername(principal.getName());
 
         Book reservedBook = bookRepository.findByTitle(title);
         bookValidator.validateReserve(reservedBook);
 
+        user.reserveBook(reservedBook);
         reservedBook.reserveBook();
         bookRepository.save(reservedBook);
         return reservedBook;

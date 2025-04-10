@@ -1,6 +1,5 @@
 package br.com.nicolasfrech.biblioteca_online.application.book;
 
-import br.com.nicolasfrech.biblioteca_online.application.BookDataSeeder;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookRateDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
@@ -60,8 +59,8 @@ public class BookController {
 
     @PutMapping("/{title}")
     @Transactional
-    public ResponseEntity reserveBook(@PathVariable String title) {
-        Book reservedBook = bookService.reserveBook(title);
+    public ResponseEntity reserveBook(@PathVariable String title, Principal principal) {
+        Book reservedBook = bookService.reserveBook(title, principal);
 
         return ResponseEntity.ok(new BookReturnDTO(reservedBook));
     }
