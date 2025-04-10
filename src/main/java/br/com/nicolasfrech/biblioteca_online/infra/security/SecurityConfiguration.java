@@ -28,7 +28,7 @@ public class SecurityConfiguration {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers("/login", "/login/register").permitAll();
+                    req.requestMatchers("/login", "/login/register", "/book/seed").permitAll();
                     req.requestMatchers(HttpMethod.POST,"/book", "/author").hasRole("ADMIN");
                     req.requestMatchers(HttpMethod.DELETE,"/book", "/author").hasRole("ADMIN");
                     req.requestMatchers(HttpMethod.PUT,"/user/role").hasRole("ADMIN");

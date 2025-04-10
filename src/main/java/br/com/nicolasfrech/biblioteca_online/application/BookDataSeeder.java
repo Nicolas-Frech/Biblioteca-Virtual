@@ -7,15 +7,13 @@ import br.com.nicolasfrech.biblioteca_online.application.book.gateway.BookReposi
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
-import br.com.nicolasfrech.biblioteca_online.infra.author.persistence.AuthorEntity;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Component
-public class BookDataSeeder implements CommandLineRunner {
+@Service
+public class BookDataSeeder {
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
@@ -25,13 +23,16 @@ public class BookDataSeeder implements CommandLineRunner {
         this.authorRepository = authorRepository;
     }
 
-    @Override
-    public void run(String... args) throws Exception {
+    public void seed() {
         Author author = new Author(new AuthorDTO("J.K. Rowling", LocalDate.parse("1970-11-11")));
         authorRepository.save(author);
-        Author authorPersisted = authorRepository.findByName("J.K. Rowling");
+        Author rowlingPersisted = authorRepository.findByName("J.K. Rowling");
 
-        List<Book> livros = List.of(
+        Author tolkien = new Author(new AuthorDTO("J.R.R. Tolkien", LocalDate.parse("1892-01-03")));
+        authorRepository.save(tolkien);
+        Author tolkienPersisted = authorRepository.findByName("J.R.R. Tolkien");
+
+        List<Book> books = List.of(
                 new Book(new BookDTO("Harry Potter e a Pedra Filosofal", Genre.FANTASY, author.getName(), LocalDate.of(1997, 6, 26),
                         "https://m.media-amazon.com/images/I/81ibfYk4qmL.jpg",
                         "Harry descobre, no seu décimo primeiro aniversário, que é um bruxo e é convidado a estudar na Escola de Magia e Bruxaria de Hogwarts. Lá, ele inicia sua jornada mágica e desvenda o mistério da Pedra Filosofal.")),
@@ -58,14 +59,30 @@ public class BookDataSeeder implements CommandLineRunner {
 
                 new Book(new BookDTO("Harry Potter e as Relíquias da Morte", Genre.FANTASY, author.getName(), LocalDate.of(2007, 7, 21),
                         "https://m.media-amazon.com/images/I/81rvO7xcJOL.jpg",
-                        "Harry, Rony e Hermione partem em uma missão para encontrar e destruir as Horcruxes restantes, levando à batalha final contra Voldemort."))
-            );
+                        "Harry, Rony e Hermione partem em uma missão para encontrar e destruir as Horcruxes restantes, levando à batalha final contra Voldemort.")),
 
-        for (Book livro : livros) {
-            livro.addAuthor(authorPersisted);
+                new Book(new BookDTO("O Senhor dos Anéis: A Sociedade do Anel", Genre.FANTASY, tolkien.getName(), LocalDate.of(1954, 7, 29),
+                "https://m.media-amazon.com/images/I/81SWBRKfExL._AC_UF1000,1000_QL80_.jpg",
+                "Frodo Bolseiro inicia sua jornada para destruir o Um Anel. Ele parte do Condado acompanhado por uma comitiva de hobbits, humanos, um elfo, um anão e um mago.")),
+
+                new Book(new BookDTO("O Senhor dos Anéis: As Duas Torres", Genre.FANTASY, tolkien.getName(), LocalDate.of(1954, 11, 11),
+                        "https://m.media-amazon.com/images/I/81lQ5N0QwJL.jpg",
+                        "A comitiva se separa, e as forças de Sauron e Saruman se intensificam. Enquanto Frodo e Sam continuam rumo a Mordor, Aragorn, Legolas e Gimli enfrentam novas batalhas.")),
+
+                new Book(new BookDTO("O Senhor dos Anéis: O Retorno do Rei", Genre.FANTASY, tolkien.getName(), LocalDate.of(1955, 10, 20),
+                        "https://m.media-amazon.com/images/I/71+4uDgt8JL._AC_UF1000,1000_QL80_.jpg",
+                        "A guerra pelo destino da Terra-média atinge seu clímax. Frodo chega a Mordor, e Aragorn lidera os povos livres na última batalha contra Sauron."))
+        );
+
+        for (Book book : books) {
+            if (book.getTitle().startsWith("Harry Potter")) {
+                book.addAuthor(rowlingPersisted);
+            } else {
+                book.addAuthor(tolkienPersisted);
+            }
         }
 
 
-        bookRepository.saveAll(livros);
+        bookRepository.saveAll(books);
     }
 }

@@ -1,5 +1,6 @@
 package br.com.nicolasfrech.biblioteca_online.application.book;
 
+import br.com.nicolasfrech.biblioteca_online.application.BookDataSeeder;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookRateDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
@@ -23,6 +24,9 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private BookDataSeeder seeder;
 
     @PostMapping
     @Transactional
@@ -95,5 +99,13 @@ public class BookController {
         Book book = bookService.addRating(dto);
 
         return ResponseEntity.ok(new BookReturnDTO(book));
+    }
+
+    @GetMapping("/seed")
+    @Transactional
+    public ResponseEntity seed() {
+        seeder.seed();
+
+        return ResponseEntity.ok().build();
     }
 }
