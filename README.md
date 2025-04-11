@@ -1,5 +1,10 @@
 # 📚 Software para Biblioteca Virtual
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d584f290-31d8-465a-a317-07497af349cb" alt="image" />
+</p>
+
+
 ## 📌 Sobre o Projeto
 
 Sistema Web para o gerenciamento de Biblioteca Virtual, permitindo o cadastro e a administração de **Livros** e **Autores**. Também é necessário fazer login e cadastro de **Usuário**, com dois perfis diferentes: **USER** e **ADMIN**. Este software segue caracteristicas dos principios **SOLID** e **Clean Architecture**, em processo de produção.
