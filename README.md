@@ -68,10 +68,6 @@ Este software foi desenvolvido com as seguintes tecnologias:
 - **Cadastrar Livro** ➕ **(ADMIN)**
 
   - Cadastro de novos livros com informações detalhadas.
- 
-- **Reservar Livro** 📌
-
-  - Permite reservar um livro.
 
 - **Excluir Livro** 🗑️ **(ADMIN)**
 
@@ -98,6 +94,10 @@ Este software foi desenvolvido com as seguintes tecnologias:
 - **Login de Usuário** 🔑
 
   - Login de um usuário no sistema.
+ 
+- **Adicionar Livro a sua Biblioteca** 📖
+
+  - Adicionar um Livro a sua biblioteca pessoal.
  
 - **Mudar o perfil de um usuário** 🔄 **(ADMIN)**
 
