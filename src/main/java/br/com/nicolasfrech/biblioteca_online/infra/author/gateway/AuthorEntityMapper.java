@@ -11,7 +11,6 @@ public class AuthorEntityMapper {
         return new AuthorEntity(
                 author.getId(),
                 author.getName(),
-                author.getGenres(),
                 new ArrayList<>(),
                 author.getBirthdate(),
                 author.getActive()
@@ -22,7 +21,6 @@ public class AuthorEntityMapper {
         return new Author(
                 entity.getId(),
                 entity.getName(),
-                entity.getGenres(),
                 entity.getBirthdate(),
                 entity.getActive()
         );

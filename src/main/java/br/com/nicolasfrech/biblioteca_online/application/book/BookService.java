@@ -47,12 +47,6 @@ public class BookService {
         registerBook.addAuthor(author);
 
         bookRepository.save(registerBook);
-
-        if(author.getGenres().contains(dto.genre())) {
-            return registerBook;
-        }
-
-        author.addGenre(dto.genre());
         return registerBook;
     }
 

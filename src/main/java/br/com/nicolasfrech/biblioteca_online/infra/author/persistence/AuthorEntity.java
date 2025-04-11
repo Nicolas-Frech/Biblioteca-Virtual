@@ -16,12 +16,6 @@ public class AuthorEntity {
     private Long id;
     private String name;
 
-    @ElementCollection(targetClass = Genre.class)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "author_genres", joinColumns = @JoinColumn(name = "author_id"))
-    @Column(name = "genre")
-    private List<Genre> genres;
-
     @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<BookEntity> books;
 
@@ -31,10 +25,9 @@ public class AuthorEntity {
     public AuthorEntity() {
     }
 
-    public AuthorEntity(Long id, String name, List<Genre> genres, List<BookEntity> books, LocalDate birthdate, Boolean active) {
+    public AuthorEntity(Long id, String name, List<BookEntity> books, LocalDate birthdate, Boolean active) {
         this.id = id;
         this.name = name;
-        this.genres = genres;
         this.books = books;
         this.birthdate = birthdate;
         this.active = active;
@@ -46,10 +39,6 @@ public class AuthorEntity {
 
     public String getName() {
         return name;
-    }
-
-    public List<Genre> getGenres() {
-        return genres;
     }
 
     public List<BookEntity> getBooks() {

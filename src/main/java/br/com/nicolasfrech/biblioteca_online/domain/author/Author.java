@@ -12,7 +12,6 @@ public class Author {
 
     private Long id;
     private String name;
-    private List<Genre> genres;
     private List<Book> books = new ArrayList<>();
     private LocalDate birthdate;
     private Boolean active;
@@ -20,10 +19,9 @@ public class Author {
     public Author() {
     }
 
-    public Author(Long id, String name, List<Genre> genres, LocalDate birthdate, Boolean active) {
+    public Author(Long id, String name, LocalDate birthdate, Boolean active) {
         this.id = id;
         this.name = name;
-        this.genres = genres;
         this.birthdate = birthdate;
         this.active = active;
     }
@@ -42,20 +40,12 @@ public class Author {
         this.books.add(book);
     }
 
-    public void addGenre(Genre genre) {
-        this.genres.add(genre);
-    }
-
     public Long getId() {
         return id;
     }
 
     public String getName() {
         return name;
-    }
-
-    public List<Genre> getGenres() {
-        return genres;
     }
 
     public List<Book> getBooks() {
