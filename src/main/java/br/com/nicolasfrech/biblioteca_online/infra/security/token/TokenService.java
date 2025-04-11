@@ -1,6 +1,5 @@
 package br.com.nicolasfrech.biblioteca_online.infra.security.token;
 
-import br.com.nicolasfrech.biblioteca_online.domain.user.User;
 import br.com.nicolasfrech.biblioteca_online.infra.user.persistence.UserEntity;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

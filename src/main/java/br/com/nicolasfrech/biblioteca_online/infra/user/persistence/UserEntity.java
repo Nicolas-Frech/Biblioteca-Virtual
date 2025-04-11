@@ -1,6 +1,5 @@
 package br.com.nicolasfrech.biblioteca_online.infra.user.persistence;
 
-import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import br.com.nicolasfrech.biblioteca_online.domain.user.UserRole;
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 import jakarta.persistence.*;

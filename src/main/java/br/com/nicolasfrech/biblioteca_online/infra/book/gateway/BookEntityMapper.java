@@ -5,8 +5,6 @@ import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import br.com.nicolasfrech.biblioteca_online.infra.author.gateway.AuthorEntityMapper;
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 import br.com.nicolasfrech.biblioteca_online.infra.user.gateway.UserEntityMapper;
-import jakarta.persistence.Entity;
-
 
 public class BookEntityMapper {
 

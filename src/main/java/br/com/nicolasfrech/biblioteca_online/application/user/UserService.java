@@ -26,4 +26,11 @@ public class UserService {
         userRepository.save(user);
         return user;
     }
+
+    public User findUserByUsername(String username) {
+        userValidation.validateUsernameForLogin(username);
+
+        User user = userRepository.findByUsername(username);
+        return user;
+    }
 }

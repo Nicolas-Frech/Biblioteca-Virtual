@@ -5,7 +5,6 @@ import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.Review;
 import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import br.com.nicolasfrech.biblioteca_online.domain.user.User;
-import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

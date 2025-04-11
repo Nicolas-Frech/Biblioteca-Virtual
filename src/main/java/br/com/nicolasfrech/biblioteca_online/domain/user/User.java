@@ -1,6 +1,5 @@
 package br.com.nicolasfrech.biblioteca_online.domain.user;
 
-import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserRegistDTO;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 
 import java.util.ArrayList;

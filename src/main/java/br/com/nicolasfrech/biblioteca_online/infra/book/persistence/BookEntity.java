@@ -7,7 +7,6 @@ import br.com.nicolasfrech.biblioteca_online.infra.user.persistence.UserEntity;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

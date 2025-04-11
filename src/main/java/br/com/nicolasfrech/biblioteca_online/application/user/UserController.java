@@ -11,7 +11,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 
 @RestController
 @RequestMapping("/user")
@@ -37,5 +36,12 @@ public class UserController {
                 .orElse("ROLE_USER");
 
         return ResponseEntity.ok(role);
+    }
+
+    @GetMapping("/name/{username}")
+    public ResponseEntity findUserByUsername(@PathVariable String username) {
+        User user = userService.findUserByUsername(username);
+
+        return ResponseEntity.ok(new UserReturnDTO(user));
     }
 }
