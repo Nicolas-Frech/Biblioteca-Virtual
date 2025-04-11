@@ -2,6 +2,7 @@ package br.com.nicolasfrech.biblioteca_online.application.user.config;
 
 import br.com.nicolasfrech.biblioteca_online.application.user.gateway.UserRepository;
 import br.com.nicolasfrech.biblioteca_online.application.user.validation.UserValidation;
+import br.com.nicolasfrech.biblioteca_online.infra.book.gateway.BookEntityMapper;
 import br.com.nicolasfrech.biblioteca_online.infra.user.gateway.UserEntityMapper;
 import br.com.nicolasfrech.biblioteca_online.infra.user.gateway.UserRepositoryImpl;
 import br.com.nicolasfrech.biblioteca_online.infra.user.persistence.UserRepositoryJPA;
@@ -17,8 +18,8 @@ public class UserConfig {
     }
 
     @Bean
-   UserEntityMapper createUserEntityMapper() {
-        return new UserEntityMapper();
+   UserEntityMapper createUserEntityMapper(BookEntityMapper mapper) {
+        return new UserEntityMapper(mapper);
     }
 
     @Bean

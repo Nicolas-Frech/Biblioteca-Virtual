@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       profileInfo.innerHTML = `<div class="alert alert-danger">Usuário não autenticado.</div>`;
       return;
     }
-  
+
     try {
       const response = await fetch("http://localhost:8080/user", {
         method: "GET",
@@ -22,7 +22,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         throw new Error("Erro ao carregar perfil");
       }
   
-      const user= await response.json();
+      const user = await response.json();
+
+      
+      
+      
+      if(user.userRole == "ADMIN") {
+        let adminBook = document.getElementById("adminBook")
+        let adminAuthor = document.getElementById("adminAuthor")
+        adminAuthor.innerHTML = `
+        <a href="deletarAutor.html" class="btn btn-dark fw-bold">Excluir Autor 🗑️</a>
+        <a href="cadastrarAutor.html" class="btn btn-dark fw-bold">Cadastrar Autor ✍</a>
+        `
+        adminBook.innerHTML = `                    
+        <a href="deletarLivro.html" class="btn btn-dark fw-bold">Excluir Livro 🗑️</a>
+        <a href="cadastrarLivro.html" class="btn btn-dark fw-bold">Cadastrar Livro ✍</a>
+        `
+      }
 
       profileInfo.innerHTML = `
         <p><strong>Nome de Usuário:</strong> ${user.username}</p>
@@ -30,13 +46,32 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p><strong>Perfil:</strong> ${user.userRole}</p>
       `;
 
-      if (user.books && user.books.length > 0) {
-        usuario.books.forEach(book => {
-          const li = document.createElement("li");
-          li.className = "list-group-item";
-          li.textContent = `${book.title} - ${book.authorName}`;
-          bookList.appendChild(li);
+      if (user.myLibrary && user.myLibrary.length > 0) {
+        const bookRow = document.createElement("div");
+        bookRow.className = "row g-3";
+        
+        user.myLibrary.forEach(book => {
+          const col = document.createElement("div");
+          col.className = "col-md-3";
+        
+
+          col.innerHTML = `
+            <a href="detalhesLivro.html?id=${book.id}" class="text-decoration-none text-dark">
+                <div class="card h-100 shadow-sm">
+                    <img src="${book.cover}" class="card-img-top img-fluid book-cover" alt="Capa de ${book.title}">
+                    <div class="card-body">
+                        <h5 class="card-title">${book.title}</h5>
+                        <p class="card-text">${book.author.name}</p>
+                    </div>
+                </div>
+            </a>
+          `;
+        
+          bookRow.appendChild(col);
         });
+        
+        bookList.innerHTML = "";
+        bookList.appendChild(bookRow);
       } else {
         bookList.innerHTML = `<li class="list-group-item">Nenhum livro adicionado.</li>`;
       }
@@ -47,13 +82,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-document.getElementById('upload-photo').addEventListener('change', (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        document.getElementById('profile-picture').src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-});

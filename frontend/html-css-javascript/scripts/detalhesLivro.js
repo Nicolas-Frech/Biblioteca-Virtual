@@ -1,6 +1,15 @@
 import { exibirMensagem } from "./notificacao.js";
 import { BookService } from "./bookService.js";
 
+const token = localStorage.getItem("token");
+
+if(!token) {
+    exibirMensagem("danger", "Você precisa estar logado!");
+    setTimeout(() => {
+        window.location.href = "login.html";
+    },  2000);
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
     const bookDetails = document.getElementById("book-details");
     const bookId = new URLSearchParams(window.location.search).get("id");
@@ -57,10 +66,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         const genre = getGenreName(book.genre);
         const starsGet = getStars(book.rating);
 
-        const availabilityMessage = book.reserved
-            ? `<p class="text-danger"><strong>Este livro já está reservado!</strong></p>`
-            : `<p class="text-success"><strong>Disponível para reserva!</strong></p>`;
-
         const reviewsHtml = book.reviews && book.reviews.length > 0
             ? book.reviews.map(review => `
                 <div class="mb-2">
@@ -75,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <img src="${book.cover}" class="img-fluid book-cover mb-3" alt="Capa de ${book.title}">
                     ${
                         !book.reserved
-                            ? `<button id="reserve-book" class="btn btn-success w-75 fw-bold">📖 Reservar livro</button>`
+                            ? `<button id="reserve-book" class="btn btn-success w-75 fw-bold">📖 Adicionar a sua Biblioteca</button>`
                             : ""
                     }
 
@@ -100,7 +105,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                         <p><strong>Sinopse:</strong> ${book.synopsis}</p>
                         <p><strong>Data de Publicação:</strong> ${dateFormatter(book.releaseDate)}</p>
                         <p><strong>Média das Avaliações:</strong> ${starsGet}</p>
-                        ${availabilityMessage}
                     </div>
 
                     <div class="mt-4">
@@ -178,8 +182,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (reserveButton) {
             reserveButton.addEventListener("click", async () => {
                 try {
-                    await bookService.reserveBook(book.title);
+                    await fetch(`http://localhost:8080/user/${book.title}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                         },
+                    });
                     await fetchBookDetails();
+                    exibirMensagem("success", "Livro adicionado a sua Biblioteca!");
                 } catch (err) {
                     exibirMensagem("danger", "❌ Erro ao reservar o livro.");
                     console.error(err);

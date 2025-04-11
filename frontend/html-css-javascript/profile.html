@@ -17,12 +17,28 @@
       <div class="card-body" id="profile-info">
         <p>Carregando dados do usuário...</p>
       </div>
+      <div class="mb-3 ms-3">
+        <div class="d-flex flex-wrap gap-2">
+          <div id="adminAuthor" class="d-flex gap-2"></div>
+          <div id="adminBook" class="d-flex gap-2"></div>
+        </div>
+      </div>
     </div>
 
-    <h2 class="fw-semibold fs-4 mb-3"><strong>📚 Minha Biblioteca</strong></h2>
+
+
+    <h2 class="fw-semibold fs-4 mb-3"><strong>📖 Minha Biblioteca</strong></h2>
     <ul id="bookList" class="list-group shadow-sm"></ul>
+
+
   </div>
 
+  <style>
+    .book-cover {
+        height: 500px;
+        object-fit: cover;
+    }
+  </style>
   <script src="scripts/profile.js" type="module"></script>
 </body>
 </html>

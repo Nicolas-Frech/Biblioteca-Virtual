@@ -22,10 +22,4 @@ public class BookValidator {
             throw new RuntimeException("Não existe livro com esse ID!");
         }
     }
-
-    public void validateReserve(Book reservedBook) {
-        if(reservedBook.getReserved()) {
-            throw new RuntimeException("Este livro já está reservado!");
-        }
-    }
 }

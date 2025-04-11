@@ -1,5 +1,4 @@
 import { BookService } from "./bookService.js";
-import { getUserRole } from "./userRole.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const bookList = document.getElementById("book-list");
@@ -13,30 +12,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const pageSize = 8;
     let currentFilter = "";
 
-    let role = null;
-
-    try {
-      role = await getUserRole();
-      console.log("Role do usuário logado:", role);
-  
-      
-      if (role === "ROLE_ADMIN") {
-        let adminBook = document.getElementById("adminBook")
-        let adminAuthor = document.getElementById("adminAuthor")
-        adminAuthor.innerHTML = `
-        <a href="deletarAutor.html" class="btn btn-dark fw-bold">Excluir Autor 🗑️</a>
-        <a href="cadastrarAutor.html" class="btn btn-dark fw-bold">Cadastrar Autor ✍</a>
-        `
-        adminBook.innerHTML = `                    
-        <a href="deletarLivro.html" class="btn btn-dark fw-bold">Excluir Livro 🗑️</a>
-        <a href="cadastrarLivro.html" class="btn btn-dark fw-bold">Cadastrar Livro ✍</a>
-        `
-      }
-  
-    } catch (error) {
-      console.error("Erro ao buscar role:", error);
-    }
-    
     const bookService = new BookService("http://localhost:8080");
 
     async function fetchBooks(page = 0, filter = "") {

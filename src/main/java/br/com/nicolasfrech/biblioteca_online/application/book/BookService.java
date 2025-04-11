@@ -65,20 +65,6 @@ public class BookService {
         bookRepository.save(deletedBook);
     }
 
-    public Book reserveBook(String title, Principal principal) {
-        bookValidator.validateTitle(title);
-
-        User user = userRepository.findByUsername(principal.getName());
-
-        Book reservedBook = bookRepository.findByTitle(title);
-        bookValidator.validateReserve(reservedBook);
-
-        user.reserveBook(reservedBook);
-        reservedBook.reserveBook();
-        bookRepository.save(reservedBook);
-        return reservedBook;
-    }
-
     public Page<BookReturnDTO> findAllBooks(Pageable pagination) {
         var page = bookRepository.findAllByActiveTrue(pagination).map(BookReturnDTO::new);
         return page;

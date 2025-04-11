@@ -1,7 +1,9 @@
 package br.com.nicolasfrech.biblioteca_online.application.user;
 
+import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserUpdateDTO;
+import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import br.com.nicolasfrech.biblioteca_online.domain.user.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,14 @@ public class UserController {
     @GetMapping
     public ResponseEntity findUserByUsername(Principal principal) {
         User user = userService.findUserByUsername(principal.getName());
+
+        return ResponseEntity.ok(new UserReturnDTO(user));
+    }
+
+    @PutMapping("/{title}")
+    @Transactional
+    public ResponseEntity addBookToLibrary(@PathVariable String title, Principal principal) {
+        User user = userService.addBookToLibrary(title, principal);
 
         return ResponseEntity.ok(new UserReturnDTO(user));
     }

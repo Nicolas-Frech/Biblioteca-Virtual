@@ -7,9 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -21,8 +19,13 @@ public class UserEntity implements UserDetails {
     private String username;
     private String password;
 
-    @OneToMany(mappedBy = "userReserved", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BookEntity> reservedBooks = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "user_book",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
+    )
+    private Set<BookEntity> myLibrary = new HashSet<>();
 
     private String email;
 
@@ -31,11 +34,11 @@ public class UserEntity implements UserDetails {
 
     public UserEntity() { }
 
-    public UserEntity(Long id, String username, String password, List<BookEntity> reservedBooks, String email, UserRole userRole) {
+    public UserEntity(Long id, String username, String password, Set<BookEntity> myLibrary, String email, UserRole userRole) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.reservedBooks = reservedBooks;
+        this.myLibrary = myLibrary;
         this.email = email;
         this.userRole = userRole;
     }
@@ -80,8 +83,8 @@ public class UserEntity implements UserDetails {
         return password;
     }
 
-    public List<BookEntity> getReservedBooks() {
-        return reservedBooks;
+    public Set<BookEntity> getMyLibrary() {
+        return myLibrary;
     }
 
     public String getEmail() {

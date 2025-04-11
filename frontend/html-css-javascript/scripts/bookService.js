@@ -35,10 +35,6 @@ export class BookService {
         return this.request("/review", "PUT", body);
     }
 
-    async reserveBook(title) {
-        return this.request(`/${title}`, "PUT");
-    }
-
     async postRating(title, rating) {
         const body = { title, rating }
         return this.request(`/rate`, "PUT", body)

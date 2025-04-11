@@ -2,25 +2,27 @@ package br.com.nicolasfrech.biblioteca_online.domain.user;
 
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class User {
 
     private Long id;
     private String username;
     private String password;
-    private List<Book> reservedBooks = new ArrayList<>();
+    private Set<Book> myLibrary = new HashSet<>();
     private String email;
     private UserRole userRole;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, String email, UserRole userRole) {
+    public User(Long id, String username, String password, Set<Book> myLibrary, String email, UserRole userRole) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.myLibrary = myLibrary;
         this.email = email;
         this.userRole = userRole;
     }
@@ -32,12 +34,12 @@ public class User {
         this.userRole = UserRole.USER;
     }
 
-    public void reserveBook(Book book) {
-        this.reservedBooks.add(book);
+    public void addBookToLibrary(Book book) {
+        this.myLibrary.add(book);
     }
 
     public void returnBook(Book book) {
-        this.reservedBooks.remove(book);
+        this.myLibrary.remove(book);
     }
 
     public void changeRole(UserRole role) {
@@ -56,8 +58,8 @@ public class User {
         return password;
     }
 
-    public List<Book> getReservedBooks() {
-        return reservedBooks;
+    public Set<Book> getMyLibrary() {
+        return myLibrary;
     }
 
     public String getEmail() {

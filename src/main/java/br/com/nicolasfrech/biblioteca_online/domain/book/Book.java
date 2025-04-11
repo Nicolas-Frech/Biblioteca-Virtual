@@ -8,7 +8,9 @@ import br.com.nicolasfrech.biblioteca_online.domain.user.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Book {
 
@@ -16,11 +18,10 @@ public class Book {
     private String title;
     private Genre genre;
     private Author author;
-    private User userReserved = new User();
+    private Set<User> users = new HashSet<>();
     private String cover;
     private LocalDate releaseDate;
     private String synopsis;
-    private Boolean reserved;
     private Boolean active;
     private List<Review> reviews = new ArrayList<>();
     private List<Integer> ratings = new ArrayList<>();
@@ -28,16 +29,15 @@ public class Book {
     public Book() {
     }
 
-    public Book(Long id, String title, Genre genre, Author author, User userReserved, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active, List<Review> reviews) {
+    public Book(Long id, String title, Genre genre, Author author, Set<User> users, String cover, LocalDate releaseDate, String synopsis, Boolean active, List<Review> reviews) {
         this.id = id;
         this.title = title;
         this.genre = genre;
         this.author = author;
-        this.userReserved = userReserved;
+        this.users = users;
         this.cover = cover;
         this.releaseDate = releaseDate;
         this.synopsis = synopsis;
-        this.reserved = reserved;
         this.active = active;
         this.reviews = reviews;
     }
@@ -48,7 +48,6 @@ public class Book {
         this.cover = dto.cover();
         this.releaseDate = dto.releaseDate();
         this.synopsis = dto.synopsis();
-        this.reserved = false;
         this.active = true;
     }
 
@@ -94,14 +93,6 @@ public class Book {
         this.active = false;
     }
 
-    public void reserveBook() {
-        this.reserved = true;
-    }
-
-    public void returnBook() {
-        this.userReserved = null;
-    }
-
     public Long getId() {
         return id;
     }
@@ -118,8 +109,8 @@ public class Book {
         return author;
     }
 
-    public User getUserReserved() {
-        return userReserved;
+    public Set<User> getUsers() {
+        return users;
     }
 
     public String getCover() {
@@ -132,10 +123,6 @@ public class Book {
 
     public String getSynopsis() {
         return synopsis;
-    }
-
-    public Boolean getReserved() {
-        return reserved;
     }
 
     public Boolean getActive() {

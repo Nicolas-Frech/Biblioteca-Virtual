@@ -19,8 +19,8 @@ public class BookConfig {
     }
 
     @Bean
-    BookEntityMapper createBookEntityMapper(AuthorEntityMapper mapper, UserEntityMapper userEntityMapper) {
-        return new BookEntityMapper(mapper, userEntityMapper);
+    BookEntityMapper createBookEntityMapper(AuthorEntityMapper mapper) {
+        return new BookEntityMapper(mapper);
     }
 
     @Bean

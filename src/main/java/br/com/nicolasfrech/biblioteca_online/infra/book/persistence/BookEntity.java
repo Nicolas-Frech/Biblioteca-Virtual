@@ -10,7 +10,9 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -28,9 +30,8 @@ public class BookEntity {
     @JoinColumn(name = ("author_id"))
     private AuthorEntity author;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = ("user_id"), nullable = true)
-    private UserEntity userReserved = new UserEntity();
+    @ManyToMany(mappedBy = "myLibrary")
+    private Set<UserEntity> users = new HashSet<>();
 
     private String cover;
     private LocalDate releaseDate;
@@ -38,7 +39,6 @@ public class BookEntity {
     @Lob
     @Column(columnDefinition = "TEXT")
     private String synopsis;
-    private Boolean reserved;
     private Boolean active;
 
     @Lob
@@ -56,16 +56,15 @@ public class BookEntity {
     public BookEntity() {
     }
 
-    public BookEntity(Long id, String title, Genre genre, AuthorEntity author, UserEntity user, String cover, LocalDate releaseDate, String synopsis, Boolean reserved, Boolean active, String reviews) {
+    public BookEntity(Long id, String title, Genre genre, AuthorEntity author, Set<UserEntity> users, String cover, LocalDate releaseDate, String synopsis, Boolean active, String reviews) {
         this.id = id;
         this.title = title;
         this.genre = genre;
         this.author = author;
-        this.userReserved = user;
+        this.users = users;
         this.cover = cover;
         this.releaseDate = releaseDate;
         this.synopsis = synopsis;
-        this.reserved = reserved;
         this.active = active;
         this.reviewsJson = reviews;
     }
@@ -119,8 +118,8 @@ public class BookEntity {
         return author;
     }
 
-    public UserEntity getUserReserved() {
-        return userReserved;
+    public Set<UserEntity> getUsers() {
+        return users;
     }
 
     public String getCover() {
@@ -133,10 +132,6 @@ public class BookEntity {
 
     public String getSynopsis() {
         return synopsis;
-    }
-
-    public Boolean getReserved() {
-        return reserved;
     }
 
     public Boolean getActive() {

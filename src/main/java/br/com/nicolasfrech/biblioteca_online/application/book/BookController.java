@@ -57,14 +57,6 @@ public class BookController {
         return ResponseEntity.ok(page);
     }
 
-    @PutMapping("/{title}")
-    @Transactional
-    public ResponseEntity reserveBook(@PathVariable String title, Principal principal) {
-        Book reservedBook = bookService.reserveBook(title, principal);
-
-        return ResponseEntity.ok(new BookReturnDTO(reservedBook));
-    }
-
     @GetMapping("/genre/{genre}")
     public ResponseEntity findBookByGenre(@PathVariable String genre, @PageableDefault(size = 20, sort = {"title"}) Pageable pagination) {
         var genreEnum = Genre.valueOf(genre);
