@@ -59,11 +59,36 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <div class="card-body">
                         <h5 class="card-title">${book.title}</h5>
                         <p class="card-text">${book.author.name}</p>
+                        <button class="btn btn-danger" id="remove-${book.id}">Remover da biblioteca</button>
                     </div>
                 </div>
             </a>
+
           `;
-        
+          const removeButton = col.querySelector(`#remove-${book.id}`);
+          removeButton.addEventListener("click", async (event) => {
+            event.preventDefault();
+            try {
+              const removeResponse = await fetch(`http://localhost:8080/user/book/remove/${book.title}`, {
+                method: "DELETE",
+                headers: {
+                  "Authorization": `Bearer ${token}`,
+                  "Content-Type": "application/json"
+                }
+              });
+
+              if (!removeResponse.ok) {
+                throw new Error("Erro ao remover livro");
+              }
+
+              col.remove();
+              await fetchBookDetails();
+            } catch (err) {
+              exibirMensagem("danger", "❌ Erro ao remover o livro.");
+              console.error(err);
+            }
+          });
+
           bookRow.appendChild(col);
         });
         

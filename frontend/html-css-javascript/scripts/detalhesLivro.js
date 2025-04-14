@@ -78,12 +78,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             <div class="row">
                 <div class="col-md-4 d-flex flex-column align-items-center">
                     <img src="${book.cover}" class="img-fluid book-cover mb-3" alt="Capa de ${book.title}">
-                    ${
-                        !book.reserved
-                            ? `<button id="reserve-book" class="btn btn-success w-75 fw-bold">📖 Adicionar a sua Biblioteca</button>`
-                            : ""
-                    }
-
+                    <button id="reserve-book" class="btn btn-success w-75 fw-bold">📖 Adicionar a sua Biblioteca</button>
+                         
+                    
                     <div class="mt-3 text-center w-100">
                         <label class="form-label fw-bold">Avalie este livro:</label>
                         <div id="rating-stars" class="star-rating">
@@ -189,6 +186,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             "Authorization": `Bearer ${token}`
                          },
                     });
+                    reserveButton.style.display = "none"; 
                     await fetchBookDetails();
                     exibirMensagem("success", "Livro adicionado a sua Biblioteca!");
                 } catch (err) {
