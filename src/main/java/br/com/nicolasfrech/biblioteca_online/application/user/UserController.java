@@ -54,4 +54,12 @@ public class UserController {
 
         return ResponseEntity.ok(new UserReturnDTO(user));
     }
+
+    @DeleteMapping("/book/remove/{title}")
+    @Transactional
+    public ResponseEntity removeBookFromLibrary(@PathVariable String title, Principal principal) {
+        User user = userService.removeBookFromLibrary(title, principal);
+
+        return ResponseEntity.ok(new UserReturnDTO(user));
+    }
 }

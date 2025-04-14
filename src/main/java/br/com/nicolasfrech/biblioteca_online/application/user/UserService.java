@@ -50,4 +50,15 @@ public class UserService {
         bookRepository.save(reservedBook);
         return user;
     }
+
+    public User removeBookFromLibrary(String title, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+
+        Book reservedBook = bookRepository.findByTitle(title);
+
+        user.removeBookFromLibrary(reservedBook);
+        userRepository.save(user);
+        bookRepository.save(reservedBook);
+        return user;
+    }
 }

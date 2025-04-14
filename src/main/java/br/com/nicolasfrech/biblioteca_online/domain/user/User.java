@@ -38,8 +38,8 @@ public class User {
         this.myLibrary.add(book);
     }
 
-    public void returnBook(Book book) {
-        this.myLibrary.remove(book);
+    public void removeBookFromLibrary(Book reservedBook) {
+        this.myLibrary.remove(reservedBook);
     }
 
     public void changeRole(UserRole role) {
@@ -69,6 +69,5 @@ public class User {
     public UserRole getUserRole() {
         return userRole;
     }
-
 
 }
