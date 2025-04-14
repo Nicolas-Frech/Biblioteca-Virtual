@@ -1,5 +1,6 @@
 package br.com.nicolasfrech.biblioteca_online.application.book;
 
+import br.com.nicolasfrech.biblioteca_online.application.DataSeeder;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookRateDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookReturnDTO;
@@ -25,7 +26,7 @@ public class BookController {
     private BookService bookService;
 
     @Autowired
-    private BookDataSeeder seeder;
+    private DataSeeder seeder;
 
     @PostMapping
     @Transactional

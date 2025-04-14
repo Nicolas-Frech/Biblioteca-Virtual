@@ -1,29 +1,52 @@
-package br.com.nicolasfrech.biblioteca_online.application.book;
+package br.com.nicolasfrech.biblioteca_online.application;
 
 import br.com.nicolasfrech.biblioteca_online.application.author.dto.AuthorDTO;
 import br.com.nicolasfrech.biblioteca_online.application.author.gateway.AuthorRepository;
 import br.com.nicolasfrech.biblioteca_online.application.book.dto.BookDTO;
 import br.com.nicolasfrech.biblioteca_online.application.book.gateway.BookRepository;
+import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserRegistDTO;
+import br.com.nicolasfrech.biblioteca_online.application.user.gateway.UserRepository;
 import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.author.Author;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
+import br.com.nicolasfrech.biblioteca_online.domain.user.User;
+import br.com.nicolasfrech.biblioteca_online.domain.user.UserRole;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class BookDataSeeder {
+public class DataSeeder {
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
+    private final UserRepository userRepository;
 
-    public BookDataSeeder(BookRepository bookRepository, AuthorRepository authorRepository) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public DataSeeder(BookRepository bookRepository, AuthorRepository authorRepository, UserRepository userRepository) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
+        this.userRepository = userRepository;
     }
 
     public void seed() {
+        UserRegistDTO userDTO = new UserRegistDTO("user", "123", "email@email.com");
+        var encodedPwd = passwordEncoder.encode(userDTO.password());
+        User user = new User(userDTO.username(), encodedPwd, userDTO.email());
+        userRepository.save(user);
+
+        UserRegistDTO adminDTO = new UserRegistDTO("admin", "456", "email1@email.com");
+        var encodedPwdAdmin = passwordEncoder.encode(adminDTO.password());
+        User admin = new User(adminDTO.username(), encodedPwdAdmin, adminDTO.email());
+        admin.changeRole(UserRole.ADMIN);
+        userRepository.save(admin);
+
+
         Author author = new Author(new AuthorDTO("J.K. Rowling", LocalDate.parse("1970-11-11")));
         authorRepository.save(author);
         Author rowlingPersisted = authorRepository.findByName("J.K. Rowling");

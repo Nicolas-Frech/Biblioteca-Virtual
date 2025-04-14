@@ -23,27 +23,24 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
   
       const user = await response.json();
-
-      
-      
       
       if(user.userRole == "ADMIN") {
         let adminBook = document.getElementById("adminBook")
         let adminAuthor = document.getElementById("adminAuthor")
         adminAuthor.innerHTML = `
-        <a href="deletarAutor.html" class="btn btn-dark fw-bold">Excluir Autor 🗑️</a>
-        <a href="cadastrarAutor.html" class="btn btn-dark fw-bold">Cadastrar Autor ✍</a>
+        <a href="deletarAutor.html" class="btn btn-dark fw-bold mb-3">Excluir Autor 🗑️</a>
+        <a href="cadastrarAutor.html" class="btn btn-dark fw-bold mb-3">Cadastrar Autor ✍</a>
         `
         adminBook.innerHTML = `                    
-        <a href="deletarLivro.html" class="btn btn-dark fw-bold">Excluir Livro 🗑️</a>
-        <a href="cadastrarLivro.html" class="btn btn-dark fw-bold">Cadastrar Livro ✍</a>
+        <a href="deletarLivro.html" class="btn btn-dark fw-bold mb-3">Excluir Livro 🗑️</a>
+        <a href="cadastrarLivro.html" class="btn btn-dark fw-bold mb-3">Cadastrar Livro ✍</a>
         `
       }
 
       profileInfo.innerHTML = `
         <p><strong>Nome de Usuário:</strong> ${user.username}</p>
         <p><strong>Email:</strong> ${user.email}</p>
-        <p><strong>Perfil:</strong> ${user.userRole}</p>
+        <p class="mb-1"><strong>Perfil:</strong> ${user.userRole}</p>
       `;
 
       if (user.myLibrary && user.myLibrary.length > 0) {
