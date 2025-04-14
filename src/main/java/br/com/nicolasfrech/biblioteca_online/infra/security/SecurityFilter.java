@@ -65,7 +65,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         } catch (Exception e) {
             System.out.println("🚨 Erro ao processar autenticação: " + e.getMessage());
-            SecurityContextHolder.clearContext(); // Limpa qualquer autenticação inválida
+            SecurityContextHolder.clearContext();
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("Erro na autenticação");
         }

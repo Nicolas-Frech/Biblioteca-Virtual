@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -43,6 +44,7 @@ class AuthorControllerTest {
 
     @Test
     @DisplayName("Should return 400 code for bad request")
+    @WithMockUser(roles = "ADMIN")
     void regist_scenary01() throws Exception {
         var response = mvc.perform(post("/author")).andReturn().getResponse();
 
@@ -50,7 +52,8 @@ class AuthorControllerTest {
     }
 
     @Test
-    @DisplayName("Should return 200 code for correct request")
+    @DisplayName("Should return 201 code for correct request")
+    @WithMockUser(roles = "ADMIN")
     void regist_scenary02() throws Exception {
         var authorDTO = new AuthorDTO("Author", LocalDate.parse("1999-03-04"));
 
@@ -68,7 +71,6 @@ class AuthorControllerTest {
                 null,
                 authorDTO.name(),
                 new ArrayList<>(),
-                null,
                 authorDTO.birthdate()
         );
 
