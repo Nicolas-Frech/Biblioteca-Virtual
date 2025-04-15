@@ -56,12 +56,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     function displayBooks(books) {
         bookList.innerHTML = "";
         const row = document.createElement("div");
-        row.className = "row g-3";
-
+        row.className = "row g-3";  // Grid com espaçamento entre os cards
+    
         books.forEach(book => {
             const col = document.createElement("div");
-            col.className = "col-md-3";
-
+            col.className = "col-sm-12 col-md-3";  // Responsivo: 1 coluna no celular, 3 colunas no desktop
+    
             col.innerHTML = `
                 <a href="detalhesLivro.html?id=${book.id}" class="text-decoration-none">
                     <div class="card h-100 shadow-sm">
@@ -73,12 +73,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                     </div>
                 </a>
             `;
-
+    
             row.appendChild(col);
         });
-
+    
         bookList.appendChild(row);
     }
+    
 
     searchBtn.addEventListener("click", fetchBooksBySearch);
     searchBtnGenre.addEventListener("click", fetchBooksByGenre);

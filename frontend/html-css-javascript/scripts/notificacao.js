@@ -1,10 +1,13 @@
 export function exibirMensagem(tipo, mensagem) {
-    const divMensagem = tipo === "success" ? document.getElementById("mensagemSucesso") : document.getElementById("mensagemErro");
-  
-    divMensagem.textContent = mensagem;
-    divMensagem.classList.remove("d-none");
-  
-    setTimeout(() => {
-      divMensagem.classList.add("d-none");
-    }, 5000);
-  }
+  const alerta = document.createElement("div");
+  alerta.className = `alert alert-${tipo} alert-dismissible fade show fw-bold text-center`;
+  alerta.role = "alert";
+  alerta.innerHTML = `
+      ${mensagem}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+  `;
+
+  const container = document.getElementById("mensagem-container");
+  container.innerHTML = "";
+  container.appendChild(alerta);
+}

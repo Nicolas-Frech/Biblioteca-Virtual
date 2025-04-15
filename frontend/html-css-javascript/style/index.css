@@ -1,0 +1,53 @@
+.book-cover {
+height: 500px;
+object-fit: cover;
+}
+
+.btn {
+border-radius: 25px;           
+padding: 10px 20px;            
+font-size: 1rem;               
+transition: all 0.3s ease;     
+border: 2px solid #343a40;    
+color: #343a40;                
+background-color: transparent;
+}
+
+.btn:hover {
+background-color: #343a40;  
+color: #fff;                 
+transform: translateY(-3px);
+}
+
+#searchBtn, #searchBtnGenre, #searchBtnAuthor {
+background-color: #343a40;     
+color: white;                  
+}
+
+#searchBtn:hover, #searchBtnGenre:hover, #searchBtnAuthor:hover {
+background-color: #495057;     
+color: white;                  
+}
+
+.btn-outline-dark {
+background-color: transparent;
+color: #343a40;               
+border-color: #343a40;         
+}
+
+.btn-outline-dark:hover {
+background-color: #343a40;
+color: #fff;                   
+transform: translateY(-3px);   
+}
+
+@media (max-width: 576px) {
+.btn {
+font-size: 0.9rem;  
+padding: 8px 15px;    
+}
+
+.book-cover {
+height: 300px;        
+}
+}

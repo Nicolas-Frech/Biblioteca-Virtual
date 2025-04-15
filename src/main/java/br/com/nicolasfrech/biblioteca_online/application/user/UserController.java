@@ -2,6 +2,7 @@ package br.com.nicolasfrech.biblioteca_online.application.user;
 
 import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserUpdateDTO;
+import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import br.com.nicolasfrech.biblioteca_online.domain.user.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,12 @@ public class UserController {
         User user = userService.removeBookFromLibrary(title, principal);
 
         return ResponseEntity.ok(new UserReturnDTO(user));
+    }
+
+    @GetMapping("/myLibrary/{title}")
+    public ResponseEntity hasBookInLibrary(@PathVariable String title, Principal principal) {
+        Boolean hasBook = userService.hasBookInMyLibrary(title, principal);
+
+        return ResponseEntity.ok(hasBook);
     }
 }

@@ -1,5 +1,6 @@
 import { exibirMensagem } from "./notificacao.js";
 import { BookService } from "./bookService.js";
+import { dateFormatter, getGenreName, getStars } from "./formatters.js";
 
 const token = localStorage.getItem("token");
 
@@ -19,53 +20,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
             const book = await bookService.fetchBookById(bookId);
             displayBookDetails(book);
-            configurarListeners(book);
         } catch (error) {
             exibirMensagem("danger", "❌ Erro ao buscar detalhes do livro!");
             console.error("Erro ao buscar detalhes do livro:", error);
         }
     }
 
-    function dateFormatter(dataISO) {
-        if (!dataISO) return "Data inválida";
-
-        const data = new Date(dataISO);
-        return new Intl.DateTimeFormat("pt-BR", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour12: false
-        }).format(data);
-    }
-
-    function getGenreName(genreCode) {
-        const genres = {
-            "FANTASY": "Fantasia",
-            "MISTERY": "Mistério",
-            "HISTORY": "História",
-            "ROMANCE": "Romance",
-            "FICTION": "Ficção",
-            "TERROR": "Terror",
-            "ADVENTURE": "Aventura",
-            "SCIENCE": "Ciência",
-            "PHILOSOPHY": "Filosofia"
-        };
-        return genres[genreCode] || "Gênero desconhecido";
-    }
-
-    function getStars(rating) {
-        if (typeof rating !== "number" || rating <= 0) {
-            return "Ainda não foi avaliado!";
-        }
-
-        const rounded = Math.floor(rating);
-        return "⭐".repeat(rounded);
-    }
-
-    function displayBookDetails(book) {
+    async function displayBookDetails(book) {
         const genre = getGenreName(book.genre);
         const starsGet = getStars(book.rating);
-
+    
         const reviewsHtml = book.reviews && book.reviews.length > 0
             ? book.reviews.map(review => `
                 <div class="mb-2">
@@ -74,12 +38,29 @@ document.addEventListener("DOMContentLoaded", async () => {
             `).join("")
             : `<p class="text-muted">Nenhum comentário ainda.</p>`;
 
+        const response = await fetch(`http://localhost:8080/user/myLibrary/${book.title}`, {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+        });
+        
+        const isInLibrary = await response.text();
+        let libraryMessage;
+    
+        if (isInLibrary === 'true') {
+            libraryMessage = '<button class="btn btn-danger w-75 fw-bold">📖 Já está na sua Biblioteca</button>';
+        } else {
+            libraryMessage = '<button id="reserve-book" class="btn btn-success w-75 fw-bold">📖 Adicionar a sua Biblioteca</button>';
+        }
+    
         bookDetails.innerHTML = `
             <div class="row">
+               
                 <div class="col-md-4 d-flex flex-column align-items-center">
                     <img src="${book.cover}" class="img-fluid book-cover mb-3" alt="Capa de ${book.title}">
-                    <button id="reserve-book" class="btn btn-success w-75 fw-bold">📖 Adicionar a sua Biblioteca</button>
-                         
+                    
+                    ${libraryMessage}
                     
                     <div class="mt-3 text-center w-100">
                         <label class="form-label fw-bold">Avalie este livro:</label>
@@ -93,17 +74,18 @@ document.addEventListener("DOMContentLoaded", async () => {
                     </div>
                 </div>
 
+    
                 <div class="col-md-8">
                     <h3 class="fw-bold">${book.title}</h3>
                     <h5 class="text-muted mb-5">Autor: ${book.authorName}</h5>
-
+    
                     <div class="book-info-box p-3 mt-4">
                         <p><strong>Gênero:</strong> ${genre}</p>
                         <p><strong>Sinopse:</strong> ${book.synopsis}</p>
                         <p><strong>Data de Publicação:</strong> ${dateFormatter(book.releaseDate)}</p>
                         <p><strong>Média das Avaliações:</strong> ${starsGet}</p>
                     </div>
-
+    
                     <div class="mt-4">
                         <div class="mb-3">
                             <label for="review-input" class="form-label fw-semibold">Adicionar um comentário:</label>
@@ -120,6 +102,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 </div>
             </div>
         `;
+
+        configurarListeners(book);
     }
 
     function configurarListeners(book) {
@@ -175,6 +159,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         });
 
+
         const reserveButton = document.getElementById("reserve-book");
         if (reserveButton) {
             reserveButton.addEventListener("click", async () => {
@@ -184,16 +169,18 @@ document.addEventListener("DOMContentLoaded", async () => {
                         headers: {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${token}`
-                         },
+                        },
                     });
-                    reserveButton.style.display = "none"; 
-                    await fetchBookDetails();
+ 
                     exibirMensagem("success", "Livro adicionado a sua Biblioteca!");
+                    await fetchBookDetails();
                 } catch (err) {
                     exibirMensagem("danger", "❌ Erro ao reservar o livro.");
                     console.error(err);
                 }
             });
+        } else {
+            console.error("Botão de reserva não encontrado!");
         }
     }
 

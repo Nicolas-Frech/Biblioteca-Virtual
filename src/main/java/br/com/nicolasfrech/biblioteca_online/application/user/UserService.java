@@ -61,4 +61,14 @@ public class UserService {
         bookRepository.save(reservedBook);
         return user;
     }
+
+    public Boolean hasBookInMyLibrary(String title, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+
+        Book book = bookRepository.findByTitle(title);
+
+        if(user.getMyLibrary().contains(book)) {
+            return true;
+        } else return false;
+    }
 }

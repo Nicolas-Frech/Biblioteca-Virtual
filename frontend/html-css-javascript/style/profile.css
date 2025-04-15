@@ -1,0 +1,49 @@
+.book-cover {
+    height: 500px;
+    object-fit: cover;
+}
+  
+.book-cover {
+    height: 500px;
+    object-fit: cover;
+}
+  
+#profile-info img {
+    object-fit: cover;
+}
+  
+.badge.bg-secondary {
+    font-size: 0.9rem;
+    padding: 0.5em 0.75em;
+}
+  
+.btn-outline-dark {
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    border: 2px solid #343a40;
+    color: #343a40;            
+    background-color: transparent;
+}
+  
+.btn-outline-dark:hover {
+    background-color: #343a40;
+    color: #fff;                  
+    transform: translateY(-3px);
+}
+  
+.btn-dark {
+    border-radius: 25px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+}
+  
+.btn-dark:hover {
+    background-color: #495057;
+    transform: translateY(-3px);
+}
