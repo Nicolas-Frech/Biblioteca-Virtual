@@ -23,7 +23,8 @@ public class UserEntityMapper {
                 user.getMyLibrary().stream().map(bookEntityMapper::toEntity)
                                 .collect(Collectors.toSet()),
                 user.getEmail(),
-                user.getUserRole()
+                user.getUserRole(),
+                user.getProfileImage()
         );
     }
 
@@ -35,7 +36,8 @@ public class UserEntityMapper {
                 entity.getMyLibrary().stream().map(bookEntityMapper::toDomain)
                                 .collect(Collectors.toSet()),
                 entity.getEmail(),
-                entity.getUserRole()
+                entity.getUserRole(),
+                entity.getProfileImage()
         );
 
     }

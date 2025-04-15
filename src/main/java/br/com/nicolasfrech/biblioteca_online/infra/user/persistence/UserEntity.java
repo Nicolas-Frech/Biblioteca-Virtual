@@ -32,15 +32,18 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
+    private String profileImage;
+
     public UserEntity() { }
 
-    public UserEntity(Long id, String username, String password, Set<BookEntity> myLibrary, String email, UserRole userRole) {
+    public UserEntity(Long id, String username, String password, Set<BookEntity> myLibrary, String email, UserRole userRole, String profileImage) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.myLibrary = myLibrary;
         this.email = email;
         this.userRole = userRole;
+        this.profileImage = profileImage;
     }
 
     public Long getId() {
@@ -93,6 +96,10 @@ public class UserEntity implements UserDetails {
 
     public UserRole getUserRole() {
         return userRole;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
     }
 
     @Override

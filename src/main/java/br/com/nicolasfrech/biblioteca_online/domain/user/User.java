@@ -14,17 +14,19 @@ public class User {
     private Set<Book> myLibrary = new HashSet<>();
     private String email;
     private UserRole userRole;
+    private String profileImage;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, Set<Book> myLibrary, String email, UserRole userRole) {
+    public User(Long id, String username, String password, Set<Book> myLibrary, String email, UserRole userRole, String profileImage) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.myLibrary = myLibrary;
         this.email = email;
         this.userRole = userRole;
+        this.profileImage = profileImage;
     }
 
     public User(String username, String password, String email) {
@@ -40,6 +42,10 @@ public class User {
 
     public void removeBookFromLibrary(Book reservedBook) {
         this.myLibrary.remove(reservedBook);
+    }
+
+    public void addProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     public void changeRole(UserRole role) {
@@ -70,4 +76,7 @@ public class User {
         return userRole;
     }
 
+    public String getProfileImage() {
+        return profileImage;
+    }
 }

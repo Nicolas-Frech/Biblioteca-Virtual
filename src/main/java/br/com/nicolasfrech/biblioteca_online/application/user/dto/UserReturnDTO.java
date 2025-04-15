@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Set;
 
 public record UserReturnDTO(Long id, String username, String password, Set<Book> myLibrary,
-                            String email, UserRole userRole) {
+                            String email, UserRole userRole, String profileImage) {
 
     public UserReturnDTO(User user) {
-        this(user.getId(), user.getUsername(), user.getPassword(), user.getMyLibrary(), user.getEmail(), user.getUserRole());
+        this(user.getId(), user.getUsername(), user.getPassword(), user.getMyLibrary(), user.getEmail(), user.getUserRole(), user.getProfileImage());
     }
 }

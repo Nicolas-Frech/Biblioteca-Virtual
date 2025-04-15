@@ -32,7 +32,9 @@ public class SecurityConfiguration {
                     req.requestMatchers(HttpMethod.POST,"/book", "/author").hasRole("ADMIN");
                     req.requestMatchers(HttpMethod.DELETE,"/book", "/author").hasRole("ADMIN");
                     req.requestMatchers(HttpMethod.PUT,"/user/role").hasRole("ADMIN");
+                    req.requestMatchers(HttpMethod.GET, "/uploads/**").permitAll();
                     req.anyRequest().authenticated();
+
                 }).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

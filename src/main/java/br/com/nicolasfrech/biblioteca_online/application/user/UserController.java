@@ -11,8 +11,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -70,4 +73,16 @@ public class UserController {
 
         return ResponseEntity.ok(hasBook);
     }
+
+    @PutMapping("/upload-profile")
+    @Transactional
+    public ResponseEntity addProfileImage(@RequestParam("image") MultipartFile image, Principal principal) {
+        String filename = userService.addProfileImage(image, principal);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("fileName", filename);
+
+        return ResponseEntity.ok(response);
+    }
 }
+

@@ -23,6 +23,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
   
       const user = await response.json();
+
+      if (user.profileImage) {
+        const fileName = user.profileImage.split("/").pop().split("\\").pop(); // pega só o nome do arquivo
+        document.querySelector("#profile-info img").src = `http://localhost:8080/uploads/${fileName}`;
+      }
       
       if(user.userRole == "ADMIN") {
         let adminBook = document.getElementById("adminBook")
@@ -101,6 +106,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       profileInfo.innerHTML = `<div class="alert alert-danger">Erro ao carregar os dados do perfil.</div>`;
     }
     
+    
+    
     imageInput?.addEventListener("change", async () => {
       const file = imageInput.files[0];
       if (!file) return;
@@ -110,7 +117,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
       try {
         const response = await fetch("http://localhost:8080/user/upload-profile", {
-          method: "POST",
+          method: "PUT",
           headers: {
             Authorization: `Bearer ${token}`
           },
@@ -120,8 +127,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!response.ok) {
           throw new Error("Erro ao enviar imagem");
         }
-        
-        const imageUrl = `http://localhost:8080/uploads/${file.name}`;
+
+        const result = await response.json();
+        const imageUrl = `http://localhost:8080/uploads/${result.fileName}`;
         document.getElementById("profilePic").src = imageUrl;
     
         alert("✅ Foto de perfil atualizada!");
