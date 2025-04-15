@@ -1,9 +1,16 @@
 # 📚 Software para Biblioteca Virtual
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2f66bb3e-9504-4074-8bf2-599677f0d682" alt="image" />
+  <img src="https://github.com/user-attachments/assets/2f66bb3e-9504-4074-8bf2-599677f0d682" alt="image" width="700" />
 </p>
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5ab48303-de3d-46bc-9259-4ad15a136d5c" alt="image" width="700" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e6309ac1-7708-4d49-a3c0-813734d55a12" alt="image" width="700" />
+</p>
 
 ## 📌 Sobre o Projeto
 
