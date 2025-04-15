@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 public class UserConfig {
 
     @Bean
-    UserRepositoryImpl createUserRepositoryImpl(UserRepositoryJPA jpaRepository, UserEntityMapper mapper) {
-        return new UserRepositoryImpl(jpaRepository, mapper);
+    UserRepositoryImpl createUserRepositoryImpl(UserRepositoryJPA jpaRepository, UserEntityMapper mapper, BookEntityMapper bookEntityMapper) {
+        return new UserRepositoryImpl(jpaRepository, mapper, bookEntityMapper);
     }
 
     @Bean

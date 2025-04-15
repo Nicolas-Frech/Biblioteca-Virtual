@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class BookService {
@@ -61,8 +62,12 @@ public class BookService {
         bookValidator.validateTitle(title);
 
         Book deletedBook = bookRepository.findByTitleAndActiveTrue(title);
+        Set<User> users = userRepository.findAllByMyLibraryContaining(deletedBook);
+        users.forEach(u -> u.removeBookFromLibrary(deletedBook));
+
         deletedBook.deleteBook();
         bookRepository.save(deletedBook);
+        users.forEach(userRepository::save);
     }
 
     public Page<BookReturnDTO> findAllBooks(Pageable pagination) {

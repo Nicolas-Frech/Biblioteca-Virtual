@@ -65,7 +65,7 @@ class AuthControllerTest {
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
 
-        var userReturnDTO = new UserReturnDTO(null, "username", "password", new HashSet<>(), "email@email.com", UserRole.USER);
+        var userReturnDTO = new UserReturnDTO(null, "username", "password", new HashSet<>(), "email@email.com", UserRole.USER, null);
 
         var expectedJson = userReturnDTOJson.write(userReturnDTO).getJson();
 

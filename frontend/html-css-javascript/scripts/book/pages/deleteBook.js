@@ -1,4 +1,4 @@
-import { exibirMensagem } from "../../notificacao.js";
+import { exibirMensagem } from "../../utils/notificacao.js";
 import { BookService } from "../../services/bookService.js";
 
 const form = document.getElementById("bookForm");
