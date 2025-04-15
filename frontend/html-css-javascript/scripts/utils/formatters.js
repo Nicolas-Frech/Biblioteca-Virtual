@@ -10,15 +10,15 @@ export function dateFormatter(dataISO) {
 
 export function getGenreName(genreCode) {
     const genres = {
-        FANTASY: "Fantasia",
-        MISTERY: "Mistério",
-        HISTORY: "História",
-        ROMANCE: "Romance",
-        FICTION: "Ficção",
-        TERROR: "Terror",
-        ADVENTURE: "Aventura",
-        SCIENCE: "Ciência",
-        PHILOSOPHY: "Filosofia"
+        FANTASY: "Fantasia 🧙‍♂️",
+        MISTERY: "Mistério 🕵️‍♀️",
+        HISTORY: "História 🏺",
+        ROMANCE: "Romance ❤️",
+        FICTION: "Ficção 🛸",
+        TERROR: "Terror 👻",
+        ADVENTURE: "Aventura 🗺️",
+        SCIENCE: "Ciência 🔬",
+        PHILOSOPHY: "Filosofia 🧠"
     };
     return genres[genreCode] || "Gênero desconhecido";
 }

@@ -1,45 +1,42 @@
-import { exibirMensagem } from "./notificacao.js";
+import { exibirMensagem } from "../utils/notificacao.js";
 
-export class BookService {
+export class UserService {
     constructor(baseUrl) {
-        this.baseUrl = `${baseUrl}/book`;
+        this.baseUrl = `${baseUrl}`;
         this.token = localStorage.getItem("token"); 
     }
 
-    async createBook(book) {
-        return this.request("", "POST", book);
+    async registUser(user) {
+        return this.request("/login/register", "POST", user);
     }
 
-    async fetchBooks(page = 0, filter = "", pageSize = 8) {
-        return this.request(`${filter}?page=${page}&size=${pageSize}`, "GET");
+    async fetchUser() {
+        return this.request("/user", "GET");
     }
 
-    async fetchBooksByGenre(genre) {
-        return this.request(`/genre/${encodeURIComponent(genre)}`, "GET");
+    async removeBookByTitle(title) {
+        return this.request(`/user/book/remove/${title}`, "DELETE");
     }
 
-    async fetchBooksByAuthor(author) {
-        return this.request(`/author/${encodeURIComponent(author)}`, "GET");
-    }
+    async uploadProfileImage(file) {
+        const formData = new FormData();
+        formData.append("image", file);
 
-    async fetchBookById(id) {
-        return this.request(`/${id}`, "GET");
-    }
+        const response = await fetch(`${this.baseUrl}/user/upload-profile`, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${this.token}`
+            },
+            body: formData
+        });
 
-    async deleteBook(title) {
-        return this.request(`/${encodeURIComponent(title)}`, "DELETE");
-    }
+        if (!response.ok) {
+            const erro = await response.text() || "Erro ao enviar imagem";
+            throw new Error(erro);
+        }
 
-    async postReview(title, review) {
-        const body = { title, review };
-        return this.request("/review", "PUT", body);
+        return await response.json();
     }
-
-    async postRating(title, rating) {
-        const body = { title, rating }
-        return this.request(`/rate`, "PUT", body)
-    }
-
 
     async request(endpoint, method, body = null) {
         try {
@@ -48,8 +45,8 @@ export class BookService {
                 setTimeout(() => {
                     window.location.href = "login.html";
                 },  2000);
+            
             }
-
             const options = {
                 method,
                 headers: { 
@@ -58,18 +55,19 @@ export class BookService {
                 },
                 body: body ? JSON.stringify(body) : null,
             };
-
+    
             const response = await fetch(`${this.baseUrl}${endpoint}`, options);
-
+    
             if (!response.ok) {
                 const mensagemErro = await response.text() || "Erro na requisição!";
                 throw new Error(mensagemErro);
             }
-
+    
             return response.status !== 204 ? await response.json() : null; 
         } catch (error) {
             console.error("Erro na requisição:", error);
             throw error;
         }
     }
+
 }

@@ -1,5 +1,5 @@
-import { exibirMensagem } from "./notificacao.js";
-import { BookService } from "./bookService.js";
+import { exibirMensagem } from "../../notificacao.js";
+import { BookService } from "../../services/bookService.js";
 
 const form = document.getElementById("bookForm");
 const bookService = new BookService("http://localhost:8080");

@@ -1,15 +1,9 @@
-import { exibirMensagem } from "./notificacao.js";
+import { exibirMensagem } from "../../utils/notificacao.js";
+import { verificarLogin } from "../../auth.js";
 
 const form = document.getElementById("authorForm");
 
-const token = localStorage.getItem("token");
-
-if(!token) {
-    exibirMensagem("danger", "Você precisa estar logado!");
-    setTimeout(() => {
-        window.location.href = "login.html";
-    },  2000);
-}
+const token = verificarLogin();
 
 async function deletarAutor(event) {
     event.preventDefault();

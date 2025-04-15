@@ -1,31 +1,16 @@
+import { UserService } from "../../services/userService.js";
+import { createBookCard } from "../../components/bookCard.js";
+
 document.addEventListener("DOMContentLoaded", async () => {
     const profileInfo = document.getElementById("profile-info");
     const bookList = document.getElementById("bookList");
-  
-    const token = localStorage.getItem("token");
-  
-    if (!token) {
-      profileInfo.innerHTML = `<div class="alert alert-danger">Usuário não autenticado.</div>`;
-      return;
-    }
 
+    const userService = new UserService("http://localhost:8080")
     try {
-      const response = await fetch("http://localhost:8080/user", {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }
-      });
-  
-      if (!response.ok) {
-        throw new Error("Erro ao carregar perfil");
-      }
-  
-      const user = await response.json();
+      const user = await userService.fetchUser();
 
       if (user.profileImage) {
-        const fileName = user.profileImage.split("/").pop().split("\\").pop(); // pega só o nome do arquivo
+        const fileName = user.profileImage.split("/").pop().split("\\").pop();
         document.querySelector("#profile-info img").src = `http://localhost:8080/uploads/${fileName}`;
       }
       
@@ -53,46 +38,22 @@ document.addEventListener("DOMContentLoaded", async () => {
         user.myLibrary.forEach(book => {
           const col = document.createElement("div");
           col.className = "col-md-3";
-        
-
-          col.innerHTML = `
-            <a href="detalhesLivro.html?id=${book.id}" class="text-decoration-none text-dark">
-                <div class="card h-100 shadow-sm">
-                    <img src="${book.cover}" class="card-img-top img-fluid book-cover" alt="Capa de ${book.title}">
-                    <div class="card-body">
-                        <h5 class="card-title">${book.title}</h5>
-                        <p class="card-text">${book.author.name}</p>
-                        <button class="btn btn-dark" id="remove-${book.id}">❌</button>
-                    </div>
-                </div>
-            </a>
-
-          `;
-          const removeButton = col.querySelector(`#remove-${book.id}`);
-          removeButton.addEventListener("click", async (event) => {
-            event.preventDefault();
-            try {
-              const removeResponse = await fetch(`http://localhost:8080/user/book/remove/${book.title}`, {
-                method: "DELETE",
-                headers: {
-                  "Authorization": `Bearer ${token}`,
-                  "Content-Type": "application/json"
+          const card = createBookCard(book, {
+            showRemoveButton: true,
+            onRemove: async () => {
+                try {
+                    await userService.removeBookByTitle(book.title);
+                    col.remove();
+                    await fetchBookDetails();
+                } catch (err) {
+                    exibirMensagem("danger", "❌ Erro ao remover o livro.");
+                    console.error(err);
                 }
-              });
-
-              if (!removeResponse.ok) {
-                throw new Error("Erro ao remover livro");
-              }
-
-              col.remove();
-              await fetchBookDetails();
-            } catch (err) {
-              exibirMensagem("danger", "❌ Erro ao remover o livro.");
-              console.error(err);
             }
           });
 
-          bookRow.appendChild(col);
+        col.appendChild(card);
+        bookRow.appendChild(col);
         });
         
         bookList.innerHTML = "";
@@ -116,19 +77,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       formData.append("image", file);
     
       try {
-        const response = await fetch("http://localhost:8080/user/upload-profile", {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
-          body: formData
-        });
-    
-        if (!response.ok) {
-          throw new Error("Erro ao enviar imagem");
-        }
-
-        const result = await response.json();
+        const result = await userService.uploadProfileImage(file);
         const imageUrl = `http://localhost:8080/uploads/${result.fileName}`;
         document.getElementById("profilePic").src = imageUrl;
     
