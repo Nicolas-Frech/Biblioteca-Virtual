@@ -94,6 +94,10 @@ Este software foi desenvolvido com as seguintes tecnologias:
 - **Login de Usuário** 🔑
 
   - Login de um usuário no sistema.
+
+- **Adicionar foto de Perfil** 👨‍💼
+
+  - Adicionar uma foto de perfil.
  
 - **Adicionar Livro a sua Biblioteca** 📖
 
