@@ -18,6 +18,10 @@ export class UserService {
         return this.request(`/user/book/remove/${title}`, "DELETE");
     }
 
+    async updateFavoriteGenre(genre) {
+        return this.request(`/user/favoriteGenre/${genre}`, "PUT")
+    }
+
     async uploadProfileImage(file) {
         const formData = new FormData();
         formData.append("image", file);

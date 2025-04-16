@@ -11,11 +11,11 @@ export function dateFormatter(dataISO) {
 export function getGenreName(genreCode) {
     const genres = {
         FANTASY: "Fantasia 🧙‍♂️",
-        MISTERY: "Mistério 🕵️‍♀️",
+        MYSTERY: "Mistério 🕵️‍♀️",
         HISTORY: "História 🏺",
         ROMANCE: "Romance ❤️",
         FICTION: "Ficção 🛸",
-        TERROR: "Terror 👻",
+        THRILLER: "Terror 👻",
         ADVENTURE: "Aventura 🗺️",
         SCIENCE: "Ciência 🔬",
         PHILOSOPHY: "Filosofia 🧠"

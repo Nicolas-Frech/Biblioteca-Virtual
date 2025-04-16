@@ -1,9 +1,11 @@
 package br.com.nicolasfrech.biblioteca_online.application.user;
 
 import br.com.nicolasfrech.biblioteca_online.application.book.gateway.BookRepository;
+import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserGenreDTO;
 import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserUpdateDTO;
 import br.com.nicolasfrech.biblioteca_online.application.user.gateway.UserRepository;
 import br.com.nicolasfrech.biblioteca_online.application.user.validation.UserValidation;
+import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import br.com.nicolasfrech.biblioteca_online.domain.user.User;
 import org.springframework.beans.factory.annotation.Value;
@@ -103,5 +105,15 @@ public class UserService {
         } catch (IOException e) {
             return "Erro ao salvar imagem: " + e.getMessage();
         }
+    }
+
+    public String addFavoriteGenre(Genre genre, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+
+        user.addFavoriteGenre(genre);
+
+        userRepository.save(user);
+
+        return "Gênero Favorito Atualizado";
     }
 }

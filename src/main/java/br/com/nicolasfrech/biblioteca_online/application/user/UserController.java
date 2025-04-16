@@ -1,7 +1,9 @@
 package br.com.nicolasfrech.biblioteca_online.application.user;
 
+import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserGenreDTO;
 import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserReturnDTO;
 import br.com.nicolasfrech.biblioteca_online.application.user.dto.UserUpdateDTO;
+import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 import br.com.nicolasfrech.biblioteca_online.domain.user.User;
 import jakarta.validation.Valid;
@@ -81,6 +83,17 @@ public class UserController {
 
         Map<String, String> response = new HashMap<>();
         response.put("fileName", filename);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/favoriteGenre/{genre}")
+    @Transactional
+    public ResponseEntity addFavoriteGenre(@PathVariable Genre genre, Principal principal) {
+        String message = userService.addFavoriteGenre(genre, principal);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", message);
 
         return ResponseEntity.ok(response);
     }

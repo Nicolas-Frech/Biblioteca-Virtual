@@ -1,5 +1,5 @@
-import { exibirMensagem } from "./notificacao.js";
-import { UserService } from "./userService.js";
+import { exibirMensagem } from "../../utils/notificacao.js";
+import { UserService } from "../../services/userService.js";
 
 document.getElementById("registerForm").addEventListener("submit", async function(event) {
     event.preventDefault();

@@ -1,91 +1,85 @@
 import { UserService } from "../../services/userService.js";
 import { createBookCard } from "../../components/bookCard.js";
+import { renderGenreForm } from "../../genreEvents.js";
+import { renderGenreDisplay } from "../../components/genreDisplay.js";
+
+const userService = new UserService("http://localhost:8080");
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const profileInfo = document.getElementById("profile-info");
-    const bookList = document.getElementById("bookList");
+  const profileInfo = document.getElementById("profile-info");
+  const bookList = document.getElementById("bookList");
 
-    const userService = new UserService("http://localhost:8080")
-    try {
-      const user = await userService.fetchUser();
+  try {
+    const user = await userService.fetchUser();
 
-      if (user.profileImage) {
-        const fileName = user.profileImage.split("/").pop().split("\\").pop();
-        document.querySelector("#profile-info img").src = `http://localhost:8080/uploads/${fileName}`;
-      }
-      
-      if(user.userRole == "ADMIN") {
-        let adminBook = document.getElementById("adminBook")
-        let adminAuthor = document.getElementById("adminAuthor")
-        adminAuthor.innerHTML = `
-        <a href="deletarAutor.html" class="btn btn-outline-dark fw-bold mb-3">Excluir Autor 🗑️</a>
-        <a href="cadastrarAutor.html" class="btn btn-outline-dark fw-bold mb-3">Cadastrar Autor ✍</a>
-        `
-        adminBook.innerHTML = `                    
-        <a href="deletarLivro.html" class="btn btn-outline-dark fw-bold mb-3">Excluir Livro 🗑️</a>
-        <a href="cadastrarLivro.html" class="btn btn-outline-dark fw-bold mb-3">Cadastrar Livro ✍</a>
-        `
-      }
-
-      document.getElementById("username").textContent = user.username;
-      document.getElementById("userEmail").textContent = user.email;
-      document.getElementById("userRole").textContent = user.userRole;
-
-      if (user.myLibrary && user.myLibrary.length > 0) {
-        const bookRow = document.createElement("div");
-        bookRow.className = "row g-3";
-        
-        user.myLibrary.forEach(book => {
-          const col = document.createElement("div");
-          col.className = "col-md-3";
-          const card = createBookCard(book, {
-            showRemoveButton: true,
-            onRemove: async () => {
-                try {
-                    await userService.removeBookByTitle(book.title);
-                    col.remove();
-                    await fetchBookDetails();
-                } catch (err) {
-                    exibirMensagem("danger", "❌ Erro ao remover o livro.");
-                    console.error(err);
-                }
-            }
-          });
-
-        col.appendChild(card);
-        bookRow.appendChild(col);
-        });
-        
-        bookList.innerHTML = "";
-        bookList.appendChild(bookRow);
-      } else {
-        bookList.innerHTML = `<li class="list-group-item">Nenhum livro adicionado.</li>`;
-      }
-  
-    } catch (error) {
-      console.error("Erro:", error);
-      profileInfo.innerHTML = `<div class="alert alert-danger">Erro ao carregar os dados do perfil.</div>`;
+    if (user.profileImage) {
+      const fileName = user.profileImage.split("/").pop().split("\\").pop();
+      document.querySelector("#profile-info img").src = `http://localhost:8080/uploads/${fileName}`;
     }
-    
-    
-    
-    imageInput?.addEventListener("change", async () => {
-      const file = imageInput.files[0];
-      if (!file) return;
-    
-      const formData = new FormData();
-      formData.append("image", file);
-    
-      try {
-        const result = await userService.uploadProfileImage(file);
-        const imageUrl = `http://localhost:8080/uploads/${result.fileName}`;
-        document.getElementById("profilePic").src = imageUrl;
-    
-        alert("✅ Foto de perfil atualizada!");
-      } catch (error) {
-        console.error("Erro no upload:", error);
-        alert("❌ Erro ao atualizar imagem");
-      }
-    });
+
+    if (user.userRole === "ADMIN") renderAdminControls();
+
+    if (!user.favoriteGenre) {
+      renderGenreForm();
+    } else {
+      renderGenreDisplay(user.favoriteGenre, renderGenreForm);
+    }
+
+    renderProfileInfo(user);
+    renderBookList(user.myLibrary || []);
+  } catch (error) {
+    console.error("Erro:", error);
+    profileInfo.innerHTML = `<div class="alert alert-danger">Erro ao carregar os dados do perfil.</div>`;
+  }
 });
 
+function renderAdminControls() {
+  document.getElementById("adminAuthor").innerHTML = `
+    <a href="deletarAutor.html" class="btn btn-outline-dark fw-bold mt-2 mb-2">Excluir Autor 🗑️</a>
+    <a href="cadastrarAutor.html" class="btn btn-outline-dark fw-bold mt-2 mb-2">Cadastrar Autor ✍</a>
+  `;
+  document.getElementById("adminBook").innerHTML = `
+    <a href="deletarLivro.html" class="btn btn-outline-dark fw-bold mt-2 mb-2">Excluir Livro 🗑️</a>
+    <a href="cadastrarLivro.html" class="btn btn-outline-dark fw-bold mt-2 mb-2">Cadastrar Livro ✍</a>
+  `;
+}
+
+function renderProfileInfo(user) {
+  document.getElementById("username").textContent = user.username;
+  document.getElementById("userEmail").textContent = user.email;
+  document.getElementById("userRole").textContent = user.userRole;
+}
+
+function renderBookList(books) {
+  const bookList = document.getElementById("bookList");
+  if (books.length === 0) {
+    bookList.innerHTML = `<li class="list-group-item">Nenhum livro adicionado.</li>`;
+    return;
+  }
+
+  const bookRow = document.createElement("div");
+  bookRow.className = "row g-3";
+
+  books.forEach(book => {
+    const col = document.createElement("div");
+    col.className = "col-sm-12 col-md-3";
+    const card = createBookCard(book, {
+      showRemoveButton: true,
+      onRemove: async () => {
+        try {
+          await userService.removeBookByTitle(book.title);
+          col.remove();
+        } catch (err) {
+          console.error("Erro ao remover livro:", err);
+          alert("❌ Erro ao remover o livro.");
+        }
+      }
+    });
+
+    col.appendChild(card);
+    bookRow.appendChild(col);
+  });
+
+  bookList.innerHTML = "";
+  bookList.appendChild(bookRow);
+}

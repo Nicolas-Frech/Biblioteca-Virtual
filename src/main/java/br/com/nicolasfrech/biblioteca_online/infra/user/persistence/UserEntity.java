@@ -1,5 +1,6 @@
 package br.com.nicolasfrech.biblioteca_online.infra.user.persistence;
 
+import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.user.UserRole;
 import br.com.nicolasfrech.biblioteca_online.infra.book.persistence.BookEntity;
 import jakarta.persistence.*;
@@ -34,9 +35,12 @@ public class UserEntity implements UserDetails {
 
     private String profileImage;
 
+    @Enumerated(EnumType.STRING)
+    private Genre favoriteGenre;
+
     public UserEntity() { }
 
-    public UserEntity(Long id, String username, String password, Set<BookEntity> myLibrary, String email, UserRole userRole, String profileImage) {
+    public UserEntity(Long id, String username, String password, Set<BookEntity> myLibrary, String email, UserRole userRole, String profileImage, Genre favoriteGenre) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -44,6 +48,7 @@ public class UserEntity implements UserDetails {
         this.email = email;
         this.userRole = userRole;
         this.profileImage = profileImage;
+        this.favoriteGenre = favoriteGenre;
     }
 
     public Long getId() {
@@ -84,6 +89,10 @@ public class UserEntity implements UserDetails {
 
     public String getPassword() {
         return password;
+    }
+
+    public Genre getFavoriteGenre() {
+        return favoriteGenre;
     }
 
     public Set<BookEntity> getMyLibrary() {

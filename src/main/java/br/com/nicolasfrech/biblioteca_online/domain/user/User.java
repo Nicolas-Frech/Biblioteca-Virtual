@@ -1,9 +1,9 @@
 package br.com.nicolasfrech.biblioteca_online.domain.user;
 
+import br.com.nicolasfrech.biblioteca_online.domain.Genre;
 import br.com.nicolasfrech.biblioteca_online.domain.book.Book;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class User {
@@ -15,11 +15,12 @@ public class User {
     private String email;
     private UserRole userRole;
     private String profileImage;
+    private Genre favoriteGenre;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, Set<Book> myLibrary, String email, UserRole userRole, String profileImage) {
+    public User(Long id, String username, String password, Set<Book> myLibrary, String email, UserRole userRole, String profileImage, Genre favoriteGenre) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -27,6 +28,7 @@ public class User {
         this.email = email;
         this.userRole = userRole;
         this.profileImage = profileImage;
+        this.favoriteGenre = favoriteGenre;
     }
 
     public User(String username, String password, String email) {
@@ -48,8 +50,18 @@ public class User {
         this.profileImage = profileImage;
     }
 
+    public void addFavoriteGenre(Genre genre) {
+        if(genre != null) {
+            this.favoriteGenre = genre;
+        }
+    }
+
     public void changeRole(UserRole role) {
         this.userRole = role;
+    }
+
+    public Genre getFavoriteGenre() {
+        return favoriteGenre;
     }
 
     public Long getId() {

@@ -24,7 +24,8 @@ public class UserEntityMapper {
                                 .collect(Collectors.toSet()),
                 user.getEmail(),
                 user.getUserRole(),
-                user.getProfileImage()
+                user.getProfileImage(),
+                user.getFavoriteGenre()
         );
     }
 
@@ -37,7 +38,8 @@ public class UserEntityMapper {
                                 .collect(Collectors.toSet()),
                 entity.getEmail(),
                 entity.getUserRole(),
-                entity.getProfileImage()
+                entity.getProfileImage(),
+                entity.getFavoriteGenre()
         );
 
     }
