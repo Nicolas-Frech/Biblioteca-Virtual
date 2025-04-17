@@ -2,8 +2,9 @@ import { UserService } from "../../services/userService.js";
 import { createBookCard } from "../../components/bookCard.js";
 import { renderGenreForm } from "../../genreEvents.js";
 import { renderGenreDisplay } from "../../components/genreDisplay.js";
+import { CONFIG } from "../../services/config.js";
 
-const userService = new UserService("http://localhost:8080");
+const userService = new UserService(CONFIG.API_URL);
 
 document.addEventListener("DOMContentLoaded", async () => {
   const profileInfo = document.getElementById("profile-info");

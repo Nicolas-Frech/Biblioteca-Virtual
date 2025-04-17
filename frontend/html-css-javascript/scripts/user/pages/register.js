@@ -1,5 +1,6 @@
 import { exibirMensagem } from "../../utils/notificacao.js";
 import { UserService } from "../../services/userService.js";
+import { CONFIG } from "../../services/config.js";
 
 document.getElementById("registerForm").addEventListener("submit", async function(event) {
     event.preventDefault();
@@ -7,7 +8,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     const email = document.getElementById("email").value;
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    const userService = new UserService("http://localhost:8080");
+    const userService = new UserService(CONFIG.API_URL);
 
     try {
         const user = { username, password, email }

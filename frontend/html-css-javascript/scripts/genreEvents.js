@@ -2,8 +2,9 @@ import { createSelectForm } from "./components/selectForm.js";
 import { renderGenreDisplay } from "./components/genreDisplay.js";
 import { getGenreName } from "./utils/formatters.js";
 import { UserService } from "./services/userService.js";
+import { CONFIG } from "./services/config.js";
 
-const userService = new UserService("http://localhost:8080");
+const userService = new UserService(CONFIG.API_URL);
 
 export function renderGenreForm() {
   createSelectForm();

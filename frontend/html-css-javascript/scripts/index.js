@@ -3,6 +3,7 @@ import { verificarLogin } from "./auth.js";
 import { createBookCard } from "./components/bookCard.js";
 import { renderPagination } from "./utils/pagination.js";
 import { clearElement } from "./utils/dom.js";
+import { CONFIG } from "./services/config.js";
 
 const token = verificarLogin();
 
@@ -14,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchBtnGenre = document.getElementById("searchBtnGenre");
     const searchBtnAuthor = document.getElementById("searchBtnAuthor");
 
-    const bookService = new BookService("http://localhost:8080");
+    const bookService = new BookService(CONFIG.API_URL);
     let currentPage = 0;
     let currentFilter = "";
     const pageSize = 8;

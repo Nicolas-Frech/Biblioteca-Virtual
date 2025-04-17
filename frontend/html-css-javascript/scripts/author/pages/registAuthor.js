@@ -1,5 +1,6 @@
 import { exibirMensagem } from "../../utils/notificacao.js";
 import { verificarLogin } from "../../auth.js";
+import { CONFIG } from "../../services/config.js";
 
 const token = verificarLogin();
 
@@ -21,7 +22,7 @@ document.getElementById("authorForm").addEventListener("submit", async function(
     };
     
     try {
-       const response = await fetch("http://localhost:8080/author", options);
+       const response = await fetch(`${CONFIG.API_URL}/author`, options);
          
            if (!response.ok) {
              const mensagemErro = await response.text() || "Erro ao cadastrar autor!";

@@ -1,5 +1,6 @@
 import { exibirMensagem } from "../../utils/notificacao.js";
 import { verificarLogin } from "../../auth.js";
+import { CONFIG } from "../../services/config.js";
 
 const form = document.getElementById("authorForm");
 
@@ -24,7 +25,7 @@ async function deletarAutor(event) {
     };
 
     try {
-        const response = await fetch(`http://localhost:8080/author/${authorName}`, options);
+        const response = await fetch(`${CONFIG.API_URL}/author/${authorName}`, options);
 
         if (!response.ok) {
             const mensagemErro = await response.text() || "Erro ao deletar autor!";

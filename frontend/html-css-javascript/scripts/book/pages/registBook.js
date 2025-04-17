@@ -1,7 +1,8 @@
 import { BookService } from "../../services/bookService.js";
+import { CONFIG } from "../../services/config.js";
 import { exibirMensagem } from "../../utils/notificacao.js";
 
-const bookService = new BookService("http://localhost:8080");
+const bookService = new BookService(CONFIG.API_URL);
 const form = document.getElementById("bookForm");
 
 async function cadastrarLivro(event) {

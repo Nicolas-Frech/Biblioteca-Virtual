@@ -1,3 +1,4 @@
+import { CONFIG } from "../../services/config.js";
 import { exibirMensagem } from "../../utils/notificacao.js";
 
 export function configurarListeners(book, bookService, token, refreshCallback) {
@@ -45,7 +46,7 @@ export function configurarListeners(book, bookService, token, refreshCallback) {
     if (reserveButton) {
         reserveButton.addEventListener("click", async () => {
             try {
-                await fetch(`http://localhost:8080/user/${book.title}`, {
+                await fetch(`${CONFIG.API_URL}/user/${book.title}`, {
                     method: "PUT",
                     headers: { "Authorization": `Bearer ${token}` },
                 });

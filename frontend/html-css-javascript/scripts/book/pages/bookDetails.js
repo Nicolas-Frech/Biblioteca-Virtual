@@ -3,9 +3,10 @@ import { BookService } from "../../services/bookService.js";
 import { renderBookHTML } from "../ui/bookUi.js";
 import { configurarListeners } from "../handlers/bookHandlers.js";
 import { exibirMensagem } from "../../utils/notificacao.js";
+import { CONFIG } from "../../services/config.js";
 
 const token = verificarLogin();
-const bookService = new BookService("http://localhost:8080");
+const bookService = new BookService(CONFIG.API_URL);
 const bookDetails = document.getElementById("book-details");
 const bookId = new URLSearchParams(window.location.search).get("id");
 
@@ -15,7 +16,7 @@ async function fetchBookDetails() {
     try {
         const book = await bookService.fetchBookById(bookId);
 
-        const response = await fetch(`http://localhost:8080/user/myLibrary/${book.title}`, {
+        const response = await fetch(`${CONFIG.API_URL}/user/myLibrary/${book.title}`, {
             headers: { "Authorization": `Bearer ${token}` }
         });
 
